@@ -1,0 +1,99 @@
+@use "sass:map";
+@use "sass:meta";
+@use "sass:math";
+
+$media-max-offset: 0.02px;
+
+$media-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  laptop: 1024px,
+  container: 1164px,
+  xl: 1200px,
+  desktop: 1280px,
+  xxl: 1400px,
+  wide: 1420px
+);
+
+@function _media-to-length($value) {
+  @if meta.type-of($value) == "number" and math.is-unitless($value) {
+    @return $value * 1px;
+  }
+
+  @return $value;
+}
+
+@function _media-resolve($name-or-value) {
+  @if meta.type-of($name-or-value) == "string" or meta.type-of($name-or-value) == "number" {
+    @if map.has-key($media-breakpoints, $name-or-value) {
+      @return map.get($media-breakpoints, $name-or-value);
+    }
+
+    @return $name-or-value;
+  }
+
+  @error "Unknown breakpoint `#{$name-or-value}`.";
+}
+
+@function _media-max($name-or-value) {
+  $max: _media-to-length(_media-resolve($name-or-value));
+
+  @if meta.type-of($max) == "number" and $max > 0 {
+    @return $max - $media-max-offset;
+  }
+
+  @return $max;
+}
+
+@mixin media-up($name-or-value) {
+  $min: _media-to-length(_media-resolve($name-or-value));
+
+  @media only screen and (min-width: $min) {
+    @content;
+  }
+}
+
+@mixin media-down($name-or-value) {
+  $max: _media-max($name-or-value);
+
+  @media only screen and (max-width: $max) {
+    @content;
+  }
+}
+
+@mixin media-between($lower, $upper) {
+  $min: _media-to-length(_media-resolve($lower));
+  $max: _media-max($upper);
+
+  @media only screen and (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+@mixin media-only($name) {
+  $keys: map.keys($media-breakpoints);
+  $index: index($keys, $name);
+
+  @if $index == null {
+    @error "Unknown breakpoint `#{$name}`.";
+  }
+
+  $next-index: $index + 1;
+  $next-name: null;
+
+  @if $next-index <= length($keys) {
+    $next-name: nth($keys, $next-index);
+  }
+
+  @if $next-name == null {
+    @include media-up($name) {
+      @content;
+    }
+  } @else {
+    @include media-between($name, $next-name) {
+      @content;
+    }
+  }
+}

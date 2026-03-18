@@ -1,0 +1,19 @@
+.env
+
+# Ignore everything in mounted WP content except our code
+themes/*
+!themes/decormos-theme/
+plugins/*
+!plugins/decormos-blocks/
+
+# Keep nested files in tracked project directories
+!themes/decormos-theme/**
+!plugins/decormos-blocks/**
+
+# Local editor/system files
+.DS_Store
+Thumbs.db
+
+node_modules
+vendor
+var
