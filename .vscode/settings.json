@@ -1,0 +1,13 @@
+{
+  "php.validate.enable": false,
+  "intelephense.environment.includePaths": [
+    "themes/decormos-theme/vendor/php-stubs/wordpress-stubs",
+    "themes/decormos-theme/vendor/htmlburger/carbon-fields"
+  ],
+  "intelephense.files.exclude": [
+    "**/.git/**",
+    "**/node_modules/**",
+    "**/vendor/bin/**"
+  ],
+  "intelephense.format.enable": true
+}

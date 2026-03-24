@@ -1,0 +1,11 @@
+@use "../../styles/helpers" as *;
+
+.theme-phone {
+	color: var(--color-black);
+	font-size: 1.25rem;
+	text-decoration: none;
+
+	@include hover {
+		opacity: 0.8;
+	}
+}

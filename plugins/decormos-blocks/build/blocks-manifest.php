@@ -9,9 +9,15 @@ return array(
 		'title' => 'Header',
 		'category' => 'design',
 		'icon' => 'align-wide',
-		'description' => 'Site header block for Decormos.',
+		'description' => 'Шапка сайта Decormos',
 		'example' => array(
 			
+		),
+		'attributes' => array(
+			'menuId' => array(
+				'type' => 'number',
+				'default' => 0
+			)
 		),
 		'supports' => array(
 			'html' => false
@@ -20,6 +26,7 @@ return array(
 		'editorScript' => 'file:./index.js',
 		'editorStyle' => 'file:./index.css',
 		'style' => 'file:./style-index.css',
-		'render' => 'file:./render.php'
+		'render' => 'file:./render.php',
+		'viewScript' => 'file:./view.js'
 	)
 );

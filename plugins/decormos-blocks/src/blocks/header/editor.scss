@@ -1,10 +1,21 @@
 @use "../../styles/helpers" as *;
 
 .wp-block-decormos-header {
+	background: #ebebeb;
 	outline: 1px dashed var(--color-emphasis);
 	outline-offset: 6px;
 
 	@include media-breakpoint-up(lg) {
 		outline-offset: 10px;
+	}
+}
+
+.editor-styles-wrapper .wp-block-decormos-header {
+	.menu-inner {
+		display: none;
+	}
+
+	.header__toggle {
+		pointer-events: none;
 	}
 }

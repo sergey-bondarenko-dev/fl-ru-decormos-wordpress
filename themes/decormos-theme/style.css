@@ -59,6 +59,86 @@ Text Domain: decormos-theme
   width: 100%;
 }
 
+.site-header {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-alt);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.site-header__inner {
+  gap: 1rem;
+  min-height: 88px;
+}
+
+.site-header__brand {
+  font-size: var(--font-size-h5);
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.site-header__brand a {
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+.site-header__nav {
+  flex: 1 1 auto;
+  justify-content: center;
+}
+
+.site-header__nav .wp-block-navigation-item__content {
+  color: var(--color-text);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.site-header__meta {
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.site-header__phone,
+.site-header__hours {
+  margin: 0;
+}
+
+.site-header__phone a {
+  color: var(--color-black);
+  font-size: var(--font-size-h6);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-header__hours {
+  color: var(--color-emphasis);
+  font-size: var(--font-size-small);
+}
+
+.site-header__burger {
+  display: none;
+}
+
+@media only screen and (max-width: 991.98px) {
+  .site-header__inner {
+    min-height: 72px;
+  }
+
+  .site-header__nav,
+  .site-header__meta {
+    display: none;
+  }
+
+  .site-header__burger {
+    display: flex;
+  }
+}
+
 body {
   color: var(--color-text);
   font-family: var(--font-family-base);
