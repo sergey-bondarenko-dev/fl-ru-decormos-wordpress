@@ -48,6 +48,9 @@ Text Domain: decormos-theme
   --color-text: var(--wp--preset--color--text);
   --color-emphasis: var(--wp--preset--color--emphasis);
   --color-alt: var(--wp--preset--color--alt);
+  --color-header-bg: var(--wp--preset--color--header-bg);
+
+  --z-index-header: 3;
 
   --transition-duration: var(--wp--custom--transition--duration);
 }

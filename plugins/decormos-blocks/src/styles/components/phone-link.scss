@@ -1,0 +1,11 @@
+@use "../mixins" as *;
+
+.phone-link {
+  font-size: 20px;
+  color: var(--color-black-deep);
+  text-decoration: none;
+
+  @include hover {
+    opacity: 0.8;
+  }
+}

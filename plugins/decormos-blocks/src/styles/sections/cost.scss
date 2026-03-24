@@ -1,0 +1,45 @@
+/* Cost Section */
+
+.cost {
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border: 1px solid var(--color-accent);
+    padding: 1rem;
+
+    &-label {
+      font-size: 1.5rem;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    &-details {
+      &-label {
+        font-size: 1.5rem;
+        font-weight: 400;
+      }
+
+      &-price {
+        font-size: 18px;
+      }
+
+      &-description {
+        font-size: 18px;
+        margin-top: 1rem;
+      }
+    }
+
+    &-button {
+      margin-inline: auto;
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}

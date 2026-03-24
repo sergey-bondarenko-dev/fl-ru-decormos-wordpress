@@ -1,9 +1,11 @@
+@use '../helpers' as *;
+
 .offcanvas-toggler {
-	display: none;
+	min-width: 44px;
+	min-height: 44px;
+	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 2.75rem;
-	height: 2.75rem;
 	padding: 0;
 	border: 0;
 	background: transparent;

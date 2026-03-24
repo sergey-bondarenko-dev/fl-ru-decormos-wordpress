@@ -17,10 +17,16 @@
 		"start": "wp-scripts start --blocks-manifest"
 	},
 	"dependencies": {
+		"@fancyapps/ui": "^6.1.13",
 		"@wordpress/block-editor": "latest",
 		"@wordpress/blocks": "latest",
 		"@wordpress/i18n": "latest",
-		"bootstrap": "^5.3.8"
+		"bootstrap": "^5.3.8",
+		"imagesloaded": "^5.0.0",
+		"inputmask": "^5.0.9",
+		"masonry-layout": "^4.2.2",
+		"sharp": "^0.34.5",
+		"swiper": "^12.1.2"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^31.6.0"

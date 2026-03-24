@@ -1,0 +1,39 @@
+@use './helpers.scss' as *;
+
+.padding-y {
+  padding-block: 1rem;
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.max-width-420 {
+  max-width: 420px;
+}
+
+.h2 {
+  font-size: 40px;
+}
+
+.h3 {
+  font-size: 32px;
+}
+
+.text-underline {
+  text-decoration: underline !important;
+}
+
+.overflow-x {
+  overflow-x: hidden;
+}
+
+.text-lg {
+  font-size: fluid(18, 24);
+}
+
+.only-md {
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+}

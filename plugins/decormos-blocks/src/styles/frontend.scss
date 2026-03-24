@@ -1,4 +1,7 @@
 // Shared frontend styles for decormos blocks.
+@use './bootstrap';
 @use './components/offcanvas';
 @use './components/phone';
 @use './components/work-time';
+@use './components/header';
+@use './legacy';

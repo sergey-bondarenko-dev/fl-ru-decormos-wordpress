@@ -1,0 +1,29 @@
+@use "../media.scss" as *;
+
+.article-images-slider {
+  user-select: none;
+  margin-block: 2rem;
+
+  &__inner {
+    .swiper-slide {
+      width: auto;
+
+      a {
+        display: inline-block;
+        width: auto;
+        height: 280px;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: #2a2a2a;
+    }
+  }
+}

@@ -28,3 +28,9 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+/src/assets/backgrounds
+/src/assets/icons
+/src/assets/ui
+
+/build

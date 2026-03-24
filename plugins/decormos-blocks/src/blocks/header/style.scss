@@ -1,28 +1,4 @@
 @use "../../styles/helpers" as *;
 
 .wp-block-decormos-header.header {
-	&__row {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		flex-wrap: nowrap;
-		padding-block: 1.25rem 1rem;
-	}
-
-	&__logo {
-		flex: 0 0 auto;
-		margin-left: 2.7%;
-	}
-
-	&__logo-image {
-		display: block;
-		width: 55px;
-		height: auto;
-	}
-
-	&__nav {
-		margin-left: 2%;
-		flex: 1 1 auto;
-	}
 }

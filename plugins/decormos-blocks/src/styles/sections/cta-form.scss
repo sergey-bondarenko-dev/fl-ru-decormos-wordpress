@@ -1,0 +1,17 @@
+.cta-form {
+  padding-block: 2.5rem;
+  background-image: url("/src/assets/cta-bg.webp");
+  background-position: center;
+  background-size: cover;
+  color: white;
+
+  .form {
+    background-color: var(--color-white);
+    max-width: 582px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 23px 2.8% 19px;
+    -webkit-box-shadow: 1px 1px 35px rgba(0, 0, 0, 0.09);
+    box-shadow: 1px 1px 35px rgba(0, 0, 0, 0.09);
+  }
+}

@@ -147,3 +147,128 @@ add_action( 'init', 'decormos_blocks_register_shared_assets' );
 add_action( 'enqueue_block_assets', 'decormos_blocks_enqueue_shared_style' );
 add_action( 'wp_enqueue_scripts', 'decormos_blocks_enqueue_shared_script' );
 add_action( 'rest_api_init', 'decormos_blocks_register_rest_routes' );
+
+function decormos_blocks_logo($className, $logo_id = null) {
+	$logo_id ??= decormos_blocks_get_theme_option('crb_decormos_logo');
+
+
+	$className = trim('logo ' . ($className ?? ''));
+
+	$logo_html = $logo_id > 0 ? wp_get_attachment_image(
+			$logo_id, 
+			[55, 33], 
+			false,
+			[
+				'fetchpriority' => 'high',
+			]
+		) : "Logo";
+	$label = get_bloginfo('name') ?: 'Decormos';
+
+	ob_start();
+	?>
+
+	<a class="logo header__logo" 
+		href="<?php echo esc_url(home_url('/')); ?>" 
+		aria-label="<?php echo esc_attr($label); ?>"
+		>
+		<?php echo $logo_html; ?>
+	</a>
+
+	<?php
+
+	return ob_get_clean();
+}
+
+function decormos_blocks_offcanvas_toggler($target_id, $label, $class = '') {
+	$class_name = trim('offcanvas-toggler ' . ($class ?? ''));
+
+	ob_start(); ?>
+
+	<button
+		type="button"
+		class="<?php echo esc_attr($class_name); ?>"
+		data-bs-toggle="offcanvas"
+		data-bs-target="#<?php echo esc_attr($target_id); ?>"
+		aria-controls="<?php echo esc_attr($target_id); ?>"
+		aria-label="<?php echo esc_attr($label); ?>"
+		title="<?php echo esc_attr($label); ?>"
+	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="32"
+			height="32"
+			fill="currentColor"
+			class="bi bi-list"
+			viewBox="0 0 16 16"
+			aria-hidden="true"
+			focusable="false"
+		>
+			<path
+				fill-rule="evenodd"
+				d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+			/>
+		</svg>
+	</button>
+
+	<?php return ob_get_clean(); 
+}
+
+function decormos_blocks_offcanvas(
+	$id = '',
+	$title = null,
+	$responsive = null,
+	$placement = "end",
+	$backdrop = true,
+	$scroll = false,
+	$class_name = null,
+	$labelled_by = null,
+	$children = null,
+) {
+	$classes = array();
+	if ($responsive !== '') {
+		$classes[] = 'offcanvas-' . $responsive;
+	} else {
+		$classes[] = 'offcanvas';
+	}
+	$classes[] = 'offcanvas-' . $placement;
+	if ($class_name !== '') {
+		$classes[] = $class_name;
+	}
+  	$offcanvas_class = trim(implode(' ', $classes));
+	$backdrop_value = $backdrop === 'static' ? 'static' : ($backdrop ? 'true' : 'false');
+  	$scroll_value = $scroll ? 'true' : 'false';
+	$label_id = $labelled_by ?? ($id !== '' ? $id . '-label' : 'offcanvas-label');
+
+	ob_start(); ?>
+
+	<div
+		class="<?php echo esc_attr($offcanvas_class); ?>"
+		tabindex="-1"
+		id="<?php echo esc_attr($id); ?>"
+		aria-labelledby="<?php echo esc_attr($label_id); ?>"
+		data-bs-backdrop="<?php echo esc_attr($backdrop_value); ?>"
+		data-bs-scroll="<?php echo esc_attr($scroll_value); ?>"
+		>
+		<div class="offcanvas-header">
+			<div class="offcanvas-title" id="<?php echo esc_attr($label_id); ?>">
+				<?php echo esc_html($title); ?>
+			</div>
+			<button
+				type="button"
+				class="btn-close"
+				data-bs-dismiss="offcanvas"
+				data-bs-target="#<?php echo esc_attr($id); ?>"
+				aria-label="Закрыть"
+				>
+				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+					<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+				</svg>
+			</button>
+		</div>
+		<div class="offcanvas-body">
+			<?php echo $children ?? ''; ?>
+		</div>
+	</div>
+
+	<?php return ob_get_clean();
+}

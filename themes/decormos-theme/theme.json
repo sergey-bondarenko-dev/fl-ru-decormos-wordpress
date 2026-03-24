@@ -38,6 +38,11 @@
           "slug": "alt",
           "name": "Alt",
           "color": "#eeeeee"
+        },
+        {
+          "slug": "header-bg",
+          "name": "Header Background",
+          "color": "#ebebeb"
         }
       ]
     },

@@ -1,0 +1,55 @@
+@use '../bootstrap-tools.scss' as *;
+
+.section {
+  --section-title-padding-y: 2rem;
+
+  margin-block: 3rem;
+
+  &__title {
+    font-weight: 700;
+    font-size: clamp(36px, 4.05vw + 21.43px, 70px);
+    line-height: 1.2;
+    color: var(--color-header-bg);
+    text-transform: uppercase;
+    padding-block: 2rem;
+    position: relative;
+    margin: 0;
+
+    &--center {
+      text-align: center;
+    }
+  }
+
+  &__decor-line {
+    position: absolute;
+    width: 100vw;
+    height: 4px;
+    background-color: var(--color-accent);
+
+    &--top-left {
+      top: 0;
+      right: 0;
+    }
+
+    &--top-right {
+      top: calc(var(--section-title-padding-y) / 2);
+      left: 0;
+    }
+
+    &--bottom-right {
+      bottom: calc(var(--section-title-padding-y) / 2);
+      left: 0;
+    }
+
+    &--bottom {
+      bottom: 1rem;
+      left: 0;
+      right: 0;
+      width: 100%;
+    }
+
+    @include media-breakpoint-down(md) {
+      height: 2px;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+@use '../helpers.scss' as *;
+
+.section-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  padding-block: 1rem;
+
+  &__inner {
+    position: relative;
+
+    @include media-breakpoint-down(lg) {
+      text-align: center;
+    }
+
+    &::before {
+      content: attr(data-shadow-title);
+      position: relative;
+      z-index: -1;
+      font-size: fluid(48, 70);
+      color: var(--color-alt);
+
+      @include media-breakpoint-down(lg) {
+        content: none;
+      }
+    }
+  }
+
+  &__content {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    z-index: 1;
+    color: var(--color-black);
+    font-size: 30px;
+    font-weight: 700;
+
+    @include media-breakpoint-down(xl) {
+      left: 1rem !important;
+      top: 50% !important;
+      transform: translateY(-50%);
+    }
+
+    @include media-breakpoint-down(lg) {
+      position: static;
+    }
+  }
+}
