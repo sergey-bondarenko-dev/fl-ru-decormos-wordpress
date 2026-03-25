@@ -1,0 +1,62 @@
+.wp-block-decormos-usage-areas {
+	.usage-areas__images {
+		display: grid;
+		gap: 12px;
+		margin-bottom: 16px;
+	}
+
+	.usage-areas__image {
+		display: block;
+		max-width: 100%;
+		height: auto;
+	}
+
+	.usage-areas__nav-list {
+		display: grid;
+		gap: 12px;
+		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	}
+
+	.usage-areas__button {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+		width: 100%;
+		text-align: left;
+	}
+
+	.usage-areas__button-icon {
+		display: block;
+		max-width: 100%;
+		height: auto;
+	}
+}
+
+.usage-areas-media-field {
+	margin-bottom: 16px;
+}
+
+.usage-areas-media-field__label {
+	margin: 0 0 4px;
+	font-weight: 600;
+}
+
+.usage-areas-media-field__help {
+	margin: 0 0 8px;
+	color: #757575;
+	font-size: 12px;
+}
+
+.usage-areas-media-field__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.usage-areas-media-field__preview img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}

@@ -49,6 +49,10 @@
 			"type": "string",
 			"default": "0%"
 		},
+		"shadowMaxWidth": {
+			"type": "string",
+			"default": "100%"
+		},
 		"shadowTitle": {
 			"type": "string",
 			"default": ""

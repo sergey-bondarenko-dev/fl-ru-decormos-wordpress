@@ -11,6 +11,7 @@ export default function SectionTitle( {
 	titleOffsetX = '0px',
 	shadowOffsetY = '0%',
 	shadowOffsetX = '0%',
+	shadowMaxWidth = '100%',
 	linePosition,
 	titleAlignment = '',
 } ) {
@@ -30,6 +31,7 @@ export default function SectionTitle( {
 				'--section-title-offset-x': titleOffsetX,
 				'--section-title-shadow-offset-y': shadowOffsetY,
 				'--section-title-shadow-offset-x': shadowOffsetX,
+				'--section-title-shadow-max-width': shadowMaxWidth,
 			} }
 		>
 			<div

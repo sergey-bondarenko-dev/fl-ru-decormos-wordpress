@@ -77,9 +77,33 @@ function decormos_blocks_register_shared_assets(): void {
 		return;
 	}
 
+	$editor_script_asset_path = __DIR__ . '/build/shared/editor.asset.php';
+	$editor_script_path       = __DIR__ . '/build/shared/editor.js';
+	$editor_style_path        = __DIR__ . '/build/shared/editor.css';
 	$script_asset_path = __DIR__ . '/build/shared/frontend.asset.php';
 	$script_path       = __DIR__ . '/build/shared/frontend.js';
 	$style_path        = __DIR__ . '/build/shared/frontend.css';
+
+	if ( file_exists( $editor_style_path ) ) {
+		wp_register_style(
+			'decormos-blocks-editor-shared',
+			plugins_url( 'build/shared/editor.css', __FILE__ ),
+			array(),
+			(string) filemtime( $editor_style_path )
+		);
+	}
+
+	if ( file_exists( $editor_script_asset_path ) && file_exists( $editor_script_path ) ) {
+		$editor_script_asset = require $editor_script_asset_path;
+
+		wp_register_script(
+			'decormos-blocks-editor-shared',
+			plugins_url( 'build/shared/editor.js', __FILE__ ),
+			$editor_script_asset['dependencies'] ?? array(),
+			$editor_script_asset['version'] ?? false,
+			true
+		);
+	}
 
 	if ( file_exists( $style_path ) ) {
 		wp_register_style(
@@ -100,6 +124,16 @@ function decormos_blocks_register_shared_assets(): void {
 			$script_asset['version'] ?? false,
 			true
 		);
+	}
+}
+
+function decormos_blocks_enqueue_shared_editor_assets(): void {
+	if ( wp_style_is( 'decormos-blocks-editor-shared', 'registered' ) ) {
+		wp_enqueue_style( 'decormos-blocks-editor-shared' );
+	}
+
+	if ( wp_script_is( 'decormos-blocks-editor-shared', 'registered' ) ) {
+		wp_enqueue_script( 'decormos-blocks-editor-shared' );
 	}
 }
 
@@ -157,6 +191,7 @@ function decormos_register_blocks() {
 }
 add_action( 'init', 'decormos_register_blocks' );
 add_action( 'init', 'decormos_blocks_register_shared_assets' );
+add_action( 'enqueue_block_editor_assets', 'decormos_blocks_enqueue_shared_editor_assets' );
 add_action( 'enqueue_block_assets', 'decormos_blocks_enqueue_shared_style' );
 add_action( 'wp_enqueue_scripts', 'decormos_blocks_enqueue_shared_script' );
 add_action( 'rest_api_init', 'decormos_blocks_register_rest_routes' );

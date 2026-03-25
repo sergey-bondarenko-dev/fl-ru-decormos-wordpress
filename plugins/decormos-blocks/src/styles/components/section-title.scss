@@ -6,6 +6,7 @@
   --section-title-offset-y: 0px;
   --section-title-shadow-offset-x: 0%;
   --section-title-shadow-offset-y: 0%;
+  --section-title-shadow-max-width: 100%;
 
   font-weight: 700;
   text-transform: uppercase;
@@ -31,6 +32,8 @@
       color: var(--color-alt);
       line-height: 1;
       pointer-events: none;
+      max-width: var(--section-title-shadow-max-width);
+      width: 100%;
 
       @include media-breakpoint-down(lg) {
         content: none;

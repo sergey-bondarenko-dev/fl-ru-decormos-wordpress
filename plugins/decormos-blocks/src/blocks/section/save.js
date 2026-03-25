@@ -15,6 +15,7 @@ export default function save( { attributes } ) {
 		titleOffsetX,
 		shadowOffsetY,
 		shadowOffsetX,
+		shadowMaxWidth,
 		shadowTitle,
 		shadowOffsetReference,
 		containerWidth,
@@ -48,6 +49,7 @@ export default function save( { attributes } ) {
 					titleOffsetX={ titleOffsetX }
 					shadowOffsetY={ shadowOffsetY }
 					shadowOffsetX={ shadowOffsetX }
+					shadowMaxWidth={ shadowMaxWidth }
 					shadowTitle={ shadowTitle || stripHtml( title ) }
 					content={
 						title ? (

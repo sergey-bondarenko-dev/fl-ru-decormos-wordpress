@@ -5,6 +5,7 @@
 
   margin-block: 3rem;
   overflow-x: hidden;
+  overflow-y: visible;
   
   &__inner {
     max-width: var(--container-width-lg);
@@ -19,7 +20,9 @@
   }
 
   &--shadow-reference-wide-container {
-    position: relative;
+    .section__inner {
+      position: relative;
+    }
   }
 
   &__title {

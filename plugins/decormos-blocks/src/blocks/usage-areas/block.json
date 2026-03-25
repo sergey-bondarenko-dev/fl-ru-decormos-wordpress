@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/usage-areas",
+	"version": "0.1.0",
+	"title": "Сферы применения",
+	"category": "decormos",
+	"description": "Блок с коллекцией карточек сфер применения: изображение, иконка и подпись.",
+	"example": {},
+	"attributes": {
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"image": {
+						"id": 0,
+						"url": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 698 452'><rect width='698' height='452' fill='%23ebe7df'/><rect x='32' y='32' width='634' height='388' fill='none' stroke='%23c8c1b4' stroke-width='2' stroke-dasharray='10 10'/><circle cx='192' cy='160' r='42' fill='%23d7d0c3'/><path d='M84 344l122-122 96 96 74-74 138 100H84z' fill='%23cfc7ba'/><text x='349' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='28' fill='%23897f6e'>Изображение</text></svg>",
+						"alt": "Заглушка изображения",
+						"width": 698,
+						"height": 452
+					},
+					"icon": {
+						"id": 0,
+						"url": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 165 100'><rect width='165' height='100' fill='%23211f1f'/><rect x='12' y='12' width='141' height='76' fill='none' stroke='%23f2efe7' stroke-width='2'/><path d='M48 64V40h22l10 10v14H48zm22-24v10h10' fill='none' stroke='%23f2efe7' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>",
+						"alt": "Заглушка иконки",
+						"width": 165,
+						"height": 100
+					},
+					"caption": "Направление"
+				}
+			]
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}

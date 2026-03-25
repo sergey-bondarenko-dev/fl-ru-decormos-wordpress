@@ -70,6 +70,7 @@ export default function Edit( { attributes, clientId, setAttributes } ) {
 		titleOffsetX,
 		shadowOffsetY,
 		shadowOffsetX,
+		shadowMaxWidth,
 		shadowTitle,
 		shadowOffsetReference,
 		containerWidth,
@@ -187,6 +188,15 @@ export default function Edit( { attributes, clientId, setAttributes } ) {
 						units={ UNIT_CONTROL_UNITS }
 						help={ __( 'Например: 0%, 10%, 32px.', 'decormos-blocks' ) }
 					/>
+					<UnitControl
+						label={ __( 'Максимальная ширина тени', 'decormos-blocks' ) }
+						value={ shadowMaxWidth }
+						onChange={ ( value ) =>
+							setAttributes( { shadowMaxWidth: value } )
+						}
+						units={ UNIT_CONTROL_UNITS }
+						help={ __( 'По умолчанию: 100%.', 'decormos-blocks' ) }
+					/>
 					<SelectControl
 						label={ __( 'Смещение тени относительно', 'decormos-blocks' ) }
 						value={ shadowOffsetReference }
@@ -222,6 +232,7 @@ export default function Edit( { attributes, clientId, setAttributes } ) {
 						titleOffsetX={ titleOffsetX }
 						shadowOffsetY={ shadowOffsetY }
 						shadowOffsetX={ shadowOffsetX }
+						shadowMaxWidth={ shadowMaxWidth }
 						shadowTitle={ shadowTitle || fallbackShadowTitle }
 						content={
 							<RichText
