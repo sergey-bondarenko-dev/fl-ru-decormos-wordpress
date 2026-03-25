@@ -1,0 +1,46 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/about",
+	"version": "0.1.0",
+	"title": "О компании",
+	"category": "decormos",
+	"icon": "smiley",
+	"description": "Блок с описанием компании и строками company-info.",
+	"example": {},
+	"attributes": {
+		"description": {
+			"type": "string",
+			"default": "Decormos - компания по нанесению микробетона, микроцемента и декоративных штукатурок по всей России и СНГ"
+		},
+		"infoRows": {
+			"type": "array",
+			"default": [
+				{
+					"items": [
+						{
+							"number": "1",
+							"text": "продажа\nматериала"
+						},
+						{
+							"number": "3",
+							"text": "склада в\nМоскве"
+						},
+						{
+							"number": "3",
+							"text": "бригады мастеров\nпо нанесению"
+						}
+					]
+				}
+			]
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}

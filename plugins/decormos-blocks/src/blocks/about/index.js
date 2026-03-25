@@ -23,19 +23,20 @@ import metadata from './block.json';
 
 const icon = (
 	<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+		<circle cx="12" cy="8" r="3" fill="#0A66D9" opacity="0.9" />
 		<path
-			d="M3 5.5A2.5 2.5 0 0 1 5.5 3h13A2.5 2.5 0 0 1 21 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5z"
-			fill="#0A66D9"
-			opacity="0.18"
-		/>
-		<path
-			d="M6 16.5 10 11l2.5 3 2-2.5 3.5 5"
+			d="M6 18a6 6 0 0 1 12 0"
 			stroke="#0A66D9"
 			strokeWidth="1.8"
 			strokeLinecap="round"
-			strokeLinejoin="round"
 		/>
-		<circle cx="9" cy="8.5" r="1.5" fill="#0A66D9" />
+		<path
+			d="M4 20h16"
+			stroke="#0A66D9"
+			strokeWidth="1.8"
+			strokeLinecap="round"
+			opacity="0.4"
+		/>
 	</svg>
 );
 

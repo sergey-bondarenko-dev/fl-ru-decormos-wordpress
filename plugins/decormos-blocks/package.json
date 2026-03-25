@@ -22,6 +22,7 @@
 		"@wordpress/blocks": "latest",
 		"@wordpress/i18n": "latest",
 		"bootstrap": "^5.3.8",
+		"clsx": "^2.1.1",
 		"imagesloaded": "^5.0.0",
 		"inputmask": "^5.0.9",
 		"masonry-layout": "^4.2.2",

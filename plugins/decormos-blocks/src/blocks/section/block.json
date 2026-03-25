@@ -1,0 +1,73 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/section",
+	"version": "0.1.0",
+	"title": "Секция",
+	"category": "decormos",
+	"icon": "smiley",
+	"description": "Статичный контейнерный блок-секция с декоративным заголовком.",
+	"example": {},
+	"attributes": {
+		"id": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"titleTag": {
+			"type": "string",
+			"default": "h2"
+		},
+		"titleAlignment": {
+			"type": "string",
+			"default": ""
+		},
+		"linePosition": {
+			"type": "string",
+			"default": ""
+		},
+		"titleHeight": {
+			"type": "string",
+			"default": "84px"
+		},
+		"titleOffsetY": {
+			"type": "string",
+			"default": "0px"
+		},
+		"titleOffsetX": {
+			"type": "string",
+			"default": "0px"
+		},
+		"shadowOffsetY": {
+			"type": "string",
+			"default": "0%"
+		},
+		"shadowOffsetX": {
+			"type": "string",
+			"default": "0%"
+		},
+		"shadowTitle": {
+			"type": "string",
+			"default": ""
+		},
+		"shadowOffsetReference": {
+			"type": "string",
+			"default": "container"
+		},
+		"containerWidth": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}

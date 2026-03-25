@@ -1,23 +1,36 @@
 @use '../helpers.scss' as *;
 
 .section-title {
+  --section-title-height: 84px;
+  --section-title-offset-x: 0px;
+  --section-title-offset-y: 0px;
+  --section-title-shadow-offset-x: 0%;
+  --section-title-shadow-offset-y: 0%;
+
   font-weight: 700;
   text-transform: uppercase;
   padding-block: 1rem;
+  width: 100%;
 
   &__inner {
-    position: relative;
+    display: flex;
+    min-height: var(--section-title-height);
 
     @include media-breakpoint-down(lg) {
       text-align: center;
+      min-height: auto;
     }
 
     &::before {
       content: attr(data-shadow-title);
-      position: relative;
+      position: absolute;
+      top: var(--section-title-shadow-offset-y);
+      left: var(--section-title-shadow-offset-x);
       z-index: -1;
       font-size: fluid(48, 70);
       color: var(--color-alt);
+      line-height: 1;
+      pointer-events: none;
 
       @include media-breakpoint-down(lg) {
         content: none;
@@ -26,22 +39,60 @@
   }
 
   &__content {
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    z-index: 1;
     color: var(--color-black);
     font-size: 30px;
     font-weight: 700;
+    transform: translate(
+      var(--section-title-offset-x),
+      var(--section-title-offset-y)
+    );
 
     @include media-breakpoint-down(xl) {
-      left: 1rem !important;
-      top: 50% !important;
-      transform: translateY(-50%);
+      max-width: 100%;
     }
 
     @include media-breakpoint-down(lg) {
-      position: static;
+      transform: translate(0, 0);
+    }
+  }
+
+  &--center-x {
+    .section-title__inner {
+      justify-content: center;
+    }
+
+    .section-title__content {
+      transform: translate(
+        var(--section-title-offset-x),
+        var(--section-title-offset-y)
+      );
+    }
+  }
+
+  &--center-y {
+    .section-title__inner {
+      align-items: center;
+    }
+
+    .section-title__content {
+      transform: translate(
+        var(--section-title-offset-x),
+        var(--section-title-offset-y)
+      );
+    }
+  }
+
+  &--center-both {
+    .section-title__inner {
+      justify-content: center;
+      align-items: center;
+    }
+
+    .section-title__content {
+      transform: translate(
+        var(--section-title-offset-x),
+        var(--section-title-offset-y)
+      );
     }
   }
 }

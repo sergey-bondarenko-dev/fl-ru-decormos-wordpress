@@ -4,6 +4,23 @@
   --section-title-padding-y: 2rem;
 
   margin-block: 3rem;
+  overflow-x: hidden;
+  
+  &__inner {
+    max-width: var(--container-width-lg);
+    margin-inline: auto;
+  }
+  
+
+  &--shadow-reference-container {
+    .section__title {
+      position: relative;
+    }
+  }
+
+  &--shadow-reference-wide-container {
+    position: relative;
+  }
 
   &__title {
     font-weight: 700;
@@ -12,12 +29,7 @@
     color: var(--color-header-bg);
     text-transform: uppercase;
     padding-block: 2rem;
-    position: relative;
-    margin: 0;
-
-    &--center {
-      text-align: center;
-    }
+    margin: 0 auto;
   }
 
   &__decor-line {

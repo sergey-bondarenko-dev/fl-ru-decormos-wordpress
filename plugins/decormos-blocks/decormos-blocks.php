@@ -59,6 +59,19 @@ function decormos_blocks_register_rest_routes(): void {
 	);
 }
 
+function decormos_blocks_register_category( array $categories ): array {
+	array_unshift(
+		$categories,
+		array(
+			'slug'  => 'decormos',
+			'title' => __( 'Decormos', 'decormos-blocks' ),
+			'icon'  => null,
+		)
+	);
+
+	return $categories;
+}
+
 function decormos_blocks_register_shared_assets(): void {
 	if ( ! decormos_blocks_has_carbon_fields() ) {
 		return;
@@ -147,6 +160,7 @@ add_action( 'init', 'decormos_blocks_register_shared_assets' );
 add_action( 'enqueue_block_assets', 'decormos_blocks_enqueue_shared_style' );
 add_action( 'wp_enqueue_scripts', 'decormos_blocks_enqueue_shared_script' );
 add_action( 'rest_api_init', 'decormos_blocks_register_rest_routes' );
+add_filter( 'block_categories_all', 'decormos_blocks_register_category' );
 
 function decormos_blocks_logo($className, $logo_id = null) {
 	$logo_id ??= decormos_blocks_get_theme_option('crb_decormos_logo');
