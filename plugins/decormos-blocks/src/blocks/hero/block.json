@@ -1,0 +1,70 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/hero",
+	"version": "0.1.0",
+	"title": "Hero-блок",
+	"category": "design",
+	"icon": "cover-image",
+	"description": "Hero-секция с медиа, текстом и областью формы.",
+	"example": {},
+	"attributes": {
+		"backgroundImageId": {
+			"type": "number",
+			"default": 0
+		},
+		"backgroundImageUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"backgroundImageAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"backgroundImageWidth": {
+			"type": "number",
+			"default": 0
+		},
+		"backgroundImageHeight": {
+			"type": "number",
+			"default": 0
+		},
+		"videoId": {
+			"type": "number",
+			"default": 0
+		},
+		"videoUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"source": "html",
+			"selector": ".hero__title",
+			"default": "Микроцемент для пола и стен"
+		},
+		"subtitle": {
+			"type": "string",
+			"source": "html",
+			"selector": ".hero__subtitle",
+			"default": "напрямую с завода под ключ"
+		},
+		"description": {
+			"type": "string",
+			"source": "html",
+			"selector": ".hero__description",
+			"default": ""
+		},
+		"showVideoOnMobileOnly": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}
