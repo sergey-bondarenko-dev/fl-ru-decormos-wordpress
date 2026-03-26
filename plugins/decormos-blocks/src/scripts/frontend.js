@@ -33,17 +33,18 @@ const start = async () => {
         initFancybox();
       }),
     );
-  }
+  }  
 
-  if (document.querySelector(".js-slider-sertificates, .js-slider-article-images")) {
-    asyncInitializers.push(
-      import("./modules/slider").then(({ initSlider }) => {
-        initSlider();
+  const blocks = document.querySelectorAll( '[data-gallery-slider]' );
+
+  if ( blocks.length ) {
+     asyncInitializers.push(
+      import("./modules/slider").then(({ initGallerySliderBlock }) => {
+        initGallerySliderBlock(blocks);
       }),
     );
   }
 
-  
 
   await Promise.all(asyncInitializers);
 };

@@ -1,0 +1,37 @@
+.wp-block-decormos-gallery-slider {
+	.gallery-slider {
+		position: relative;
+	}
+
+	.gallery-slider__slide {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: auto;
+	}
+
+	.gallery-slider__image {
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+	}
+
+	.gallery-slider__navigation {
+		display: flex;
+		gap: 12px;
+	}
+
+	.gallery-slider__button {
+		border: none;
+		background: transparent;
+	}
+
+	.gallery-slider__button::after {
+		font-size: 18px;
+	}
+
+	.gallery-slider__button.swiper-button-disabled {
+		opacity: 0.35;
+	}
+}

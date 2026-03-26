@@ -1,0 +1,58 @@
+.wp-block-decormos-gallery-slider {
+	.gallery-slider__editor-preview {
+		padding: 16px;
+		border: 1px solid #d9d9de;
+		border-radius: 12px;
+		background: #fff;
+	}
+
+	.gallery-slider {
+		overflow: hidden;
+	}
+
+	.gallery-slider__editor-slide {
+		height: auto;
+		border-radius: 10px;
+		overflow: hidden;
+		background: #f4f4f6;
+	}
+
+	.gallery-slider__image {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.gallery-slider__placeholder {
+		padding: 32px 20px;
+		text-align: center;
+		border: 1px dashed #c8ccd0;
+		border-radius: 10px;
+		background: #fafafa;
+	}
+
+	.gallery-slider__placeholder-title {
+		font-weight: 600;
+		margin-bottom: 6px;
+	}
+
+	.gallery-slider__placeholder-text {
+		color: #6c7781;
+	}
+
+	.gallery-slider__breakpoints {
+		display: grid;
+		gap: 16px;
+		margin-bottom: 16px;
+	}
+
+	.gallery-slider__breakpoint {
+		padding: 12px;
+		border: 1px solid #dcdcde;
+		border-radius: 8px;
+	}
+
+	.gallery-slider__breakpoints-empty {
+		color: #6c7781;
+	}
+}

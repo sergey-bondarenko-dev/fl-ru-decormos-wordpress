@@ -1,0 +1,40 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/gallery-slider",
+	"version": "0.1.0",
+	"title": "Gallery Slider",
+	"category": "decormos",
+	"icon": "images-alt2",
+	"description": "Галерея изображений в формате слайдера.",
+	"attributes": {
+		"items": {
+			"type": "array",
+			"default": []
+		},
+		"options": {
+			"type": "object",
+			"default": {
+				"slidesPerView": 1,
+				"spaceBetween": 0,
+				"centeredSlides": false,
+				"loop": false,
+				"roundLengths": true,
+				"speed": 300,
+				"navigation": true
+			}
+		},
+		"breakpoints": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}
