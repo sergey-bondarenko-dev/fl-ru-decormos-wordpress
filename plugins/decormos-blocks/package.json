@@ -26,6 +26,7 @@
 		"imagesloaded": "^5.0.0",
 		"inputmask": "^5.0.9",
 		"masonry-layout": "^4.2.2",
+		"react-masonry-css": "^1.0.16",
 		"sharp": "^0.34.5",
 		"swiper": "^12.1.2"
 	},

@@ -7,6 +7,7 @@ import { initHeaderDropdownHover } from "./modules/header-dropdown-hover";
 import { initHeaderScroll } from "./modules/header-scroll";
 import { initMenu } from "./modules/menu";
 import { initModals } from "./modules/modals";
+import { initPortfolioMore } from './modules/portfolio-more';
 import { initTabs } from "./modules/tabs";
 import Collapse from "bootstrap/js/src/collapse";
 import Offcanvas from "bootstrap/js/src/offcanvas";
@@ -22,6 +23,7 @@ const start = async () => {
   initHeaderScroll();
   initModals();
   initCoatingButtons();
+  initPortfolioMore();
 
   const asyncInitializers = [];
 
@@ -41,13 +43,7 @@ const start = async () => {
     );
   }
 
-  if (document.querySelector(".grid")) {
-    asyncInitializers.push(
-      import("./modules/masonry").then(({ initMasonry }) => {
-        initMasonry();
-      }),
-    );
-  }
+  
 
   await Promise.all(asyncInitializers);
 };

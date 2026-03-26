@@ -42,3 +42,51 @@
 	flex-wrap: nowrap;
 	gap: 0.5rem;
 }
+
+.decormos-media-gallery-control {
+	display: grid;
+	gap: 0.75rem;
+}
+
+.decormos-media-gallery-control__label,
+.decormos-media-gallery-control__empty,
+.decormos-media-gallery-control__item-title {
+	margin: 0;
+}
+
+.decormos-media-gallery-control__items {
+	display: grid;
+	gap: 0.75rem;
+}
+
+.decormos-media-gallery-control__item {
+	display: grid;
+	grid-template-columns: 72px minmax(0, 1fr);
+	gap: 0.75rem;
+	align-items: center;
+	border: 1px solid #dcdcde;
+	padding: 0.75rem;
+}
+
+.decormos-media-gallery-control__preview {
+	display: block;
+	width: 72px;
+	height: 72px;
+	object-fit: cover;
+}
+
+.decormos-media-gallery-control__meta {
+	display: grid;
+	gap: 0.5rem;
+	min-width: 0;
+}
+
+.decormos-media-gallery-control__item-title {
+	font-weight: 600;
+}
+
+.decormos-media-gallery-control__actions {
+	display: flex;
+	flex-wrap: nowrap;
+	gap: 0.5rem;
+}

@@ -1,0 +1,49 @@
+@use "../helpers" as *;
+
+.portfolio {
+  column-count: 4;
+  column-gap: 0;
+  line-height: 0;
+
+  @include media-breakpoint-down(xl) {
+    column-count: 3;
+  }
+
+  @include media-breakpoint-down(lg) {
+    column-count: 2;
+  }
+
+  &__item {
+    display: inline-block;
+    width: 100%;
+    break-inside: avoid;
+    overflow: hidden;
+    line-height: normal;
+
+    a {
+      display: block;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &__more-button {
+    padding-block: 0.75rem;
+    background-color: var(--color-accent);
+    font-size: 1.5rem;
+    color: var(--color-black);
+    width: 100%;
+    cursor: pointer;
+    border: none;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 18px;
+    }
+  }
+}
