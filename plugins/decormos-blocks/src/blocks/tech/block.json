@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/tech",
+	"version": "0.1.0",
+	"title": "Технология нанесения",
+	"category": "decormos",
+	"icon": "smiley",
+	"description": "Статичный блок со схемами нанесения для пола и стен.",
+	"example": {},
+	"attributes": {
+		"type": {
+			"type": "string",
+			"default": "both"
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}
