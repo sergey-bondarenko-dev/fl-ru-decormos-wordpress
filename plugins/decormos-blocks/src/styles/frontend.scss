@@ -8,3 +8,7 @@
 @use './components/about';
 @use './components/usage-areas';
 @use './components/portfolio';
+
+.accordion {
+    border-style: inherit;
+}

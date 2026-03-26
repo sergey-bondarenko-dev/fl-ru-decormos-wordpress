@@ -1,0 +1,46 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/accordion-item",
+	"version": "0.1.0",
+	"title": "Элемент аккордиона",
+	"category": "decormos",
+	"icon": "excerpt-view",
+	"description": "Элемент bootstrap-аккордиона.",
+	"parent": [ "decormos/accordion" ],
+	"usesContext": [ "decormos/accordionId", "decormos/openFirstAccordionItem" ],
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"itemId": {
+			"type": "string",
+			"default": ""
+		},
+		"accordionId": {
+			"type": "string",
+			"default": ""
+		},
+		"orderIndex": {
+			"type": "number",
+			"default": 0
+		},
+		"openFirstItem": {
+			"type": "boolean",
+			"default": true
+		},
+		"editorOpen": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}

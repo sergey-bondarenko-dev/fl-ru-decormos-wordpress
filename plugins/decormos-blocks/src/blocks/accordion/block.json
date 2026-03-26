@@ -1,0 +1,83 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/accordion",
+	"version": "0.1.0",
+	"title": "Аккордион",
+	"category": "decormos",
+	"icon": "list-view",
+	"description": "Контейнер аккордиона на базе Bootstrap.",
+	"attributes": {
+		"id": {
+			"type": "string",
+			"default": ""
+		},
+		"openFirstItem": {
+			"type": "boolean",
+			"default": true
+		},
+		"textColor": {
+			"type": "string",
+			"default": "var(--color-black)"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#f6f5f1"
+		},
+		"borderColor": {
+			"type": "string",
+			"default": "var(--color-accent)"
+		},
+		"borderWidth": {
+			"type": "string",
+			"default": "4px"
+		},
+		"borderRadius": {
+			"type": "string",
+			"default": "0"
+		},
+		"buttonPaddingX": {
+			"type": "string",
+			"default": "1.25rem"
+		},
+		"buttonPaddingY": {
+			"type": "string",
+			"default": "1rem"
+		},
+		"buttonColor": {
+			"type": "string",
+			"default": "var(--color-black)"
+		},
+		"buttonBackgroundColor": {
+			"type": "string",
+			"default": "transparent"
+		},
+		"bodyPaddingX": {
+			"type": "string",
+			"default": "1.25rem"
+		},
+		"bodyPaddingY": {
+			"type": "string",
+			"default": "1rem"
+		},
+		"activeColor": {
+			"type": "string",
+			"default": "var(--color-black)"
+		},
+		"activeBackgroundColor": {
+			"type": "string",
+			"default": "var(--color-alt)"
+		}
+	},
+	"providesContext": {
+		"decormos/accordionId": "id",
+		"decormos/openFirstAccordionItem": "openFirstItem"
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}
