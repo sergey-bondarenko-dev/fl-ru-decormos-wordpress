@@ -78,7 +78,7 @@ export default function save( { attributes } ) {
 					className="hero__description"
 					value={ description }
 				/>
-				<div className="hero__inner-blocks">
+				<div className="hero__form block-form">
 					<InnerBlocks.Content />
 				</div>
 			</div>

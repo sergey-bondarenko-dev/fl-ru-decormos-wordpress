@@ -1,0 +1,17 @@
+@use '../helpers.scss' as *;
+
+.footer-inner {
+  &__row {
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__contacts {
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/cf7-form",
+	"version": "0.1.0",
+	"title": "CF7 Form",
+	"category": "decormos",
+	"icon": "email",
+	"description": "Рендер Contact Form 7 с дополнительными shortcode-атрибутами.",
+	"attributes": {
+		"formId": {
+			"type": "number",
+			"default": 0
+		},
+		"formHtmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"formAriaLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"formClassName": {
+			"type": "string",
+			"default": ""
+		},
+		"shortcodeAttributes": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

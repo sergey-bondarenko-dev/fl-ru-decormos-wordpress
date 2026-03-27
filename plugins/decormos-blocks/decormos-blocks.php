@@ -156,6 +156,8 @@ function decormos_register_blocks() {
 	}
 
 	require_once __DIR__ . '/inc/carbon.php';
+	require_once __DIR__ . '/inc/cf7.php';
+	require_once __DIR__ . '/inc/dynamic-site-info.php';
 
 	$build_dir = __DIR__ . '/build/blocks';
 	$manifest  = __DIR__ . '/build/blocks-manifest.php';

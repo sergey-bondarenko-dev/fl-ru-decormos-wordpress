@@ -90,3 +90,16 @@
 	flex-wrap: nowrap;
 	gap: 0.5rem;
 }
+
+.editor-styles-wrapper {
+	.decormos-dynamic-site-info {
+		text-decoration-style: dashed;
+		text-decoration-thickness: 1px;
+		outline: 1px dashed currentColor;
+		outline-offset: 0.15em;
+	}
+}
+
+.hidden-fields-container {
+	display: none;
+}
