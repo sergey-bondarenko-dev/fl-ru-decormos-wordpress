@@ -1,10 +1,9 @@
-function getWpImageClass( id ) {
-	return id ? ` wp-image-${ id }` : '';
-}
+import WpImage from '../WpImage';
 
 export default function FancyboxImage( {
 	image,
 	linkClassName = 'list-works__link',
+	imageClassName = '',
 	fancybox = 'data-fancybox',
 	ariaLabel = 'Открыть изображение',
 	sizes,
@@ -13,8 +12,6 @@ export default function FancyboxImage( {
 		return null;
 	}
 
-	const imageClassName = getWpImageClass( image.id );
-
 	return (
 		<a
 			href={ image.originalUrl || image.url }
@@ -22,16 +19,7 @@ export default function FancyboxImage( {
 			data-fancybox={ fancybox }
 			aria-label={ ariaLabel }
 		>
-			<img
-				src={ image.url }
-				className={ imageClassName.trim() || undefined }
-				alt={ image.alt || undefined }
-				sizes={ sizes }
-				width={ image.width || undefined }
-				height={ image.height || undefined }
-				data-w={ image.width || undefined }
-				data-h={ image.height || undefined }
-			/>
+			<WpImage image={ image } className={ imageClassName } sizes={ sizes } />
 		</a>
 	);
 }

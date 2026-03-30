@@ -6,6 +6,7 @@ export const DEFAULT_OPTIONS = {
 	roundLengths: true,
 	speed: 300,
 	navigation: true,
+	useLightbox: false,
 };
 
 export const BREAKPOINT_DEFAULTS = {
@@ -72,6 +73,7 @@ export function getImageValue( media ) {
 	return {
 		id: media?.id || 0,
 		url: preferredSize?.url || media?.url || '',
+		fullUrl: media?.url || preferredSize?.url || '',
 		alt: media?.alt || '',
 		width: preferredSize?.width || media?.width || 0,
 		height: preferredSize?.height || media?.height || 0,
@@ -104,6 +106,7 @@ export function normalizeOptions( options = {} ) {
 		),
 		speed: Number( options.speed ) || DEFAULT_OPTIONS.speed,
 		navigation: Boolean( options.navigation ?? DEFAULT_OPTIONS.navigation ),
+		useLightbox: Boolean( options.useLightbox ?? DEFAULT_OPTIONS.useLightbox ),
 	};
 }
 
@@ -135,6 +138,7 @@ export function buildSwiperOptions( options, breakpoints ) {
 		roundLengths: normalizedOptions.roundLengths,
 		speed: normalizedOptions.speed,
 		navigation: normalizedOptions.navigation,
+		useLightbox: normalizedOptions.useLightbox,
 		breakpoints: breakpointOptions,
 	};
 }

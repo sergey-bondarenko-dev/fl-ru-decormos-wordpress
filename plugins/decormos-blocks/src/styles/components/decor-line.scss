@@ -1,0 +1,5 @@
+@use '../helpers.scss' as *;
+
+.wp-block-separator.decormos-decor-line:not(.is-style-dots) {
+  height: 4px;
+}

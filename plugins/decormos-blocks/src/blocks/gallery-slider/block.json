@@ -12,6 +12,10 @@
 			"type": "array",
 			"default": []
 		},
+		"lightboxId": {
+			"type": "string",
+			"default": ""
+		},
 		"options": {
 			"type": "object",
 			"default": {
@@ -21,7 +25,8 @@
 				"loop": false,
 				"roundLengths": true,
 				"speed": 300,
-				"navigation": true
+				"navigation": true,
+				"useLightbox": false
 			}
 		},
 		"breakpoints": {

@@ -1,5 +1,7 @@
 // Shared frontend styles for decormos blocks.
 @use './bootstrap';
+@use './helpers' as *;
+
 @use './components/offcanvas';
 @use './components/phone';
 @use './components/work-time';
@@ -9,7 +11,7 @@
 @use './components/usage-areas';
 @use './components/portfolio';
 @use './components/footer-inner';
-@use './helpers' as *;
+@use './components/decor-line';
 
 .accordion {
     border-style: inherit;
@@ -39,4 +41,30 @@
         } 
     }
     
+}
+
+.decormos-decor-rows {
+    & &__row {
+        @include media-breakpoint-down(lg) {
+            justify-content: flex-start;
+        }
+    }
+}
+
+.article-gallery-slider {
+    --height: 280px;
+
+    & .swiper-slide {
+        width: auto;
+
+        a {
+            display: inline-block;
+
+            img {
+                max-width: 100%;
+                height: var(--height);
+                object-fit: cover;
+            }
+        }
+    }
 }

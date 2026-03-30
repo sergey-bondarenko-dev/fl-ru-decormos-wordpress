@@ -81,6 +81,7 @@ function PreviewSlides( { items, options, sliderRef } ) {
 
 export default function Edit( { attributes, setAttributes } ) {
 	const items = attributes.items || [];
+	const lightboxId = attributes.lightboxId || '';
 	const options = normalizeOptions( attributes.options );
 	const breakpoints = ( attributes.breakpoints || [] ).map( normalizeBreakpoint );
 	const normalizedItems = items.map( getImageValue ).filter( ( item ) => item.url );
@@ -97,6 +98,16 @@ export default function Edit( { attributes, setAttributes } ) {
 			url: item.url,
 		} ) )
 	);
+
+	useEffect( () => {
+		if ( lightboxId ) {
+			return;
+		}
+
+		setAttributes( {
+			lightboxId: `gallery-slider-${ Math.random().toString( 36 ).slice( 2, 10 ) }`,
+		} );
+	}, [ lightboxId, setAttributes ] );
 
 	useEffect( () => {
 		const sliderElement = sliderRef.current;
@@ -214,6 +225,11 @@ export default function Edit( { attributes, setAttributes } ) {
 						label={ __( 'Показывать навигацию', 'decormos-blocks' ) }
 						checked={ options.navigation }
 						onChange={ ( value ) => updateOptions( { navigation: value } ) }
+					/>
+					<ToggleControl
+						label={ __( 'Открывать изображения в лайтбоксе', 'decormos-blocks' ) }
+						checked={ options.useLightbox }
+						onChange={ ( value ) => updateOptions( { useLightbox: value } ) }
 					/>
 					<RangeControl
 						label={ __( 'Скорость анимации', 'decormos-blocks' ) }

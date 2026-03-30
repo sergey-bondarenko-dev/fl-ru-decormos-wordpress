@@ -103,3 +103,13 @@
 .hidden-fields-container {
 	display: none;
 }
+
+.article-gallery-slider {
+    .swiper-slide {
+        img {
+            display: inline-block;
+            width: auto;
+            height: var(--height);
+        }
+    }
+}

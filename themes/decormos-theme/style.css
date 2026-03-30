@@ -147,7 +147,7 @@ Text Domain: decormos-theme
   }
 }
 
-body {
+body:not(.block-editor-iframe__body) {
   color: var(--color-text);
   font-family: var(--font-family-base);
   font-size: var(--font-size-body);
@@ -176,6 +176,9 @@ h6,
 .h6 {
   font-family: var(--font-family-base);
   font-weight: 700;
+}
+
+:is(h1, h2, h3, h4, h5, h6):not(.wp-block) {
   margin: 0;
 }
 

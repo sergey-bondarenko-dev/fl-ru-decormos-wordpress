@@ -170,7 +170,7 @@ html {
   box-sizing: inherit;
 }
 
-body:not(.wp-admin) {
+body:not(.wp-admin, .block-editor-iframe__body) {
   font-family: "Montserrat", Helvetica, sans-serif;
   font-weight: 400;
   font-size: 18px;
@@ -187,16 +187,6 @@ body:not(.wp-admin) {
   body {
     font-size: 16px;
   }
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  font-weight: 400;
 }
 
 p {

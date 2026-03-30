@@ -1,20 +1,35 @@
 import { useBlockProps } from '@wordpress/block-editor';
+import FancyboxImage from '../../ui/FancyboxImage';
+import WpImage from '../../ui/WpImage';
 import { buildSwiperOptions, normalizeItems } from './utils';
 
-function renderSlides( items ) {
+function renderSlideImage( item, options, lightboxGroup ) {
+	if ( ! options.useLightbox ) {
+		return <WpImage image={ item } className="gallery-slider__image" />;
+	}
+
+	return (
+		<FancyboxImage
+			image={ {
+				...item,
+				originalUrl: item.fullUrl || item.url,
+			} }
+			linkClassName="gallery-slider__lightbox-link"
+			imageClassName="gallery-slider__image"
+			fancybox={ lightboxGroup }
+			ariaLabel="Открыть изображение"
+		/>
+	);
+}
+
+function renderSlides( items, options, lightboxGroup ) {
 	return items.map( ( item, index ) =>
 		item.url ? (
 			<div
 				className="swiper-slide gallery-slider__slide"
 				key={ `${ item.id || 'item' }-${ index }` }
 			>
-				<img
-					className="gallery-slider__image"
-					src={ item.url }
-					alt={ item.alt || '' }
-					width={ item.width || undefined }
-					height={ item.height || undefined }
-				/>
+				{ renderSlideImage( item, options, lightboxGroup ) }
 			</div>
 		) : null
 	);
@@ -23,6 +38,7 @@ function renderSlides( items ) {
 export default function save( { attributes } ) {
 	const items = normalizeItems( attributes.items );
 	const options = buildSwiperOptions( attributes.options, attributes.breakpoints );
+	const lightboxGroup = attributes.lightboxId || 'gallery-slider';
 	const swiperOptions = JSON.stringify( options );
 
 	return (
@@ -34,7 +50,9 @@ export default function save( { attributes } ) {
 			} ) }
 		>
 			<div className="gallery-slider swiper">
-				<div className="swiper-wrapper">{ renderSlides( items ) }</div>
+				<div className="swiper-wrapper">
+					{ renderSlides( items, options, lightboxGroup ) }
+				</div>
 				{ options.navigation ? (
 					<div className="gallery-slider__navigation">
 						<button
