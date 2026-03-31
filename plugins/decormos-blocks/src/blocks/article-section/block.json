@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/article-section",
+	"version": "0.1.0",
+	"title": "Часть статьи",
+	"category": "decormos",
+	"icon": "smiley",
+	"description": "Контентный блок статьи с текстом и галереей изображений.",
+	"example": {},
+	"attributes": {
+		"galleryId": {
+			"type": "string",
+			"default": ""
+		},
+		"imagePlacement": {
+			"type": "string",
+			"default": "right"
+		},
+		"imageColumns": {
+			"type": "number",
+			"default": 3
+		},
+		"imageMinHeight": {
+			"type": "string",
+			"default": "260px"
+		},
+		"images": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		},
+		"color": {
+			"text": true
+		}
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}

@@ -1,0 +1,32 @@
+.wp-block-decormos-article-section {
+	.article-block__content {
+		align-items: flex-start;
+	}
+
+	.article-block__content-images {
+		min-height: 120px;
+	}
+
+	.article-block__editor-image {
+		line-height: 0;
+	}
+
+	.article-block__editor-placeholder {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		min-height: 180px;
+		padding: 24px 20px;
+		border: 1px dashed #c8ccd0;
+		background: #fafafa;
+		text-align: center;
+		color: #50575e;
+	}
+
+	.article-block__editor-placeholder-title {
+		font-weight: 600;
+		color: #1e1e1e;
+	}
+}

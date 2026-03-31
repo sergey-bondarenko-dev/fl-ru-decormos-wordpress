@@ -1,0 +1,49 @@
+.wp-block-table.is-style-decormos-table {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0 0 1rem;
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+		max-width: 760px;
+		border: 1px solid #1f1f1f;
+		font-size: 1em;
+		line-height: 1.2;
+	}
+
+	th,
+	td {
+		border: 1px solid #1f1f1f;
+		padding: 8px 10px;
+		vertical-align: middle;
+	}
+
+	thead th {
+		font-weight: 700;
+
+		&:first-child {
+			background: #c7d2de;
+			width: 62%;
+		}
+
+		&:last-child {
+			background: #e3c2a6;
+			width: 38%;
+			text-align: center;
+		}
+	}
+
+	tbody td {
+		&:first-child {
+			background: #c7d2de;
+			width: 62%;
+		}
+
+		&:last-child {
+			width: 38%;
+			text-align: center;
+		}
+	}
+}

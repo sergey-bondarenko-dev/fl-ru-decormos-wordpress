@@ -1,0 +1,65 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/section-title",
+	"version": "0.1.0",
+	"title": "Заголовок секции",
+	"category": "decormos",
+	"icon": "heading",
+	"description": "Отдельный декоративный заголовок секции.",
+	"example": {},
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"titleTag": {
+			"type": "string",
+			"default": "h2"
+		},
+		"titleAlignment": {
+			"type": "string",
+			"default": ""
+		},
+		"linePosition": {
+			"type": "string",
+			"default": ""
+		},
+		"titleHeight": {
+			"type": "string",
+			"default": "84px"
+		},
+		"titleOffsetY": {
+			"type": "string",
+			"default": "0px"
+		},
+		"titleOffsetX": {
+			"type": "string",
+			"default": "0px"
+		},
+		"shadowOffsetY": {
+			"type": "string",
+			"default": "0%"
+		},
+		"shadowOffsetX": {
+			"type": "string",
+			"default": "0%"
+		},
+		"shadowMaxWidth": {
+			"type": "string",
+			"default": "100%"
+		},
+		"shadowTitle": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ]
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}

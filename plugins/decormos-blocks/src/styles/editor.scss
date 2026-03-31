@@ -1,3 +1,53 @@
+.wp-block-table.is-style-decormos-table {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0 0 1rem;
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+		max-width: 760px;
+		border: 1px solid #1f1f1f;
+		font-size: 1em;
+		line-height: 1.2;
+	}
+
+	th,
+	td {
+		border: 1px solid #1f1f1f;
+		padding: 8px 10px;
+		vertical-align: middle;
+	}
+
+	thead th {
+		font-weight: 700;
+
+		&:first-child {
+			background: #c7d2de;
+			width: 62%;
+		}
+
+		&:last-child {
+			background: #e3c2a6;
+			width: 38%;
+			text-align: center;
+		}
+	}
+
+	tbody td {
+		&:first-child {
+			background: #c7d2de;
+			width: 62%;
+		}
+
+		&:last-child {
+			width: 38%;
+			text-align: center;
+		}
+	}
+}
+
 .decormos-repeater-control {
 	display: grid;
 	gap: 0.75rem;
@@ -97,6 +147,24 @@
 		text-decoration-thickness: 1px;
 		outline: 1px dashed currentColor;
 		outline-offset: 0.15em;
+	}
+
+	.wp-block-group.is-style-decormos-section {
+		margin-block: 3rem;
+		padding-block: 2rem;
+		overflow-x: hidden;
+		overflow-y: visible;
+		outline: 1px dashed color-mix(in srgb, var(--color-accent) 45%, transparent);
+		outline-offset: 6px;
+	}
+
+	.wp-block-list.is-style-toc {
+		list-style: none;
+		padding-left: 0;
+
+		li:not(:last-child) {
+			margin-bottom: 0.5rem;
+		}
 	}
 }
 

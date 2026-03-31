@@ -1,10 +1,23 @@
-@use "../media.scss" as *;
+@use "../helpers" as *;
 
 .article-block {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   margin-block: 2rem;
+
+  &--image-right,
+  &--image-left {
+    .article-block__content-images {
+      display: flex;
+      flex-direction: column;
+
+      img {
+        max-width: 412px;
+        height: auto;
+      }
+    }
+  }
 
   &--image-top,
   &--image-bottom {
@@ -13,84 +26,57 @@
     }
 
     .article-block__content-images {
-      flex-direction: row;
-      flex-wrap: wrap;
-      order: -1;
-      flex: auto;
-
-      @include media-down(sm) {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 4px;
-      }
-
-      & > * {
-        width: auto;
-      }
+      display: grid;
 
       img {
-        width: auto;
-        height: 260px;
+        max-width: 100%;
         object-fit: cover;
+      }
+    }
+  }
 
-        @include media-down(sm) {
-          height: 100%;
+  &--image-columns-1 .article-block__content-images {
+    grid-template-columns: 1fr;
+  }
+
+  &--image-columns-2 .article-block__content-images {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &--image-columns-3 .article-block__content-images {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    @include media-breakpoint-down(md) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &--image-columns-4 .article-block__content-images {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  &--image-columns-5 .article-block__content-images {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    @include media-breakpoint-down(xl) {
+      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+    }
+
+    @include media-breakpoint-down(sm) {
+      grid-template-columns: repeat(2, 1fr);
+
+      & > * {
+        &:last-child {
+          grid-column: 1 / -1;
         }
-      }
-    }
-
-    .article-block__content-text {
-      @include media-down(md) {
-        order: 1;
-      }
-    }
-  }
-
-  &--image-bottom {
-    .article-block__content-images {
-      order: 1;
-    }
-  }
-
-  &--image-wide {
-    .article-block__content-images {
-      @include media-down(sm) {
-        grid-template-columns: 1fr;
       }
     }
   }
 
   &--image-left,
-  &--image-right {
-    .article-block__content {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-
-      @include media-down(lg) {
-        grid-template-columns: 1fr;
-      }
-
-      &-images {
-        & > * {
-          aspect-ratio: 567/424;
-        }
-
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border: 4px solid #d1cdb9;
-        }
-      }
-    }
-  }
-
-  &--image-left {
-    .article-block__content {
-      &-images {
-        order: -1;
-      }
+  &--image-top {
+    .article-block__content-images {
+      order: -1;
     }
   }
 
@@ -103,8 +89,8 @@
     }
 
     &-text {
-      line-height: 1.2;
-      font-size: 20px;
+      line-height: inherit;
+      font-size: inherit;
 
       @include media-down(md) {
         order: -1;
@@ -112,18 +98,12 @@
     }
 
     &-images {
-      flex: 0 0 412px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 1.5rem;
+      width: 100%;
+      min-height: var(--article-block-images-min-height);
+      gap: .5rem;
 
       &:empty {
         display: none;
-      }
-
-      @include media-down(md) {
-        flex: none;
       }
 
       a {
@@ -174,63 +154,4 @@
     margin-block: 1rem;
   }
 
-  .toc {
-    list-style: none;
-    padding-left: 0;
-
-    li:not(:last-child) {
-      margin-bottom: .5rem;
-    }
-  }
-
-  figure:has(table) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    margin-bottom: 1rem;
-  }
-
-  figure > table {
-    border-collapse: collapse;
-    width: 100%;
-    max-width: 760px;
-    border: 1px solid #1f1f1f;
-    font-size: 1em;
-    line-height: 1.2;
-
-    th,
-    td {
-      border: 1px solid #1f1f1f;
-      padding: 8px 10px;
-      vertical-align: middle;
-    }
-
-    thead th {
-      font-weight: 700;
-
-      &:first-child {
-        background: #c7d2de;
-        width: 62%;
-      }
-
-      &:last-child {
-        background: #e3c2a6;
-        width: 38%;
-        text-align: center;
-      }
-    }
-
-    tbody td {
-      &:first-child {
-        background: #c7d2de;
-        width: 62%;
-      }
-
-      &:last-child {
-        width: 38%;
-        text-align: center;
-      }
-    }
-  }
 }

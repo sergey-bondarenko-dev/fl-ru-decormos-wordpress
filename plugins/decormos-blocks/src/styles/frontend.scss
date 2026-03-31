@@ -12,6 +12,8 @@
 @use './components/portfolio';
 @use './components/footer-inner';
 @use './components/decor-line';
+@use './components/toc-list';
+@use './components/table-decormos';
 
 .accordion {
     border-style: inherit;
@@ -67,4 +69,12 @@
             }
         }
     }
+}
+
+.wp-block-group.is-style-decormos-section {
+    margin-block: 3rem;
+    padding-block: 2rem;
+    overflow-x: hidden;
+    overflow-y: visible;
+    border-block: 1px solid color-mix(in srgb, var(--color-accent) 28%, transparent);
 }
