@@ -1,6 +1,7 @@
 import "swiper/css";
 import "../styles/frontend.scss";
 
+import { initCf7ThanksRedirect } from "./modules/cf7-thanks-redirect";
 import { initCoatingButtons } from "./modules/coatingButtons";
 import { initForms } from "./modules/form";
 import { initHeaderDropdownHover } from "./modules/header-dropdown-hover";
@@ -16,6 +17,7 @@ window.offcanvas = Offcanvas;
 window.collapse = Collapse;
 
 const start = async () => {
+  initCf7ThanksRedirect();
   initForms();
   initMenu();
   initHeaderDropdownHover();

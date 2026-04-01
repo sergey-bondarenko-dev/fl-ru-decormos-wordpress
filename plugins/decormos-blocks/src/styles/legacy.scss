@@ -189,13 +189,8 @@ body:not(.wp-admin, .block-editor-iframe__body) {
   }
 }
 
-p {
-  margin: 0;
-}
-
 ul {
   list-style-type: none;
-  margin: 0;
   padding: 0;
 }
 
@@ -226,7 +221,6 @@ textarea {
 }
 
 label {
-  margin: 0;
   display: block;
 }
 
@@ -426,26 +420,6 @@ a[href^="tel"] {
 
 .form__input--error {
   background-color: red;
-}
-
-.form__submit {
-  background-color: #d1cdb9;
-  padding: 13px 50px;
-  font-size: 13px;
-  cursor: pointer;
-  border: none;
-  outline: 0;
-  -webkit-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-}
-
-.form__submit:hover {
-  background-color: #e4e0ce;
-}
-
-.form__submit:active {
-  background-color: #b5b4ae;
 }
 
 @media only screen and (max-width: 575px) {

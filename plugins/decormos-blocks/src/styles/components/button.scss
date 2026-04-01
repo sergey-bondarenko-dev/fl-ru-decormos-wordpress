@@ -1,0 +1,30 @@
+.button,
+.form__submit,
+.wp-block-button.is-style-decormos-button .wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 13px 50px;
+	background-color: #d1cdb9;
+	border: none;
+	outline: 0;
+	font-size: 13px;
+	line-height: 1.2;
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+	border-radius: 0;
+	transition: all 0.3s ease-in-out;
+}
+
+.button:hover,
+.form__submit:hover,
+.wp-block-button.is-style-decormos-button .wp-block-button__link:hover {
+	background-color: #e4e0ce;
+}
+
+.button:active,
+.form__submit:active,
+.wp-block-button.is-style-decormos-button .wp-block-button__link:active {
+	background-color: #b5b4ae;
+}
