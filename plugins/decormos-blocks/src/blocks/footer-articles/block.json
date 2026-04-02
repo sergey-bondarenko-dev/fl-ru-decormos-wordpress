@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/footer-articles",
+	"version": "0.1.0",
+	"title": "Статьи по рубрикам",
+	"category": "decormos",
+	"icon": "list-view",
+	"description": "Список рубрик с последними записями внутри каждой рубрики.",
+	"example": {},
+	"attributes": {
+		"categoryIds": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "number"
+			}
+		},
+		"postsPerTerm": {
+			"type": "number",
+			"default": 5
+		},
+		"showAllPosts": {
+			"type": "boolean",
+			"default": false
+		},
+		"order": {
+			"type": "string",
+			"default": "desc"
+		},
+		"orderBy": {
+			"type": "string",
+			"default": "date"
+		},
+		"showEmptyTerms": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,20 @@
+.wp-block-decormos-footer-articles.footer__articles {
+	display: grid;
+	gap: 24px;
+}
+
+.wp-block-decormos-footer-articles .footer__articles-group-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.wp-block-decormos-footer-articles .footer__articles-group-list-item--empty {
+	opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+	.wp-block-decormos-footer-articles.footer__articles {
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	}
+}

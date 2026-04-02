@@ -1,0 +1,17 @@
+.wp-block-decormos-footer-articles {
+	.footer-articles-block__status {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-bottom: 16px;
+	}
+
+	.footer__articles {
+		padding: 24px;
+		border: 1px dashed currentcolor;
+	}
+
+	.footer__articles-group-list-link {
+		pointer-events: none;
+	}
+}
