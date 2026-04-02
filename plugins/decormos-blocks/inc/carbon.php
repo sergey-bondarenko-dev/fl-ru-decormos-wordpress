@@ -51,3 +51,23 @@ function decormos_blocks_get_term_meta( int $term_id, string $key, $default = nu
 
 	return $value ?? $default;
 }
+
+function decormos_blocks_get_nav_menu_item_meta( int $item_id, string $key, $default = null ) {
+	static $cache = array();
+
+	if ( ! isset( $cache[ $item_id ] ) ) {
+		$cache[ $item_id ] = array();
+	}
+
+	if ( array_key_exists( $key, $cache[ $item_id ] ) ) {
+		return $cache[ $item_id ][ $key ];
+	}
+
+	$value = function_exists( 'carbon_get_nav_menu_item_meta' )
+		? carbon_get_nav_menu_item_meta( $item_id, $key )
+		: null;
+
+	$cache[ $item_id ][ $key ] = $value;
+
+	return $value ?? $default;
+}

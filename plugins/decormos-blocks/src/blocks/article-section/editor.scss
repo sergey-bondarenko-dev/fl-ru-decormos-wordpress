@@ -5,6 +5,10 @@
 
 	.article-block__content-images {
 		min-height: 120px;
+
+		&:has(.article-block__editor-placeholder:only-child) {
+			display: block;
+		}
 	}
 
 	.article-block__editor-image {

@@ -33,4 +33,44 @@ function register_theme_options(): void
             Field::make('text', 'crb_decormos_phone', 'Телефон'),
             Field::make('text', 'crb_decormos_work_time', 'Время работы'),
         ]);
+
+    Container::make('nav_menu_item', 'Настройки пункта меню')
+        ->add_fields([
+            Field::make(
+                'checkbox',
+                'crb_enable_dynamic_children',
+                'Использовать как контейнер для дочерних элементов'
+            ),
+            Field::make(
+                'select',
+                'crb_dynamic_children_source',
+                'Источник дочерних элементов'
+            )
+                ->set_options([
+                    'category_posts' => 'Записи текущей рубрики',
+                    'child_pages'    => 'Дочерние страницы',
+                ])
+                ->set_conditional_logic([
+                    [
+                        'field' => 'crb_enable_dynamic_children',
+                        'value' => true,
+                    ],
+                ]),
+            Field::make(
+                'text',
+                'crb_dynamic_children_limit',
+                'Лимит дочерних элементов'
+            )
+                ->set_attribute('type', 'number')
+                ->set_attribute('min', 0)
+                ->set_attribute('step', 1)
+                ->set_default_value('5')
+                ->set_help_text('Оставьте пустым для значения по умолчанию. Укажите 0, чтобы вывести все элементы.')
+                ->set_conditional_logic([
+                    [
+                        'field' => 'crb_enable_dynamic_children',
+                        'value' => true,
+                    ],
+                ]),
+        ]);
 }

@@ -194,3 +194,9 @@
         }
     }
 }
+
+.block-editor-iframe__scale-container {
+	iframe {
+		max-width: none;
+	}
+}

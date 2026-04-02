@@ -41,3 +41,5 @@ boot_theme_options();
         \file_exists($style_path) ? (string) \filemtime($style_path) : null
     );
 });
+
+

@@ -93,6 +93,88 @@ if ( ! function_exists( 'decormos_blocks_build_menu_tree' ) ) {
 	}
 }
 
+if ( ! function_exists( 'decormos_blocks_build_dynamic_menu_item' ) ) {
+	function decormos_blocks_build_dynamic_menu_item( int $id, int $parent_id, string $label, string $href ): object {
+		return (object) array(
+			'ID'               => $id,
+			'menu_item_parent' => $parent_id,
+			'title'            => $label,
+			'url'              => $href,
+		);
+	}
+}
+
+if ( ! function_exists( 'decormos_blocks_expand_dynamic_menu_items' ) ) {
+	function decormos_blocks_expand_dynamic_menu_items( array $items ): array {
+		$expanded        = $items;
+		$dynamic_item_id = -1;
+
+		foreach ( $items as $item ) {
+			$item_id = isset( $item->ID ) ? (int) $item->ID : 0;
+
+			if ( $item_id <= 0 || ! function_exists( 'decormos_blocks_get_nav_menu_item_meta' ) ) {
+				continue;
+			}
+
+			$is_enabled = (bool) decormos_blocks_get_nav_menu_item_meta( $item_id, 'crb_enable_dynamic_children', false );
+
+			if ( ! $is_enabled ) {
+				continue;
+			}
+
+			$source = (string) decormos_blocks_get_nav_menu_item_meta( $item_id, 'crb_dynamic_children_source', '' );
+			$raw_limit = decormos_blocks_get_nav_menu_item_meta( $item_id, 'crb_dynamic_children_limit', '' );
+			$limit     = '' === $raw_limit ? 5 : max( 0, (int) $raw_limit );
+
+			if ( 'category_posts' === $source && 'taxonomy' === ( $item->type ?? '' ) && 'category' === ( $item->object ?? '' ) ) {
+				$posts = get_posts(
+					array(
+						'cat'                 => (int) ( $item->object_id ?? 0 ),
+						'posts_per_page'      => 0 === $limit ? -1 : $limit,
+						'post_status'         => 'publish',
+						'ignore_sticky_posts' => true,
+						'no_found_rows'       => true,
+					)
+				);
+
+				foreach ( $posts as $post ) {
+					$expanded[] = decormos_blocks_build_dynamic_menu_item(
+						$dynamic_item_id--,
+						$item_id,
+						get_the_title( $post ),
+						(string) get_permalink( $post )
+					);
+				}
+			}
+
+			if ( 'child_pages' === $source && 'post_type' === ( $item->type ?? '' ) && 'page' === ( $item->object ?? '' ) ) {
+				$page_args = array(
+					'parent'      => (int) ( $item->object_id ?? 0 ),
+					'sort_column' => 'menu_order,post_title',
+					'post_status' => 'publish',
+				);
+
+				if ( 0 !== $limit ) {
+					$page_args['number'] = $limit;
+				}
+
+				$pages = get_pages( $page_args );
+
+				foreach ( $pages as $page ) {
+					$expanded[] = decormos_blocks_build_dynamic_menu_item(
+						$dynamic_item_id--,
+						$item_id,
+						get_the_title( $page ),
+						(string) get_permalink( $page )
+					);
+				}
+			}
+		}
+
+		return $expanded;
+	}
+}
+
 if ( ! function_exists( 'decormos_blocks_render_header_menu_items' ) ) {
 	function decormos_blocks_render_header_menu_items( array $items ): void {
 		foreach ( $items as $nav_item ) {
@@ -209,6 +291,7 @@ $menu_items       = array();
 
 if ( $selected_menu_id > 0 ) {
 	$menu_items = wp_get_nav_menu_items( $selected_menu_id ) ?: array();
+	$menu_items = decormos_blocks_expand_dynamic_menu_items( $menu_items );
 }
 
 $menu_tree       = decormos_blocks_build_menu_tree( $menu_items );
