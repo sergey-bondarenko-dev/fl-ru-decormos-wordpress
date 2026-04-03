@@ -1,0 +1,36 @@
+.project-categories-filter {
+	padding: 12px;
+	border: 1px dashed currentcolor;
+}
+
+.project-categories-filter__list {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.project-categories-filter__link {
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+}
+
+.project-categories-filter__mobile {
+	display: none;
+}
+
+@media (max-width: 767px) {
+	.project-categories-filter__list {
+		display: none;
+	}
+
+	.project-categories-filter__mobile {
+		display: block;
+	}
+
+	.project-categories-filter__select {
+		width: 100%;
+	}
+}

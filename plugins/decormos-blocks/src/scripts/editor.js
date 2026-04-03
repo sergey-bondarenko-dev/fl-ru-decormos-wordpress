@@ -3,5 +3,6 @@ import './formats/dynamic-site-info';
 import './plugins/single-template-panel';
 import './styles/button-decormos';
 import './styles/group-section';
+import './styles/list-long-dash';
 import './styles/list-toc';
 import './styles/table-decormos';

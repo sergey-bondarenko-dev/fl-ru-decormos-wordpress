@@ -1,0 +1,78 @@
+@use '../../styles/helpers' as *;
+
+.wp-block-decormos-projects-grid {
+	.projects-grid {
+		display: grid;
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		gap: 8px;
+
+		@include media-breakpoint-down(lg) {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		@include media-breakpoint-down(md) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		@include media-breakpoint-down(sm) {
+			grid-template-columns: repeat(1, minmax(0, 1fr));
+		}
+
+		&__item {
+			position: relative;
+			min-height: 180px;
+			max-height: 360px;
+			grid-column: span 3;
+
+			@include media-breakpoint-down(lg) {
+				grid-column: auto;
+				height: 280px;
+			}
+
+			.decormos-project-card {
+				@include hover {
+					.decormos-project-card__media {
+						img {
+							scale: 1.2;
+						}
+					}
+				}
+			}
+		}
+
+		@include media-breakpoint-up(lg) {
+			&__item:nth-child(7n + 5),
+			&__item:nth-child(7n + 6),
+			&__item:nth-child(7n + 7) {
+				grid-column: span 4;
+				max-height: 280px;
+			}
+		}
+
+		&__empty {
+			text-align: center;
+			font-size: 3rem;
+			font-weight: 700;
+			grid-column: 1 / -1;
+			padding-block: 1.5rem;
+		}
+	}
+
+	.projects-grid__more {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 10px 18px;
+		border: none;
+		width: 100%;
+		background: var(--color-accent);
+		font-size: 18px;
+		margin-top: 8px;
+		cursor: pointer;
+	}
+
+	.projects-grid__more[disabled] {
+		opacity: 0.6;
+		cursor: wait;
+	}
+}

@@ -16,6 +16,14 @@
 			"type": "string",
 			"default": ""
 		},
+		"sliderHeight": {
+			"type": "string",
+			"default": "auto"
+		},
+		"imageMode": {
+			"type": "string",
+			"default": "default"
+		},
 		"options": {
 			"type": "object",
 			"default": {

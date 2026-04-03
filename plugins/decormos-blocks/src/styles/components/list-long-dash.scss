@@ -1,0 +1,21 @@
+.wp-block-list.is-style-long-dash {
+	list-style: none;
+	padding-left: 0;
+
+	li {
+		position: relative;
+		padding-left: 1.5em;
+	}
+
+	li::before {
+		content: "—";
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+	ul,
+	ol {
+		margin-top: 0.5em;
+	}
+}

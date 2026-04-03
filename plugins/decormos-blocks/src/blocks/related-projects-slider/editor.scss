@@ -1,0 +1,59 @@
+.wp-block-decormos-related-projects-slider {
+	.related-projects-slider {
+		border: 1px dashed #c8ccd0;
+
+		&__inner {
+			padding: 12px;
+			background: #f5f5f5;
+			width: 100%;
+		}
+
+		&__swiper {
+			overflow: hidden;
+			width: 100%;
+		}
+
+		.swiper-wrapper {
+			display: flex;
+			flex-wrap: nowrap;
+			gap: 16px;
+			width: 100%;
+		}
+
+		&__slide {
+			flex: 0 0 calc((100% - 32px) / 3);
+
+			.decormos-project-card {
+				pointer-events: none;
+			}
+
+			.decormos-project-card__media {
+				min-height: 280px;
+			}
+		}
+
+		@media (max-width: 1199px) {
+			.swiper-wrapper {
+				gap: 12px;
+			}
+
+			&__slide {
+				flex-basis: calc((100% - 12px) / 2);
+			}
+		}
+
+		@media (max-width: 767px) {
+			.swiper-wrapper {
+				gap: 8px;
+			}
+
+			&__slide {
+				flex-basis: 100%;
+			}
+
+			&__button {
+				display: none;
+			}
+		}
+	}
+}

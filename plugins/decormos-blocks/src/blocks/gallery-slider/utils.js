@@ -9,6 +9,10 @@ export const DEFAULT_OPTIONS = {
 	useLightbox: false,
 };
 
+export const DEFAULT_SLIDER_HEIGHT = 'auto';
+export const IMAGE_MODE_DEFAULT = 'default';
+export const IMAGE_MODE_FILL = 'fill';
+
 export const BREAKPOINT_DEFAULTS = {
 	width: 768,
 	options: {
@@ -115,6 +119,16 @@ export function normalizeBreakpoint( breakpoint = {} ) {
 		width: Number( breakpoint.width ) || BREAKPOINT_DEFAULTS.width,
 		options: normalizeResponsiveOptions( breakpoint.options ),
 	};
+}
+
+export function normalizeSliderHeight( value ) {
+	const stringValue = typeof value === 'string' ? value.trim() : '';
+
+	return stringValue || DEFAULT_SLIDER_HEIGHT;
+}
+
+export function normalizeImageMode( value ) {
+	return value === IMAGE_MODE_FILL ? IMAGE_MODE_FILL : IMAGE_MODE_DEFAULT;
 }
 
 export function buildSwiperOptions( options, breakpoints ) {

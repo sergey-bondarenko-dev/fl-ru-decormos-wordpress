@@ -7,6 +7,8 @@ import {
 	PanelBody,
 	ToggleControl,
 	RangeControl,
+	TextControl,
+	SelectControl,
 } from '@wordpress/components';
 import Swiper from 'swiper';
 import { Navigation } from 'swiper/modules';
@@ -21,6 +23,10 @@ import {
 	mapMediaItems,
 	normalizeBreakpoint,
 	normalizeOptions,
+	normalizeSliderHeight,
+	normalizeImageMode,
+	IMAGE_MODE_DEFAULT,
+	IMAGE_MODE_FILL,
 } from './utils';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -82,6 +88,8 @@ function PreviewSlides( { items, options, sliderRef } ) {
 export default function Edit( { attributes, setAttributes } ) {
 	const items = attributes.items || [];
 	const lightboxId = attributes.lightboxId || '';
+	const sliderHeight = normalizeSliderHeight( attributes.sliderHeight );
+	const imageMode = normalizeImageMode( attributes.imageMode );
 	const options = normalizeOptions( attributes.options );
 	const breakpoints = ( attributes.breakpoints || [] ).map( normalizeBreakpoint );
 	const normalizedItems = items.map( getImageValue ).filter( ( item ) => item.url );
@@ -89,6 +97,10 @@ export default function Edit( { attributes, setAttributes } ) {
 	const swiperRef = useRef( null );
 	const blockProps = useBlockProps( {
 		className: 'gallery-slider-block',
+		'data-image-mode': imageMode,
+		style: {
+			'--gallery-slider-height': sliderHeight,
+		},
 	} );
 	const previewOptions = buildSwiperOptions( options, breakpoints );
 	const previewOptionsKey = JSON.stringify( previewOptions );
@@ -206,6 +218,29 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 
 				<PanelBody title={ __( 'Основные настройки', 'decormos-blocks' ) } initialOpen={ false }>
+					<TextControl
+						label={ __( 'Высота слайдера', 'decormos-blocks' ) }
+						value={ sliderHeight }
+						onChange={ ( value ) =>
+							setAttributes( {
+								sliderHeight: normalizeSliderHeight( value ),
+							} )
+						}
+						help={ __( 'Любое CSS-значение. Например: auto, 400px, 60vh.', 'decormos-blocks' ) }
+					/>
+					<SelectControl
+						label={ __( 'Режим изображений', 'decormos-blocks' ) }
+						value={ imageMode }
+						options={ [
+							{ label: __( 'По умолчанию', 'decormos-blocks' ), value: IMAGE_MODE_DEFAULT },
+							{ label: __( 'Заполнять', 'decormos-blocks' ), value: IMAGE_MODE_FILL },
+						] }
+						onChange={ ( value ) =>
+							setAttributes( {
+								imageMode: normalizeImageMode( value ),
+							} )
+						}
+					/>
 					<ResponsiveOptionsControl
 						fields={ RESPONSIVE_OPTION_FIELDS }
 						value={ options }

@@ -1,0 +1,23 @@
+.wp-block-decormos-related-projects-slider {
+	.related-projects-slider {
+		--slider-height: 280px;
+
+		&__swiper {
+			overflow: hidden;
+		}
+
+		&__slide {
+			height: var(--slider-height);
+
+			.decormos-project-card__media {
+				min-height: 100%;
+			}
+		}
+
+		@media (max-width: 767px) {
+			&__button {
+				display: none;
+			}
+		}
+	}
+}

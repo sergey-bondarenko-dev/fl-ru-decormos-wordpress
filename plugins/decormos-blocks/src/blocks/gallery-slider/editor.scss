@@ -8,18 +8,35 @@
 
 	.gallery-slider {
 		overflow: hidden;
+		height: var(--gallery-slider-height, auto);
 	}
 
 	.gallery-slider__editor-slide {
-		height: auto;
+		height: var(--gallery-slider-height, auto);
 		overflow: hidden;
 		background: #f4f4f6;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.gallery-slider__image {
 		display: block;
 		width: 100%;
 		height: auto;
+	}
+
+	&[data-image-mode='fill'] {
+		.gallery-slider__editor-slide {
+			align-items: stretch;
+			justify-content: stretch;
+		}
+
+		.gallery-slider__image {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
 	}
 
 	.gallery-slider__placeholder {

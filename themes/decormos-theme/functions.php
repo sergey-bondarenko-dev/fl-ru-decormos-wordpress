@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use function Decormos\Inc\boot_projects_cpt;
 use function Decormos\Inc\boot_theme_options;
 
 $autoload = __DIR__ . '/vendor/autoload.php';
@@ -11,8 +12,10 @@ if (file_exists($autoload)) {
 }
 
 require_once __DIR__ . '/inc/theme-options.php';
+require_once __DIR__ . '/inc/projects.php';
 
 boot_theme_options();
+boot_projects_cpt();
 
 \add_action('after_setup_theme', static function (): void {
     \add_theme_support('menus');

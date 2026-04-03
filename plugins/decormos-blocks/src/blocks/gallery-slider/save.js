@@ -1,7 +1,12 @@
 import { useBlockProps } from '@wordpress/block-editor';
 import FancyboxImage from '../../ui/FancyboxImage';
 import WpImage from '../../ui/WpImage';
-import { buildSwiperOptions, normalizeItems } from './utils';
+import {
+	buildSwiperOptions,
+	normalizeItems,
+	normalizeImageMode,
+	normalizeSliderHeight,
+} from './utils';
 
 function renderSlideImage( item, options, lightboxGroup ) {
 	if ( ! options.useLightbox ) {
@@ -40,13 +45,19 @@ export default function save( { attributes } ) {
 	const options = buildSwiperOptions( attributes.options, attributes.breakpoints );
 	const lightboxGroup = attributes.lightboxId || 'gallery-slider';
 	const swiperOptions = JSON.stringify( options );
+	const sliderHeight = normalizeSliderHeight( attributes.sliderHeight );
+	const imageMode = normalizeImageMode( attributes.imageMode );
 
 	return (
 		<div
 			{ ...useBlockProps.save( {
 				className: 'gallery-slider-block',
 				'data-gallery-slider': true,
+				'data-image-mode': imageMode,
 				'data-swiper-options': swiperOptions,
+				style: {
+					'--gallery-slider-height': sliderHeight,
+				},
 			} ) }
 		>
 			<div className="gallery-slider swiper">

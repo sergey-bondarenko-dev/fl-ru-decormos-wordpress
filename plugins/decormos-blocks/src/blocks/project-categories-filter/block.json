@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/project-categories-filter",
+	"version": "0.1.0",
+	"title": "Категории проектов",
+	"category": "decormos",
+	"icon": "filter",
+	"description": "Список категорий проектов с пунктом \"Все\" и мобильным select.",
+	"attributes": {
+		"showEmptyTerms": {
+			"type": "boolean",
+			"default": false
+		},
+		"allLabel": {
+			"type": "string",
+			"default": "Все"
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}
