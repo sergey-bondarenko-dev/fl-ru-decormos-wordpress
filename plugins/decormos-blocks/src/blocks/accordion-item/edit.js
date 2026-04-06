@@ -2,10 +2,18 @@ import { __ } from '@wordpress/i18n';
 import { useEffect, useRef } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import {
+	BlockControls,
+	InspectorControls,
 	InnerBlocks,
 	RichText,
 	useBlockProps,
 } from '@wordpress/block-editor';
+import {
+	PanelBody,
+	ToggleControl,
+	ToolbarButton,
+	ToolbarGroup,
+} from '@wordpress/components';
 import './editor.scss';
 
 const TEMPLATE = [
@@ -94,26 +102,54 @@ export default function Edit( {
 		setAttributes,
 		rootClientId,
 	] );
+	const toggleEditorOpen = () =>
+		setAttributes( {
+			editorOpen: ! editorOpen,
+		} );
 
 	return (
-		<div { ...blockProps }>
-			<div className="accordion-header">
-				<RichText
-					tagName="div"
-					className="accordion-button"
-					value={ title }
-					onChange={ ( value ) => setAttributes( { title: value } ) }
-					placeholder={ __( 'Заголовок элемента', 'decormos-blocks' ) }
-					allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
-				/>
-			</div>
-			<div
-				className={ `accordion-collapse collapse${ editorOpen ? ' show' : '' }` }
-			>
-				<div className="accordion-body">
-					<InnerBlocks template={ TEMPLATE } />
+		<>
+			<BlockControls>
+				<ToolbarGroup>
+					<ToolbarButton
+						icon={ editorOpen ? 'arrow-up-alt2' : 'arrow-down-alt2' }
+						label={
+							editorOpen
+								? __( 'Свернуть элемент', 'decormos-blocks' )
+								: __( 'Развернуть элемент', 'decormos-blocks' )
+						}
+						onClick={ toggleEditorOpen }
+					/>
+				</ToolbarGroup>
+			</BlockControls>
+			<InspectorControls>
+				<PanelBody title={ __( 'Элемент аккордиона', 'decormos-blocks' ) } initialOpen>
+					<ToggleControl
+						label={ __( 'Развернуть в редакторе', 'decormos-blocks' ) }
+						checked={ editorOpen }
+						onChange={ ( value ) => setAttributes( { editorOpen: value } ) }
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<div { ...blockProps }>
+				<div className="accordion-header">
+					<RichText
+						tagName="div"
+						className="accordion-button"
+						value={ title }
+						onChange={ ( value ) => setAttributes( { title: value } ) }
+						placeholder={ __( 'Заголовок элемента', 'decormos-blocks' ) }
+						allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
+					/>
+				</div>
+				<div
+					className={ `accordion-collapse collapse${ editorOpen ? ' show' : '' }` }
+				>
+					<div className="accordion-body">
+						<InnerBlocks template={ TEMPLATE } />
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
