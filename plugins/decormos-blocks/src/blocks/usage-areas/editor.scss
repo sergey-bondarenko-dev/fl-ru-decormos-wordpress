@@ -52,11 +52,41 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
-	margin-bottom: 8px;
+	flex: 1 1 260px;
+}
+
+.usage-areas-media-field__row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	gap: 12px;
 }
 
 .usage-areas-media-field__preview img {
 	display: block;
 	max-width: 100%;
 	height: auto;
+}
+
+.usage-areas-media-field__preview {
+	flex: 0 0 auto;
+}
+
+.usage-areas-manager-modal {
+	width: min(980px, calc(100vw - 64px));
+}
+
+.usage-areas-manager-modal__body {
+	padding-top: 8px;
+}
+
+.usage-areas-manager-modal .usage-areas-media-field__preview img {
+	max-width: 280px;
+}
+
+.usage-areas-manager-modal .usage-areas-media-field__preview--icon {
+	background: #f2efe9;
+	border: 1px solid #d8d2c8;
+	border-radius: 8px;
+	padding: 10px;
 }

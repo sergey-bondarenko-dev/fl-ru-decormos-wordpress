@@ -6,7 +6,7 @@ import {
 	MediaUploadCheck,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import { Button, PanelBody, TextControl } from '@wordpress/components';
+import { Button, Modal, PanelBody, TextControl } from '@wordpress/components';
 import RepeaterControl from '../../ui/RepeaterControl';
 import './editor.scss';
 
@@ -63,37 +63,48 @@ function getMediaValue( media, dimensions ) {
 	};
 }
 
-function MediaField( { label, value, onSelect, onRemove, help } ) {
+function MediaField( {
+	label,
+	value,
+	onSelect,
+	onRemove,
+	help,
+	previewClassName = '',
+} ) {
 	return (
 		<div className="usage-areas-media-field">
 			<p className="usage-areas-media-field__label">{ label }</p>
 			{ help ? <p className="usage-areas-media-field__help">{ help }</p> : null }
-			<MediaUploadCheck>
-				<MediaUpload
-					onSelect={ onSelect }
-					allowedTypes={ [ 'image' ] }
-					value={ value.id || 0 }
-					render={ ( { open } ) => (
-						<div className="usage-areas-media-field__actions">
-							<Button variant="secondary" onClick={ open }>
-								{ value.url
-									? __( 'Заменить изображение', 'decormos-blocks' )
-									: __( 'Выбрать изображение', 'decormos-blocks' ) }
-							</Button>
-							{ value.url ? (
-								<Button variant="tertiary" isDestructive onClick={ onRemove }>
-									{ __( 'Удалить изображение', 'decormos-blocks' ) }
+			<div className="usage-areas-media-field__row">
+				<MediaUploadCheck>
+					<MediaUpload
+						onSelect={ onSelect }
+						allowedTypes={ [ 'image' ] }
+						value={ value.id || 0 }
+						render={ ( { open } ) => (
+							<div className="usage-areas-media-field__actions">
+								<Button variant="secondary" onClick={ open }>
+									{ value.url
+										? __( 'Заменить изображение', 'decormos-blocks' )
+										: __( 'Выбрать изображение', 'decormos-blocks' ) }
 								</Button>
-							) : null }
-						</div>
-					) }
-				/>
-			</MediaUploadCheck>
-			{ value.url ? (
-				<div className="usage-areas-media-field__preview">
-					<img src={ value.url } alt={ value.alt || '' } />
-				</div>
-			) : null }
+								{ value.url ? (
+									<Button variant="tertiary" isDestructive onClick={ onRemove }>
+										{ __( 'Удалить изображение', 'decormos-blocks' ) }
+									</Button>
+								) : null }
+							</div>
+						) }
+					/>
+				</MediaUploadCheck>
+				{ value.url ? (
+					<div
+						className={ `usage-areas-media-field__preview ${ previewClassName }`.trim() }
+					>
+						<img src={ value.url } alt={ value.alt || '' } />
+					</div>
+				) : null }
+			</div>
 		</div>
 	);
 }
@@ -101,6 +112,7 @@ function MediaField( { label, value, onSelect, onRemove, help } ) {
 export default function Edit( { attributes, setAttributes } ) {
 	const { items } = attributes;
 	const [ activeIndex, setActiveIndex ] = useState( 0 );
+	const [ isManagerOpen, setIsManagerOpen ] = useState( false );
 	const blockProps = useBlockProps( {
 		className: 'usage-areas',
 		'data-usage-areas': '',
@@ -144,80 +156,97 @@ export default function Edit( { attributes, setAttributes } ) {
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Карточки', 'decormos-blocks' ) } initialOpen>
-					<RepeaterControl
-						label={ __( 'Элементы сфер применения', 'decormos-blocks' ) }
-						items={ items }
-						addLabel={ __( 'Добавить карточку', 'decormos-blocks' ) }
-						emptyText={ __( 'Карточки пока не добавлены.', 'decormos-blocks' ) }
-						onAdd={ addItem }
-						onRemove={ removeItem }
-						getItemTitle={ ( item, index ) =>
-							item.caption?.trim()
-								? item.caption
-								: `Карточка ${ index + 1 }`
-						}
-						renderItem={ ( item, itemIndex ) => (
-							<>
-								<MediaField
-									label={ __( 'Основное изображение', 'decormos-blocks' ) }
-									value={ item.image }
-									help={ __(
-										'В разметку попадут обязательные width/height и класс wp-image-{id}.',
-										'decormos-blocks'
-									) }
-									onSelect={ ( media ) =>
-										updateMedia(
-											itemIndex,
-											'image',
-											media,
-											IMAGE_DIMENSIONS
-										)
-									}
-									onRemove={ () =>
-										updateMedia(
-											itemIndex,
-											'image',
-											null,
-											IMAGE_DIMENSIONS
-										)
-									}
-								/>
-								<MediaField
-									label={ __( 'Иконка', 'decormos-blocks' ) }
-									value={ item.icon }
-									help={ __(
-										'Иконка сохраняется как изображение с размерами 165x100.',
-										'decormos-blocks'
-									) }
-									onSelect={ ( media ) =>
-										updateMedia(
-											itemIndex,
-											'icon',
-											media,
-											ICON_DIMENSIONS
-										)
-									}
-									onRemove={ () =>
-										updateMedia(
-											itemIndex,
-											'icon',
-											null,
-											ICON_DIMENSIONS
-										)
-									}
-								/>
-								<TextControl
-									label={ __( 'Подпись', 'decormos-blocks' ) }
-									value={ item.caption }
-									onChange={ ( value ) =>
-										updateItem( itemIndex, 'caption', value )
-									}
-								/>
-							</>
-						) }
-					/>
+					<p>{ `Элементов: ${ items.length }` }</p>
+					<Button variant="secondary" onClick={ () => setIsManagerOpen( true ) }>
+						{ __( 'Управление элементами', 'decormos-blocks' ) }
+					</Button>
 				</PanelBody>
 			</InspectorControls>
+
+			{ isManagerOpen ? (
+				<Modal
+					className="usage-areas-manager-modal"
+					title={ __( 'Управление карточками', 'decormos-blocks' ) }
+					size="large"
+					onRequestClose={ () => setIsManagerOpen( false ) }
+				>
+					<div className="usage-areas-manager-modal__body">
+						<RepeaterControl
+							label={ __( 'Элементы сфер применения', 'decormos-blocks' ) }
+							items={ items }
+							addLabel={ __( 'Добавить карточку', 'decormos-blocks' ) }
+							emptyText={ __( 'Карточки пока не добавлены.', 'decormos-blocks' ) }
+							onAdd={ addItem }
+							onRemove={ removeItem }
+							getItemTitle={ ( item, index ) =>
+								item.caption?.trim()
+									? item.caption
+									: `Карточка ${ index + 1 }`
+							}
+							renderItem={ ( item, itemIndex ) => (
+								<>
+									<MediaField
+										label={ __( 'Основное изображение', 'decormos-blocks' ) }
+										value={ item.image }
+										help={ __(
+											'В разметку попадут обязательные width/height и класс wp-image-{id}.',
+											'decormos-blocks'
+										) }
+										onSelect={ ( media ) =>
+											updateMedia(
+												itemIndex,
+												'image',
+												media,
+												IMAGE_DIMENSIONS
+											)
+										}
+										onRemove={ () =>
+											updateMedia(
+												itemIndex,
+												'image',
+												null,
+												IMAGE_DIMENSIONS
+											)
+										}
+									/>
+									<MediaField
+										label={ __( 'Иконка', 'decormos-blocks' ) }
+										value={ item.icon }
+										previewClassName="usage-areas-media-field__preview--icon"
+										help={ __(
+											'Иконка сохраняется как изображение с размерами 165x100.',
+											'decormos-blocks'
+										) }
+										onSelect={ ( media ) =>
+											updateMedia(
+												itemIndex,
+												'icon',
+												media,
+												ICON_DIMENSIONS
+											)
+										}
+										onRemove={ () =>
+											updateMedia(
+												itemIndex,
+												'icon',
+												null,
+												ICON_DIMENSIONS
+											)
+										}
+									/>
+									<TextControl
+										label={ __( 'Подпись', 'decormos-blocks' ) }
+										value={ item.caption }
+										onChange={ ( value ) =>
+											updateItem( itemIndex, 'caption', value )
+										}
+									/>
+								</>
+							) }
+						/>
+					</div>
+				</Modal>
+			) : null }
 
 			<div { ...blockProps }>
 				<div className="usage-areas__content container" data-usage-areas-content>
