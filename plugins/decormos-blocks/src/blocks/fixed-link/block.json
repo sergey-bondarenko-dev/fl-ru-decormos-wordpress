@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/fixed-link",
+	"version": "0.1.0",
+	"title": "Липкая ссылка",
+	"category": "decormos",
+	"icon": "external",
+	"description": "Липкая ссылка, всегда в поле зрения. Установите иконку и ссылку на соц. сеть, которая должна быть всегда видна клиенту.",
+	"attributes": {
+		"svg": {
+			"type": "string",
+			"default": "/assets/icons/tg.svg"
+		},
+		"label": {
+			"type": "string",
+			"default": "Телеграм"
+		},
+		"href": {
+			"type": "string",
+			"default": "https://t.me/bombamvam"
+		}
+	},
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}
