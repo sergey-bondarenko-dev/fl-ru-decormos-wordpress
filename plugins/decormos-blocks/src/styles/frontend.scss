@@ -93,7 +93,13 @@
     }
 
     & &__inner {
-        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    & &__title-wrapper {
+        margin-top: 10vh;
     }
 
     & &__bg {
@@ -111,7 +117,6 @@
     }
 
     & &__list {
-        margin-top: auto;
     }
 
     & &__shadow,
