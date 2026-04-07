@@ -200,7 +200,11 @@ add_action( 'rest_api_init', 'decormos_blocks_register_rest_routes' );
 add_filter( 'block_categories_all', 'decormos_blocks_register_category' );
 
 function decormos_blocks_logo($className, $logo_id = null) {
-	$logo_id ??= decormos_blocks_get_theme_option('crb_decormos_logo');
+	$logo_id ??= (int) get_theme_mod( 'custom_logo' );
+
+	if ( $logo_id <= 0 ) {
+		$logo_id = (int) decormos_blocks_get_theme_option( 'crb_decormos_logo' );
+	}
 
 
 	$className = trim('logo ' . ($className ?? ''));

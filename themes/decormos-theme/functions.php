@@ -21,6 +21,12 @@ boot_projects_cpt();
     \add_theme_support('menus');
     \add_theme_support('title-tag');
     \add_theme_support('post-thumbnails');
+    \add_theme_support('custom-logo', [
+        'height'      => 33,
+        'width'       => 55,
+        'flex-height' => true,
+        'flex-width'  => true,
+    ]);
     \add_theme_support('editor-styles');
     \add_theme_support('wp-block-styles');
     \add_theme_support('responsive-embeds');

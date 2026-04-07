@@ -17,6 +17,8 @@ function boot_theme_options(): void
     }, 5);
 
     \add_action('carbon_fields_register_fields', __NAMESPACE__ . '\\register_theme_options');
+    \add_action('carbon_fields_theme_options_container_saved', __NAMESPACE__ . '\\sync_logo_from_carbon_to_theme_mod', 10, 2);
+    \add_action('update_option_theme_mods_' . \get_stylesheet(), __NAMESPACE__ . '\\sync_logo_from_theme_mod_to_carbon', 10, 2);
 }
 
 function register_theme_options(): void
@@ -73,4 +75,53 @@ function register_theme_options(): void
                     ],
                 ]),
         ]);
+}
+
+function logo_sync_lock(?bool $set = null): bool
+{
+    static $locked = false;
+
+    if (null !== $set) {
+        $locked = $set;
+    }
+
+    return $locked;
+}
+
+function sync_logo_from_carbon_to_theme_mod($user_data, $container): void
+{
+    if (logo_sync_lock() || ! \function_exists('carbon_get_theme_option')) {
+        return;
+    }
+
+    logo_sync_lock(true);
+
+    try {
+        $logo_id = (int) \carbon_get_theme_option('crb_decormos_logo');
+        \set_theme_mod('custom_logo', $logo_id > 0 ? $logo_id : 0);
+    } finally {
+        logo_sync_lock(false);
+    }
+}
+
+function sync_logo_from_theme_mod_to_carbon($old_value, $new_value): void
+{
+    if (logo_sync_lock() || ! \function_exists('carbon_set_theme_option')) {
+        return;
+    }
+
+    $old_logo_id = isset($old_value['custom_logo']) ? (int) $old_value['custom_logo'] : 0;
+    $new_logo_id = isset($new_value['custom_logo']) ? (int) $new_value['custom_logo'] : 0;
+
+    if ($old_logo_id === $new_logo_id) {
+        return;
+    }
+
+    logo_sync_lock(true);
+
+    try {
+        \carbon_set_theme_option('crb_decormos_logo', $new_logo_id > 0 ? $new_logo_id : '');
+    } finally {
+        logo_sync_lock(false);
+    }
 }
