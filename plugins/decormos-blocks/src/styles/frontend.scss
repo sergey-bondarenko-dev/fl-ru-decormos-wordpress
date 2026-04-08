@@ -121,7 +121,7 @@
 
     & &__shadow,
     & &__title {
-        max-width: 767px;
+        max-width: 900px;
         margin-inline: auto;
 
         @include media-breakpoint-down(md) {

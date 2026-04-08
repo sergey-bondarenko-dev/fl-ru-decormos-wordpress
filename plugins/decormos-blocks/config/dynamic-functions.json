@@ -1,0 +1,286 @@
+{
+	"default": "site_title",
+	"items": [
+		{
+			"key": "site_title",
+			"label": "Название сайта",
+			"description": "Название сайта",
+			"contexts": [ "global" ],
+			"args": []
+		},
+		{
+			"key": "site_tagline",
+			"label": "Описание сайта",
+			"description": "Краткое описание сайта",
+			"contexts": [ "global" ],
+			"args": []
+		},
+		{
+			"key": "site_url",
+			"label": "URL сайта",
+			"description": "Главный адрес сайта",
+			"contexts": [ "global" ],
+			"args": []
+		},
+		{
+			"key": "current_year",
+			"label": "Текущий год",
+			"description": "Текущий год",
+			"contexts": [ "global" ],
+			"args": []
+		},
+		{
+			"key": "current_date",
+			"label": "Текущая дата",
+			"description": "Текущая дата",
+			"contexts": [ "global" ],
+			"args": [
+				{
+					"key": "format",
+					"label": "Формат даты",
+					"type": "string",
+					"default": "d.m.Y",
+					"help": "PHP формат даты"
+				}
+			]
+		},
+		{
+			"key": "current_time",
+			"label": "Текущее время",
+			"description": "Текущее время",
+			"contexts": [ "global" ],
+			"args": [
+				{
+					"key": "format",
+					"label": "Формат времени",
+					"type": "string",
+					"default": "H:i",
+					"help": "PHP формат времени"
+				}
+			]
+		},
+		{
+			"key": "language_code",
+			"label": "Код языка",
+			"description": "Текущий код языка WordPress",
+			"contexts": [ "global" ],
+			"args": []
+		},
+		{
+			"key": "admin_email",
+			"label": "Email администратора",
+			"description": "Email из настроек сайта",
+			"contexts": [ "global" ],
+			"args": []
+		},
+		{
+			"key": "requested_url",
+			"label": "Текущий URL",
+			"description": "Текущий URL страницы",
+			"contexts": [ "all" ],
+			"args": []
+		},
+		{
+			"key": "post_id",
+			"label": "ID записи",
+			"description": "ID текущей записи",
+			"contexts": [ "singular" ],
+			"args": []
+		},
+		{
+			"key": "post_title",
+			"label": "Заголовок записи",
+			"description": "Заголовок текущей записи",
+			"contexts": [ "singular" ],
+			"args": []
+		},
+		{
+			"key": "post_excerpt",
+			"label": "Анонс записи",
+			"description": "Краткое описание текущей записи",
+			"contexts": [ "singular" ],
+			"args": []
+		},
+		{
+			"key": "post_url",
+			"label": "URL записи",
+			"description": "Ссылка на текущую запись",
+			"contexts": [ "singular" ],
+			"args": []
+		},
+		{
+			"key": "post_thumbnail_html",
+			"label": "Миниатюра записи (HTML)",
+			"description": "HTML миниатюры текущей записи.",
+			"allowHtml": true,
+			"contexts": [ "singular" ],
+			"args": [
+				{
+					"key": "size",
+					"label": "Размер",
+					"type": "string",
+					"default": "post-thumbnail",
+					"help": "Например: thumbnail, medium, large, full."
+				},
+				{
+					"key": "class_name",
+					"label": "CSS класс",
+					"type": "string",
+					"default": "",
+					"help": "Дополнительный CSS-класс для тега img."
+				}
+			]
+		},
+		{
+			"key": "post_terms_list_html",
+			"label": "Список терминов записи (HTML)",
+			"description": "HTML списка терминов текущей записи через get_the_term_list.",
+			"allowHtml": true,
+			"contexts": [ "singular" ],
+			"args": [
+				{
+					"key": "taxonomy",
+					"label": "Таксономия",
+					"type": "string",
+					"default": "category",
+					"help": "Например: category, post_tag."
+				},
+				{
+					"key": "separator",
+					"label": "Разделитель",
+					"type": "string",
+					"default": ", ",
+					"help": "Строка между элементами списка."
+				}
+			]
+		},
+		{
+			"key": "post_date",
+			"label": "Дата публикации",
+			"description": "Дата публикации текущей записи",
+			"contexts": [ "singular" ],
+			"args": [
+				{
+					"key": "format",
+					"label": "Формат даты",
+					"type": "string",
+					"default": "d.m.Y",
+					"help": "PHP формат даты"
+				}
+			]
+		},
+		{
+			"key": "post_modified_date",
+			"label": "Дата изменения",
+			"description": "Дата изменения текущей записи",
+			"contexts": [ "singular" ],
+			"args": [
+				{
+					"key": "format",
+					"label": "Формат даты",
+					"type": "string",
+					"default": "d.m.Y",
+					"help": "PHP формат даты"
+				}
+			]
+		},
+		{
+			"key": "post_author_name",
+			"label": "Автор записи",
+			"description": "Отображаемое имя автора текущей записи",
+			"contexts": [ "singular" ],
+			"args": []
+		},
+		{
+			"key": "post_type_name",
+			"label": "Тип записи",
+			"description": "Название типа текущей записи",
+			"contexts": [ "singular" ],
+			"args": []
+		},
+		{
+			"key": "archive_title",
+			"label": "Заголовок архива",
+			"description": "Заголовок текущего архива",
+			"contexts": [ "archive" ],
+			"args": []
+		},
+		{
+			"key": "archive_description",
+			"label": "Описание архива",
+			"description": "Описание текущего архива",
+			"contexts": [ "archive" ],
+			"args": []
+		},
+		{
+			"key": "term_name",
+			"label": "Название термина",
+			"description": "Название текущего термина",
+			"contexts": [ "term" ],
+			"args": []
+		},
+		{
+			"key": "term_slug",
+			"label": "Slug термина",
+			"description": "Slug текущего термина",
+			"contexts": [ "term" ],
+			"args": []
+		},
+		{
+			"key": "term_description",
+			"label": "Описание термина",
+			"description": "Описание текущего термина",
+			"contexts": [ "term" ],
+			"args": []
+		},
+		{
+			"key": "author_display_name",
+			"label": "Имя автора",
+			"description": "Отображаемое имя автора страницы",
+			"contexts": [ "author" ],
+			"args": []
+		},
+		{
+			"key": "author_first_name",
+			"label": "Имя автора (first_name)",
+			"description": "Имя автора из профиля",
+			"contexts": [ "author" ],
+			"args": []
+		},
+		{
+			"key": "author_last_name",
+			"label": "Фамилия автора (last_name)",
+			"description": "Фамилия автора из профиля",
+			"contexts": [ "author" ],
+			"args": []
+		},
+		{
+			"key": "author_description",
+			"label": "Описание автора",
+			"description": "Биография автора",
+			"contexts": [ "author" ],
+			"args": []
+		},
+		{
+			"key": "search_query",
+			"label": "Поисковый запрос",
+			"description": "Текст текущего поискового запроса",
+			"contexts": [ "search" ],
+			"args": []
+		},
+		{
+			"key": "front_page_title",
+			"label": "Заголовок главной",
+			"description": "Заголовок страницы, заданной как главная",
+			"contexts": [ "all" ],
+			"args": []
+		},
+		{
+			"key": "front_page_url",
+			"label": "URL главной",
+			"description": "Ссылка на страницу, заданную как главная",
+			"contexts": [ "all" ],
+			"args": []
+		}
+	]
+}

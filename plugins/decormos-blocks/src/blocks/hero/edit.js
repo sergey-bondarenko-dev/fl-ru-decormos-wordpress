@@ -15,6 +15,13 @@ import {
 } from '@wordpress/components';
 import './editor.scss';
 
+const ALLOWED_TEXT_FORMATS = [
+	'core/bold',
+	'core/italic',
+	'core/link',
+	'decormos/dynamic-placeholder',
+];
+
 function getVideoClassName( showVideoOnMobileOnly ) {
 	return showVideoOnMobileOnly
 		? 'hero__video-bg hero__video-bg--mobile-only'
@@ -180,7 +187,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							value={ title }
 							onChange={ ( value ) => setAttributes( { title: value } ) }
 							placeholder={ __( 'Заголовок hero-блока', 'decormos-blocks' ) }
-							allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
+							allowedFormats={ ALLOWED_TEXT_FORMATS }
 						/>
 						<RichText
 							tagName="h2"
@@ -188,7 +195,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							value={ subtitle }
 							onChange={ ( value ) => setAttributes( { subtitle: value } ) }
 							placeholder={ __( 'Подзаголовок hero-блока', 'decormos-blocks' ) }
-							allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
+							allowedFormats={ ALLOWED_TEXT_FORMATS }
 						/>
 					</div>
 					<RichText

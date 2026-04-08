@@ -1,0 +1,45 @@
+{
+	"default": "singular",
+	"items": [
+		{
+			"key": "global",
+			"label": "Global",
+			"description": "Не зависит от текущего объекта"
+		},
+		{
+			"key": "singular",
+			"label": "Singular",
+			"description": "Текущая запись (post/page/CPT)"
+		},
+		{
+			"key": "archive",
+			"label": "Archive",
+			"description": "Архивы записей и таксономий"
+		},
+		{
+			"key": "term",
+			"label": "Term",
+			"description": "Контекст текущего термина"
+		},
+		{
+			"key": "author",
+			"label": "Author",
+			"description": "Страница автора"
+		},
+		{
+			"key": "search",
+			"label": "Search",
+			"description": "Страница результатов поиска"
+		},
+		{
+			"key": "404",
+			"label": "404",
+			"description": "Страница не найдена"
+		},
+		{
+			"key": "front_page",
+			"label": "Front Page",
+			"description": "Главная страница"
+		}
+	]
+}

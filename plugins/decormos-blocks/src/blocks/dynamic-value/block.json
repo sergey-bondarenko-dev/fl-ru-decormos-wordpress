@@ -1,0 +1,35 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/dynamic-value",
+	"version": "0.1.0",
+	"title": "Dynamic Value",
+	"category": "decormos",
+	"icon": "database-view",
+	"description": "Вывод динамического значения из зарегистрированных источников данных.",
+	"attributes": {
+		"sourceType": {
+			"type": "string",
+			"default": "wp_function"
+		},
+		"sourceConfig": {
+			"type": "object",
+			"default": {
+				"functionKey": "site_title",
+				"args": {}
+			}
+		},
+		"fallback": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

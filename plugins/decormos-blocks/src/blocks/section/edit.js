@@ -58,6 +58,13 @@ const UNIT_CONTROL_UNITS = [
 	{ value: 'rem', label: 'rem' },
 ];
 
+const ALLOWED_TEXT_FORMATS = [
+	'core/bold',
+	'core/italic',
+	'core/link',
+	'decormos/dynamic-placeholder',
+];
+
 export default function Edit( { attributes, clientId, setAttributes } ) {
 	const {
 		id,
@@ -244,11 +251,7 @@ export default function Edit( { attributes, clientId, setAttributes } ) {
 									'Заголовок секции',
 									'decormos-blocks'
 								) }
-								allowedFormats={ [
-									'core/bold',
-									'core/italic',
-									'core/link',
-								] }
+								allowedFormats={ ALLOWED_TEXT_FORMATS }
 								identifier="title"
 								id={ labelId }
 							/>

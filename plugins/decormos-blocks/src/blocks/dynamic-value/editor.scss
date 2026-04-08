@@ -1,0 +1,99 @@
+.wp-block-decormos-dynamic-value {
+	outline: 1px dashed rgba(0, 0, 0, 0.2);
+	outline-offset: 4px;
+}
+
+.decormos-dynamic-value-preview-placeholder {
+	min-height: 72px;
+
+	p {
+		margin: 0;
+	}
+}
+
+.decormos-dynamic-source-control {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.decormos-inspector-group {
+	padding: 0;
+
+	&__title {
+		margin: 0 0 8px;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: #50575e;
+	}
+
+	&--nested {
+		margin-bottom: 0;
+	}
+}
+
+hr.decormos-inspector-separator {
+	margin: 0;
+	border: 0;
+	border-top: 1px solid #e0e0e0;
+
+	&--args {
+		margin-block: .5rem;
+	}
+}
+
+.decormos-dynamic-value-current-function {
+	margin: 0 0 8px;
+	font-size: 12px;
+
+	span {
+		opacity: 0.75;
+	}
+}
+
+.decormos-dynamic-value-function-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-top: 12px;
+	max-height: 360px;
+	overflow: auto;
+}
+
+.decormos-dynamic-value-function-item {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	align-items: flex-start;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	background: #fff;
+	text-align: left;
+	cursor: pointer;
+
+	span {
+		font-size: 12px;
+		opacity: 0.75;
+	}
+}
+
+.decormos-dynamic-value-item-header {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.decormos-dynamic-value-type-badge {
+	display: inline-block;
+	padding: 1px 6px;
+	border-radius: 10px;
+	font-size: 11px;
+	font-style: normal;
+	line-height: 1.4;
+	background: #f0f0f1;
+	color: #1e1e1e;
+}

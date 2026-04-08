@@ -1,5 +1,6 @@
 import '../styles/editor.scss';
 import './formats/dynamic-site-info';
+import './formats/dynamic-placeholder';
 import './plugins/single-template-panel';
 import './styles/button-decormos';
 import './styles/group-section';

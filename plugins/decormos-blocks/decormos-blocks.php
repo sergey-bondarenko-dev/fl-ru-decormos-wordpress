@@ -15,6 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+require_once __DIR__ . '/inc/dynamic-functions.php';
+require_once __DIR__ . '/inc/dynamic-placeholders.php';
+require_once __DIR__ . '/inc/dynamic-meta.php';
+
 function decormos_blocks_has_carbon_fields(): bool {
 	return class_exists( '\Carbon_Fields\Carbon_Fields' ) || function_exists( 'carbon_get_theme_option' );
 }
@@ -54,6 +58,20 @@ function decormos_blocks_register_rest_routes(): void {
 			},
 			'callback'            => static function (): WP_REST_Response {
 				return rest_ensure_response( decormos_blocks_get_available_menus() );
+			},
+		)
+	);
+
+	register_rest_route(
+		'decormos-blocks/v1',
+		'/dynamic-sources',
+		array(
+			'methods'             => WP_REST_Server::READABLE,
+			'permission_callback' => static function (): bool {
+				return current_user_can( 'edit_posts' );
+			},
+			'callback'            => static function (): WP_REST_Response {
+				return rest_ensure_response( decormos_blocks_get_dynamic_sources_schema() );
 			},
 		)
 	);

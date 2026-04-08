@@ -25,6 +25,13 @@ const TEMPLATE = [
 	],
 ];
 
+const ALLOWED_TEXT_FORMATS = [
+	'core/bold',
+	'core/italic',
+	'core/link',
+	'decormos/dynamic-placeholder',
+];
+
 export default function Edit( {
 	attributes,
 	clientId,
@@ -139,7 +146,7 @@ export default function Edit( {
 						value={ title }
 						onChange={ ( value ) => setAttributes( { title: value } ) }
 						placeholder={ __( 'Заголовок элемента', 'decormos-blocks' ) }
-						allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
+						allowedFormats={ ALLOWED_TEXT_FORMATS }
 					/>
 				</div>
 				<div
