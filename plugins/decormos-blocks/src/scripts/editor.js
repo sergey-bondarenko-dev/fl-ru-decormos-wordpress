@@ -2,6 +2,7 @@ import '../styles/editor.scss';
 import './formats/dynamic-site-info';
 import './formats/dynamic-placeholder';
 import './plugins/single-template-panel';
+import './plugins/post-display-meta-panel';
 import './styles/button-decormos';
 import './styles/group-section';
 import './styles/list-long-dash';

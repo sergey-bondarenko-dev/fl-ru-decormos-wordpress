@@ -21,6 +21,8 @@
   &__list {
     display: flex;
     width: 100%;
+    list-style: none;
+    padding: 0;
 
     @include media-breakpoint-down(xl) {
       gap: .5rem var(--itemGap);

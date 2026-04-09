@@ -6,65 +6,61 @@
 	"title": "Первый экран",
 	"category": "decormos",
 	"icon": "cover-image",
-	"description": "Hero-секция с медиа, текстом и областью формы.",
+	"description": "Главный баннер на весь экран.",
 	"example": {},
 	"attributes": {
 		"backgroundImageId": {
 			"type": "number",
 			"default": 0
 		},
-		"backgroundImageUrl": {
-			"type": "string",
-			"default": ""
+		"usePostImage": {
+			"type": "boolean",
+			"default": false
 		},
-		"backgroundImageAlt": {
-			"type": "string",
-			"default": ""
-		},
-		"backgroundImageWidth": {
+		"backgroundVideoId": {
 			"type": "number",
 			"default": 0
-		},
-		"backgroundImageHeight": {
-			"type": "number",
-			"default": 0
-		},
-		"videoId": {
-			"type": "number",
-			"default": 0
-		},
-		"videoUrl": {
-			"type": "string",
-			"default": ""
-		},
-		"title": {
-			"type": "string",
-			"source": "html",
-			"selector": ".hero__title",
-			"default": "Микроцемент для пола и стен"
-		},
-		"subtitle": {
-			"type": "string",
-			"source": "html",
-			"selector": ".hero__subtitle",
-			"default": "напрямую с завода под ключ"
-		},
-		"description": {
-			"type": "string",
-			"source": "html",
-			"selector": ".hero__description",
-			"default": ""
 		},
 		"showVideoOnMobileOnly": {
 			"type": "boolean",
 			"default": true
+		},
+		"usePostVideoSettings": {
+			"type": "boolean",
+			"default": false
+		},
+		"considerHeaderOffset": {
+			"type": "boolean",
+			"default": false
+		},
+		"headerSelector": {
+			"type": "string",
+			"default": ".header"
+		},
+		"heroBackgroundOpacity": {
+			"type": "number",
+			"default": 0.3
 		}
 	},
 	"supports": {
-		"html": false
+		"html": false,
+		"layout": {
+			"default": {
+				"type": "flex",
+				"orientation": "vertical"
+			},
+			"allowOrientation": false,
+			"allowJustification": true,
+			"allowVerticalAlignment": true
+		},
+		"spacing": {
+			"padding": true
+		}
 	},
 	"textdomain": "decormos-blocks",
+	"render": "file:./render.php",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css"
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
 }

@@ -1,89 +1,85 @@
 import { __ } from '@wordpress/i18n';
+import { getBlockDefaultClassName } from '@wordpress/blocks';
 import {
 	InnerBlocks,
 	InspectorControls,
-	MediaUpload,
-	MediaUploadCheck,
-	RichText,
 	useBlockProps,
 } from '@wordpress/block-editor';
 import {
 	BaseControl,
-	Button,
 	PanelBody,
+	RangeControl,
+	TextControl,
 	ToggleControl,
 } from '@wordpress/components';
+import useMediaData from '../../hooks/useMediaData';
+import MediaPickerControl from '../../ui/MediaPickerControl';
+import { createBem } from '../../utils/bem';
+import getWpImageClass from '../../utils/getWpImageClass';
 import './editor.scss';
 
-const ALLOWED_TEXT_FORMATS = [
-	'core/bold',
-	'core/italic',
-	'core/link',
-	'decormos/dynamic-placeholder',
-];
-
-function getVideoClassName( showVideoOnMobileOnly ) {
-	return showVideoOnMobileOnly
-		? 'hero__video-bg hero__video-bg--mobile-only'
-		: 'hero__video-bg';
-}
+const BLOCK_NAME = 'decormos/hero';
+const blockClassName = getBlockDefaultClassName( BLOCK_NAME );
+const bem = createBem( blockClassName );
 
 function getBackgroundImageClassName( backgroundImageId ) {
-	return backgroundImageId
-		? `hero__bg wp-image-${ backgroundImageId }`
-		: 'hero__bg';
+	const imageClassName = bem( 'bg' );
+	const wpImageClassName = getWpImageClass( backgroundImageId );
+
+	return wpImageClassName
+		? `${ imageClassName } ${ wpImageClassName }`
+		: imageClassName;
+}
+
+function getVideoClassName( showVideoOnMobileOnly ) {
+	return bem( 'video-bg', {
+		'mobile-only': showVideoOnMobileOnly,
+	} );
 }
 
 export default function Edit( { attributes, setAttributes } ) {
 	const {
 		backgroundImageId,
-		backgroundImageUrl,
-		backgroundImageAlt,
-		backgroundImageWidth,
-		backgroundImageHeight,
-		videoId,
-		videoUrl,
-		title,
-		subtitle,
-		description,
+		usePostImage,
+		backgroundVideoId,
 		showVideoOnMobileOnly,
+		usePostVideoSettings,
+		considerHeaderOffset,
+		headerSelector,
+		heroBackgroundOpacity,
 	} = attributes;
 
-	const blockProps = useBlockProps( {
-		className: 'hero',
-	} );
+	const backgroundImage = useMediaData( backgroundImageId );
+	const backgroundVideo = useMediaData( backgroundVideoId );
 
-	const onSelectBackgroundImage = ( media ) => {
+	const blockProps = useBlockProps({
+		className: 'alignfull',
+		style: {
+			'--heroBackgroundOpacity': heroBackgroundOpacity,
+		},
+	});
+
+	const onSelectBackgroundImage = ( media = {} ) => {
 		setAttributes( {
 			backgroundImageId: media?.id ?? 0,
-			backgroundImageUrl: media?.url ?? '',
-			backgroundImageAlt: media?.alt ?? '',
-			backgroundImageWidth: media?.width ?? 0,
-			backgroundImageHeight: media?.height ?? 0,
 		} );
 	};
 
 	const onRemoveBackgroundImage = () => {
 		setAttributes( {
 			backgroundImageId: 0,
-			backgroundImageUrl: '',
-			backgroundImageAlt: '',
-			backgroundImageWidth: 0,
-			backgroundImageHeight: 0,
 		} );
 	};
 
-	const onSelectVideo = ( media ) => {
+	const onSelectVideo = ( media = {} ) => {
 		setAttributes( {
-			videoId: media?.id ?? 0,
-			videoUrl: media?.url ?? '',
+			backgroundVideoId: media?.id ?? 0,
 		} );
 	};
 
 	const onRemoveVideo = () => {
 		setAttributes( {
-			videoId: 0,
-			videoUrl: '',
+			backgroundVideoId: 0,
 		} );
 	};
 
@@ -91,56 +87,46 @@ export default function Edit( { attributes, setAttributes } ) {
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Медиа', 'decormos-blocks' ) } initialOpen>
-					<BaseControl
-						label={ __( 'Фоновое изображение', 'decormos-blocks' ) }
-					>
-						<MediaUploadCheck>
-							<MediaUpload
-								onSelect={ onSelectBackgroundImage }
-								allowedTypes={ [ 'image' ] }
-								value={ backgroundImageId }
-								render={ ( { open } ) => (
-									<div className="decormos-hero-editor__media-actions">
-										<Button variant="secondary" onClick={ open }>
-											{ backgroundImageId
-												? __( 'Заменить изображение', 'decormos-blocks' )
-												: __( 'Выбрать изображение', 'decormos-blocks' ) }
-										</Button>
-										{ backgroundImageId ? (
-											<Button
-												variant="tertiary"
-												onClick={ onRemoveBackgroundImage }
-											>
-												{ __( 'Удалить изображение', 'decormos-blocks' ) }
-											</Button>
-										) : null }
-									</div>
-								) }
-							/>
-						</MediaUploadCheck>
+					<ToggleControl
+						label={ __( 'Использовать изображение записи', 'decormos-blocks' ) }
+						checked={ usePostImage }
+						onChange={ ( value ) => setAttributes( { usePostImage: value } ) }
+					/>
+					<BaseControl label={ __( 'Фоновое изображение', 'decormos-blocks' ) } >
+						<MediaPickerControl
+							value={ backgroundImageId }
+							onSelect={ onSelectBackgroundImage }
+							onRemove={ onRemoveBackgroundImage }
+							allowedTypes={ [ 'image' ] }
+							disabled={ usePostImage }
+							selectLabel={ __( 'Выбрать изображение', 'decormos-blocks' ) }
+							replaceLabel={ __( 'Заменить изображение', 'decormos-blocks' ) }
+							removeLabel={ __( 'Удалить изображение', 'decormos-blocks' ) }
+							className={ bem( 'media-actions' ) }
+						/>
 					</BaseControl>
+					<ToggleControl
+						label={ __(
+							'Использовать параметры видео от записи',
+							'decormos-blocks'
+						) }
+						checked={ usePostVideoSettings }
+						onChange={ ( value ) =>
+							setAttributes( { usePostVideoSettings: value } )
+						}
+					/>
 					<BaseControl label={ __( 'Фоновое видео', 'decormos-blocks' ) }>
-						<MediaUploadCheck>
-							<MediaUpload
-								onSelect={ onSelectVideo }
-								allowedTypes={ [ 'video' ] }
-								value={ videoId }
-								render={ ( { open } ) => (
-									<div className="decormos-hero-editor__media-actions">
-										<Button variant="secondary" onClick={ open }>
-											{ videoId
-												? __( 'Заменить видео', 'decormos-blocks' )
-												: __( 'Выбрать видео', 'decormos-blocks' ) }
-										</Button>
-										{ videoId ? (
-											<Button variant="tertiary" onClick={ onRemoveVideo }>
-												{ __( 'Удалить видео', 'decormos-blocks' ) }
-											</Button>
-										) : null }
-									</div>
-								) }
-							/>
-						</MediaUploadCheck>
+						<MediaPickerControl
+							value={ backgroundVideoId }
+							onSelect={ onSelectVideo }
+							onRemove={ onRemoveVideo }
+							allowedTypes={ [ 'video' ] }
+							disabled={ usePostVideoSettings }
+							selectLabel={ __( 'Выбрать видео', 'decormos-blocks' ) }
+							replaceLabel={ __( 'Заменить видео', 'decormos-blocks' ) }
+							removeLabel={ __( 'Удалить видео', 'decormos-blocks' ) }
+							className={ bem( 'media-actions' ) }
+						/>
 					</BaseControl>
 					<ToggleControl
 						label={ __( 'Показывать видео только на мобильных', 'decormos-blocks' ) }
@@ -149,10 +135,43 @@ export default function Edit( { attributes, setAttributes } ) {
 							setAttributes( { showVideoOnMobileOnly: value } )
 						}
 					/>
+					<ToggleControl
+						label={ __( 'Учитывать шапку', 'decormos-blocks' ) }
+						checked={ considerHeaderOffset }
+						onChange={ ( value ) =>
+							setAttributes( { considerHeaderOffset: value } )
+						}
+					/>
+					{ considerHeaderOffset ? (
+						<TextControl
+							label={ __( 'Селектор шапки', 'decormos-blocks' ) }
+							value={ headerSelector || '' }
+							onChange={ ( value ) =>
+								setAttributes( { headerSelector: value || '.header' } )
+							}
+							help={ __(
+								'Например: .header, #masthead, .site-header',
+								'decormos-blocks'
+							) }
+						/>
+					) : null }
+					<RangeControl
+						label={ __( 'Прозрачность затемнения фона', 'decormos-blocks' ) }
+						value={ heroBackgroundOpacity }
+						onChange={ ( value ) =>
+							setAttributes( {
+								heroBackgroundOpacity:
+									typeof value === 'number' ? value : 0.3,
+							} )
+						}
+						min={ 0 }
+						max={ 1 }
+						step={ 0.05 }
+					/>
 				</PanelBody>
 			</InspectorControls>
 			<section { ...blockProps }>
-				{ videoUrl ? (
+				{ backgroundVideo.url && (
 					<video
 						className={ getVideoClassName( showVideoOnMobileOnly ) }
 						playsInline
@@ -160,57 +179,27 @@ export default function Edit( { attributes, setAttributes } ) {
 						muted
 						loop
 						preload="auto"
-						src={ videoUrl }
+						src={ backgroundVideo.url }
 					/>
-				) : null }
-				{ backgroundImageUrl ? (
+				) }
+				{ backgroundImage.url ? (
 					<img
 						className={ getBackgroundImageClassName( backgroundImageId ) }
-						src={ backgroundImageUrl }
-						alt={ backgroundImageAlt || '' }
-						width={ backgroundImageWidth || undefined }
-						height={ backgroundImageHeight || undefined }
+						src={ backgroundImage.url }
+						alt={ backgroundImage.alt || '' }
+						width={ backgroundImage.width || undefined }
+						height={ backgroundImage.height || undefined }
 						fetchPriority="high"
 						loading="eager"
 						sizes="100vw"
 					/>
 				) : (
-					<div className="hero__bg hero__bg--placeholder">
-						{ __( 'Выберите фоновое изображение', 'decormos-blocks' ) }
-					</div>
-				) }
-				<div className="hero__inner container">
-					<div className="hero__title-wrapper">
-						<RichText
-							tagName="h1"
-							className="hero__title"
-							value={ title }
-							onChange={ ( value ) => setAttributes( { title: value } ) }
-							placeholder={ __( 'Заголовок hero-блока', 'decormos-blocks' ) }
-							allowedFormats={ ALLOWED_TEXT_FORMATS }
-						/>
-						<RichText
-							tagName="h2"
-							className="hero__subtitle"
-							value={ subtitle }
-							onChange={ ( value ) => setAttributes( { subtitle: value } ) }
-							placeholder={ __( 'Подзаголовок hero-блока', 'decormos-blocks' ) }
-							allowedFormats={ ALLOWED_TEXT_FORMATS }
-						/>
-					</div>
-					<RichText
-						tagName="div"
-						className="hero__description"
-						value={ description }
-						onChange={ ( value ) => setAttributes( { description: value } ) }
-						placeholder={ __(
-							'Опишите предложение, преимущества или добавьте произвольный список',
-							'decormos-blocks'
-						) }
+					<div
+						className={ `${ bem( 'bg', { placeholder: true } ) } empty-media-placeholder` }
 					/>
-					<div className="hero__form block-form">
-						<InnerBlocks />
-					</div>
+				) }
+				<div className={ bem( 'inner' ) }>
+					<InnerBlocks />
 				</div>
 			</section>
 		</>

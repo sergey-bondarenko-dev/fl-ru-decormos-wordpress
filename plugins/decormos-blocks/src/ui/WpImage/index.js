@@ -1,6 +1,4 @@
-function getWpImageClass( id ) {
-	return id ? ` wp-image-${ id }` : '';
-}
+import getWpImageClass from '../../utils/getWpImageClass';
 
 export default function WpImage( {
 	image,
@@ -11,8 +9,8 @@ export default function WpImage( {
 		return null;
 	}
 
-	const imageClassName = `${ className }${ getWpImageClass( image.id ) }`
-		.trim() || undefined;
+	const wpImageClassName = getWpImageClass( image.id );
+	const imageClassName = `${ className } ${ wpImageClassName }`.trim() || undefined;
 
 	return (
 		<img

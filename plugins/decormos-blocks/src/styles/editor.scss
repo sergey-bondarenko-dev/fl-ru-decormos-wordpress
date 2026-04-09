@@ -220,3 +220,28 @@
 		max-width: none;
 	}
 }
+
+.empty-media-placeholder {
+	background-color: #ccc;
+}
+
+.decormos-post-meta-richtext-control {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+
+	&__label {
+		margin: 0;
+		font-size: 11px;
+		font-weight: 500;
+		text-transform: uppercase;
+	}
+
+	&__field {
+		min-height: 88px;
+		padding: 8px;
+		border: 1px solid #949494;
+		border-radius: 2px;
+		background: #fff;
+	}
+}
