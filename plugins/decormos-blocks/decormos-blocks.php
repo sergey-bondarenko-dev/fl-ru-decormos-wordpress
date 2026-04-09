@@ -218,6 +218,28 @@ add_action( 'wp_enqueue_scripts', 'decormos_blocks_enqueue_shared_script' );
 add_action( 'rest_api_init', 'decormos_blocks_register_rest_routes' );
 add_filter( 'block_categories_all', 'decormos_blocks_register_category' );
 
+function decormos_blocks_register_post_template(): void {
+	$post_type_object = get_post_type_object( 'post' );
+
+	if ( ! $post_type_object ) {
+		return;
+	}
+
+	$post_type_object->template = array(
+		array(
+			'decormos/post-data',
+			array(
+				'lock' => array(
+					'move'   => true,
+					'remove' => true,
+				),
+			),
+		),
+	);
+	$post_type_object->template_lock = false;
+}
+add_action( 'init', 'decormos_blocks_register_post_template', 20 );
+
 function decormos_blocks_logo($className, $logo_id = null) {
 	$logo_id ??= (int) get_theme_mod( 'custom_logo' );
 

@@ -1,0 +1,10 @@
+.wp-block-decormos-post-data {
+	display: block;
+	margin-bottom: 3rem !important;
+
+	&__inner {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+}
