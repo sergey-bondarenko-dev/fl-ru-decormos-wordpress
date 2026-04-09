@@ -1,0 +1,40 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/yandex-map",
+	"version": "0.1.0",
+	"title": "Yandex Map",
+	"category": "decormos",
+	"icon": "location-alt",
+	"description": "Встраиваемая карта Яндекса по ссылке виджета.",
+	"attributes": {
+		"mapUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"ratioWidth": {
+			"type": "number",
+			"default": 16
+		},
+		"ratioHeight": {
+			"type": "number",
+			"default": 9
+		},
+		"title": {
+			"type": "string",
+			"default": "Карта"
+		},
+		"lazyLoad": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ]
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}
