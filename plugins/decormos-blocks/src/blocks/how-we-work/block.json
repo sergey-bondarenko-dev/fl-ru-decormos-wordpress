@@ -1,0 +1,50 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/how-we-work",
+	"version": "0.1.0",
+	"title": "How We Work",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Example block scaffolded with Create Block tool.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"image1Id": {
+			"type": "number",
+			"default": 0
+		},
+		"image2Id": {
+			"type": "number",
+			"default": 0
+		},
+		"image3Id": {
+			"type": "number",
+			"default": 0
+		},
+		"image4Id": {
+			"type": "number",
+			"default": 0
+		},
+		"cf7FormId": {
+			"type": "number",
+			"default": 0
+		},
+		"materialCalcUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"applicationUrl": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"viewScript": "file:./view.js"
+}

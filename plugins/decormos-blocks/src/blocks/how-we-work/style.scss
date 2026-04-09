@@ -1,0 +1,175 @@
+@use '../../styles/helpers' as *;
+
+.wp-block-decormos-how-we-work {
+	--card-preview-size: 150px;
+	--step-decor-size: 130px;
+	--decor-color: #8a8a8a;
+	--decor-opacity: .3;
+
+	min-height: 300px;
+
+	&__inner {
+		display: flex;
+		gap: 2rem var(--step-decor-size);
+		justify-content: space-between;
+		
+		@include media-down(lg) {
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			gap: var(--step-decor-size);
+		}
+	}
+
+	&__step {
+		display: flex;
+		gap: 1rem;
+		position: relative;
+
+		&::before {
+			content: "}";
+			font-size: 120px;
+			font-weight: 700;
+			position: absolute;
+			top: var(--step-decor-size);
+			right: 0;
+			transform: translateX(140px);
+
+			color: var(--decor-color);
+			opacity: var(--decor-opacity);
+
+			@include media-down(container) {
+				content: none;
+			}
+		}
+
+		&:last-child {
+			margin-right: var(--step-decor-size);
+
+			@include media-down(lg) {
+				margin-right: 0;
+				margin-bottom: var(--step-decor-size);
+			}
+
+			&::before {
+				content: none;
+			}
+		}
+
+		&-decor {
+			position: absolute;
+			top: -5%;
+			left: 100%;
+			transform: translate(-28%);
+			width: var(--step-decor-size);
+			height: var(--step-decor-size);
+			font-size: 120px;
+			font-weight: 700;
+			line-height: 1;
+			pointer-events: none;
+			white-space: nowrap;
+
+			color: var(--decor-color);
+			opacity: var(--decor-opacity);
+
+			@include media-down(lg) {
+				top: 100%;
+				transform: translate(-100%);
+			}
+
+			@include media-down(sm) {
+				left: 50%;
+				transform: translate(-50%);
+			}
+		}
+	}
+
+	&__card {
+		display: flex;
+		flex-direction: column;
+		gap: .5rem;
+		max-width: var(--card-preview-size);
+
+		&-preview {
+			display: flex;
+			flex-direction: column;
+			gap: .25rem;
+			
+
+			img {
+				width: var(--card-preview-size);
+				height: var(--card-preview-size);
+				object-fit: cover;
+			}
+
+			p {
+				font-weight: 700;
+				margin: 0;
+				font-size: 15px;
+			}
+		}
+
+		&-content {
+			display: flex;
+			flex-direction: column;
+			gap: .25rem;
+
+			small {
+				display: inline-block;
+				font-size: 12px;
+			}
+
+			.button {
+				padding-inline: .15rem;
+			}
+
+			.decor {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--color-alt);
+				font-size: 60px;
+				font-weight: 700;
+				writing-mode: vertical-rl;
+				text-align: center;
+			}
+
+			.wpcf7-form {
+				margin-bottom: 8px;
+
+				p {
+					margin: 0;
+
+					br {
+						display: none;
+					}
+				}
+
+				.form__input {
+					font-size: 14px;
+
+					&::placeholder {
+						font-size: inherit;	
+					}
+				}
+
+				.wpcf7-response-output {
+					margin: 0;
+					padding: 0.25rem;
+					font-size: 12px;
+					margin-top: 4px;
+				}
+
+				.form__submit {
+					padding-inline: .15rem;
+					width: 100%;
+				}
+
+				.wpcf7-not-valid-tip {
+					font-size: 12px;
+					margin-block: 4px;
+				}
+			}
+		}
+	}
+}

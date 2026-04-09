@@ -34,6 +34,8 @@ Text Domain: decormos-theme
   --container-padding-inline: 15px;
   --container-width-lg: var(--wp--style--global--wide-size);
 
+  --font-size-body: var(--wp--preset--font-size--body);
+
   --color-white: var(--wp--preset--color--white);
   --color-black: var(--wp--preset--color--black);
   --color-accent: var(--wp--preset--color--accent);

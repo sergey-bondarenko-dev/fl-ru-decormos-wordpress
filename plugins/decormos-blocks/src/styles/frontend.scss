@@ -32,23 +32,20 @@
     }
 }
 
-.wp-block-decormos-cf7-form {
-    form.wpcf7-form {
-       .wpcf7-spinner {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin: 0;
-            transform: translate(-50%, -50%);
-        }
-
-        .wpcf7-response-output {
-            margin: 0;
-        } 
+form.wpcf7-form {
+    .wpcf7-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: 0;
+        transform: translate(-50%, -50%);
     }
-    
-}
 
+    .wpcf7-response-output {
+        margin: 0;
+    } 
+}
+    
 .decormos-decor-rows {
     & &__row {
         @include media-breakpoint-down(lg) {

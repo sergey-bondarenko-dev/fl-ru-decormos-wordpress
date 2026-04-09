@@ -1,0 +1,62 @@
+.decormos-link-control {
+	margin-top: 16px;
+}
+
+.decormos-link-control .components-button.is-secondary {
+	margin-right: 8px;
+}
+
+.decormos-link-control__clear {
+	padding: 0;
+	min-height: 0;
+}
+
+.decormos-link-control__value {
+	margin-top: 8px;
+	font-size: 12px;
+	color: #50575e;
+	word-break: break-all;
+}
+
+.wp-block-decormos-how-we-work {
+	.decormos-image-control {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.decormos-image-control__label {
+		margin: 0;
+		font-size: 12px;
+		font-weight: 600;
+	}
+
+	.decormos-image-control__trigger {
+		appearance: none;
+		border: 1px dashed #c0c4cc;
+		background: #f6f7f7;
+		padding: 0;
+		cursor: pointer;
+		min-height: 150px;
+		width: 150px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 12px;
+		color: #50575e;
+	}
+
+	.decormos-image-control__trigger img {
+		display: block;
+		width: 150px;
+		height: 150px;
+		object-fit: cover;
+	}
+
+	.decormos-image-control__remove {
+		padding: 0;
+		height: auto;
+		min-height: 0;
+		width: fit-content;
+	}
+}

@@ -30,6 +30,12 @@ if ( ! function_exists( 'decormos_blocks_bem_class' ) ) {
 			}
 		}
 
-		return implode( ' ', $class_names );
+		return esc_attr(implode( ' ', $class_names ));
+	}
+}
+
+if ( ! function_exists( 'decormos_get_block_class_name' )) {
+	function decormos_get_block_class_name( $block_name ) {
+		return 'wp-block-' . str_replace( '/', '-', $block_name );
 	}
 }
