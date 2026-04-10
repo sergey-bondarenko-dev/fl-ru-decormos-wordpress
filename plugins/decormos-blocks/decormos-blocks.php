@@ -19,6 +19,7 @@ require_once __DIR__ . '/inc/dynamic-functions.php';
 require_once __DIR__ . '/inc/dynamic-placeholders.php';
 require_once __DIR__ . '/inc/dynamic-meta.php';
 require_once __DIR__ . '/inc/helpers.php';
+require_once __DIR__ . '/inc/core-image-fancybox.php';
 
 function decormos_blocks_has_carbon_fields(): bool {
 	return class_exists( '\Carbon_Fields\Carbon_Fields' ) || function_exists( 'carbon_get_theme_option' );
