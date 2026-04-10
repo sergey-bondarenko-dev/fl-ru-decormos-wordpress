@@ -45,6 +45,14 @@
 			"type": "string",
 			"default": "0%"
 		},
+		"shadowTranslateY": {
+			"type": "string",
+			"default": "0px"
+		},
+		"shadowTranslateX": {
+			"type": "string",
+			"default": "0px"
+		},
 		"shadowMaxWidth": {
 			"type": "string",
 			"default": "100%"
@@ -52,11 +60,22 @@
 		"shadowTitle": {
 			"type": "string",
 			"default": ""
+		},
+		"shadowColor": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
 		"html": false,
-		"align": [ "wide", "full" ]
+		"align": [ "wide", "full" ],
+		"color": {
+			"text": true
+		},
+		"typography": {
+			"fontSize": true,
+			"customFontSize": true
+		}
 	},
 	"textdomain": "decormos-blocks",
 	"editorScript": "file:./index.js",

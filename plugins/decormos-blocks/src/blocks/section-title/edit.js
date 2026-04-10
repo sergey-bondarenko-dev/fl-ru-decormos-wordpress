@@ -6,6 +6,7 @@ import {
 } from '@wordpress/block-editor';
 import {
 	__experimentalUnitControl as UnitControl,
+	ColorPalette,
 	PanelBody,
 	SelectControl,
 	TextControl,
@@ -63,8 +64,11 @@ export default function Edit( { attributes, setAttributes } ) {
 		titleOffsetX,
 		shadowOffsetY,
 		shadowOffsetX,
+		shadowTranslateY,
+		shadowTranslateX,
 		shadowMaxWidth,
 		shadowTitle,
+		shadowColor,
 	} = attributes;
 	const fallbackShadowTitle = stripHtml( title );
 	const blockProps = useBlockProps( {
@@ -79,7 +83,10 @@ export default function Edit( { attributes, setAttributes } ) {
 			'--section-title-offset-x': titleOffsetX,
 			'--section-title-shadow-offset-y': shadowOffsetY,
 			'--section-title-shadow-offset-x': shadowOffsetX,
+			'--section-title-shadow-translate-y': shadowTranslateY,
+			'--section-title-shadow-translate-x': shadowTranslateX,
 			'--section-title-shadow-max-width': shadowMaxWidth,
+			'--section-title-shadow-color': shadowColor || undefined,
 		},
 	} );
 
@@ -152,6 +159,24 @@ export default function Edit( { attributes, setAttributes } ) {
 						help={ __( 'Например: 0%, 10%, 32px.', 'decormos-blocks' ) }
 					/>
 					<UnitControl
+						label={ __( 'Translate тени по Y', 'decormos-blocks' ) }
+						value={ shadowTranslateY }
+						onChange={ ( value ) =>
+							setAttributes( { shadowTranslateY: value } )
+						}
+						units={ UNIT_CONTROL_UNITS }
+						help={ __( 'Например: 0px, 10%, 1rem.', 'decormos-blocks' ) }
+					/>
+					<UnitControl
+						label={ __( 'Translate тени по X', 'decormos-blocks' ) }
+						value={ shadowTranslateX }
+						onChange={ ( value ) =>
+							setAttributes( { shadowTranslateX: value } )
+						}
+						units={ UNIT_CONTROL_UNITS }
+						help={ __( 'Например: 0px, 10%, 1rem.', 'decormos-blocks' ) }
+					/>
+					<UnitControl
 						label={ __( 'Максимальная ширина тени', 'decormos-blocks' ) }
 						value={ shadowMaxWidth }
 						onChange={ ( value ) =>
@@ -173,6 +198,16 @@ export default function Edit( { attributes, setAttributes } ) {
 								: undefined
 						}
 					/>
+					<div>
+						<p>{ __( 'Цвет тени', 'decormos-blocks' ) }</p>
+						<ColorPalette
+							value={ shadowColor }
+							onChange={ ( value ) =>
+								setAttributes( { shadowColor: value || '' } )
+							}
+							clearable
+						/>
+					</div>
 				</PanelBody>
 			</InspectorControls>
 			<div { ...blockProps }>

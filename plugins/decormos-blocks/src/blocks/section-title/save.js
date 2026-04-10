@@ -13,8 +13,11 @@ export default function save( { attributes } ) {
 		titleOffsetX,
 		shadowOffsetY,
 		shadowOffsetX,
+		shadowTranslateY,
+		shadowTranslateX,
 		shadowMaxWidth,
 		shadowTitle,
+		shadowColor,
 	} = attributes;
 
 	return (
@@ -31,7 +34,10 @@ export default function save( { attributes } ) {
 					'--section-title-offset-x': titleOffsetX,
 					'--section-title-shadow-offset-y': shadowOffsetY,
 					'--section-title-shadow-offset-x': shadowOffsetX,
+					'--section-title-shadow-translate-y': shadowTranslateY,
+					'--section-title-shadow-translate-x': shadowTranslateX,
 					'--section-title-shadow-max-width': shadowMaxWidth,
+					'--section-title-shadow-color': shadowColor || undefined,
 				},
 			} ) }
 		>
