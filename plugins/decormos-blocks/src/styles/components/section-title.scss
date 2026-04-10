@@ -6,8 +6,13 @@
   --section-title-offset-y: 0px;
   --section-title-shadow-offset-x: 0%;
   --section-title-shadow-offset-y: 0%;
+  --section-title-shadow-translate-x: 0px;
+  --section-title-shadow-translate-y: 0px;
   --section-title-shadow-max-width: 100%;
+  --section-title-shadow-color: var(--color-alt);
 
+  color: var(--color-black);
+  font-size: 30px;
   font-weight: 700;
   text-transform: uppercase;
   padding-block: 1rem;
@@ -27,9 +32,13 @@
       position: absolute;
       top: var(--section-title-shadow-offset-y);
       left: var(--section-title-shadow-offset-x);
+      transform: translate(
+        var(--section-title-shadow-translate-x),
+        var(--section-title-shadow-translate-y)
+      );
       z-index: -1;
       font-size: fluid(48, 70);
-      color: var(--color-alt);
+      color: var(--section-title-shadow-color);
       line-height: 1;
       pointer-events: none;
       max-width: var(--section-title-shadow-max-width);
@@ -42,8 +51,8 @@
   }
 
   &__content {
-    color: var(--color-black);
-    font-size: 30px;
+    color: inherit;
+    font-size: inherit;
     font-weight: 700;
     transform: translate(
       var(--section-title-offset-x),

@@ -19,6 +19,12 @@
 @use './components/table-decormos';
 @use './components/question';
 
+:has(.swiper) {
+    min-width: 0;
+    min-height: 0;
+    max-width: 100%;
+}
+
 .accordion {
     border-style: inherit;
 }
@@ -129,4 +135,35 @@ form.wpcf7-form {
     & &__shadow {
         font-size: fluid(48, 80);
     }
+}
+
+p.is-style-paragraph-style-1 {
+    font-size: fluid(30, 90);
+}
+
+.is-style-heading-style-1 {
+    background-color: var(--color-alt);
+    border-top: 3px solid var(--color-accent);
+    border-bottom: 3px solid var(--color-accent);
+    padding-block: .5rem;
+}
+
+.is-style-group-style-1 {
+    border: 3px solid var(--color-accent);
+}
+
+.is-style-group-style-2 {
+    background-color: var(--color-alt);
+    border-top: 3px solid var(--color-accent);
+    border-bottom: 3px solid var(--color-accent);
+    padding-block: .5rem;
+}
+
+.decormos {
+    &-text-align-center-mobile {
+        @include media-down(md) {
+            text-align: center;
+        }
+    }
+
 }
