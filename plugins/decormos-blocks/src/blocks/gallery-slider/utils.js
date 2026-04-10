@@ -43,6 +43,26 @@ export const RESPONSIVE_OPTION_FIELDS = [
 
 const IMAGE_SIZES = [ 'large', 'medium_large', 'medium', 'full' ];
 
+function getSizeUrl( size ) {
+	return size?.url || size?.source_url || '';
+}
+
+function getSizeWidth( size ) {
+	return Number( size?.width ) || 0;
+}
+
+function getSizeHeight( size ) {
+	return Number( size?.height ) || 0;
+}
+
+function stripWpSizeSuffix( url ) {
+	if ( typeof url !== 'string' || ! url ) {
+		return '';
+	}
+
+	return url.replace( /-\d+x\d+(?=\.[^./?]+(?:\?.*)?$)/, '' );
+}
+
 function parseSlidesPerView( value ) {
 	if ( typeof value === 'string' && value.trim().toLowerCase() === 'auto' ) {
 		return 'auto';
@@ -63,7 +83,7 @@ export function getPreferredImageSize( media ) {
 	}
 
 	for ( const sizeName of IMAGE_SIZES ) {
-		if ( sizes[ sizeName ]?.url ) {
+		if ( getSizeUrl( sizes[ sizeName ] ) ) {
 			return sizes[ sizeName ];
 		}
 	}
@@ -71,16 +91,85 @@ export function getPreferredImageSize( media ) {
 	return media;
 }
 
+export function getOriginalImageUrl( media ) {
+	const fullUrlFromSizes =
+		getSizeUrl( media?.sizes?.full ) ||
+		getSizeUrl( media?.media_details?.sizes?.full );
+
+	if ( fullUrlFromSizes ) {
+		return fullUrlFromSizes;
+	}
+
+	if ( media?.source_url ) {
+		return media.source_url;
+	}
+
+	const candidates = [];
+	const pushCandidate = ( url, width, height ) => {
+		if ( ! url ) {
+			return;
+		}
+
+		candidates.push( {
+			url,
+			width: Number( width ) || 0,
+			height: Number( height ) || 0,
+		} );
+	};
+
+	const sizesCollections = [ media?.sizes, media?.media_details?.sizes ].filter(
+		Boolean
+	);
+	for ( const sizes of sizesCollections ) {
+		Object.values( sizes ).forEach( ( size ) => {
+			pushCandidate( getSizeUrl( size ), getSizeWidth( size ), getSizeHeight( size ) );
+		} );
+	}
+
+	pushCandidate( media?.originalUrl, media?.width, media?.height );
+	pushCandidate( media?.fullUrl, media?.width, media?.height );
+	pushCandidate( media?.url, media?.width, media?.height );
+
+	if ( candidates.length ) {
+		candidates.sort( ( first, second ) => {
+			const firstArea = first.width * first.height;
+			const secondArea = second.width * second.height;
+
+			if ( firstArea !== secondArea ) {
+				return secondArea - firstArea;
+			}
+
+			if ( first.width !== second.width ) {
+				return second.width - first.width;
+			}
+
+			return second.height - first.height;
+		} );
+
+		const largestUrl = candidates[ 0 ].url;
+		const strippedLargestUrl = stripWpSizeSuffix( largestUrl );
+
+		if ( media?.id && strippedLargestUrl && strippedLargestUrl !== largestUrl ) {
+			return strippedLargestUrl;
+		}
+
+		return largestUrl;
+	}
+
+	return stripWpSizeSuffix( media?.url ) || media?.url || '';
+}
+
 export function getImageValue( media ) {
 	const preferredSize = getPreferredImageSize( media );
+	const preferredSizeUrl = getSizeUrl( preferredSize );
 
 	return {
 		id: media?.id || 0,
-		url: preferredSize?.url || media?.url || '',
-		fullUrl: media?.url || preferredSize?.url || '',
+		url: preferredSizeUrl || media?.url || media?.source_url || '',
+		fullUrl: getOriginalImageUrl( media ),
 		alt: media?.alt || '',
-		width: preferredSize?.width || media?.width || 0,
-		height: preferredSize?.height || media?.height || 0,
+		width: getSizeWidth( preferredSize ) || media?.width || 0,
+		height: getSizeHeight( preferredSize ) || media?.height || 0,
 	};
 }
 
