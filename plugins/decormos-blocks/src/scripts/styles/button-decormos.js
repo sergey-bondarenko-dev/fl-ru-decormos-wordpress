@@ -3,5 +3,6 @@ import { __ } from '@wordpress/i18n';
 
 registerBlockStyle( 'core/button', {
 	name: 'decormos-button',
-	label: __( 'Decormos Button', 'decormos-blocks' ),
+	label: __( 'Фирменный', 'decormos-blocks' ),
 } );
+

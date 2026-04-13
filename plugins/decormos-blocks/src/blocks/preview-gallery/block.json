@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/preview-gallery",
+	"version": "0.1.0",
+	"title": "Превью с галереей",
+	"category": "decormos",
+	"icon": "format-gallery",
+	"description": "Фоновое превью с InnerBlocks и открытием всей галереи в Fancybox.",
+	"attributes": {
+		"images": {
+			"type": "array",
+			"default": []
+		},
+		"lightboxId": {
+			"type": "string",
+			"default": ""
+		},
+		"minHeight": {
+			"type": "string",
+			"default": "360px"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ]
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}

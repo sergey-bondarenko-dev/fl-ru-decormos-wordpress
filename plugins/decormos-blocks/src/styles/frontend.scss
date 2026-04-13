@@ -47,7 +47,7 @@ form.wpcf7-form {
         transform: translate(-50%, -50%);
     }
 
-    .wpcf7-response-output {
+    & div.wpcf7-response-output {
         margin: 0;
     } 
 }
@@ -166,4 +166,27 @@ p.is-style-paragraph-style-1 {
         }
     }
 
+}
+
+.decormos-cover-with-section-title {
+    img {
+        z-index: -1;
+    }
+}
+
+.wp-block-table {
+    max-width: 100%;
+}
+
+
+.max-width-100p {
+    max-width: 100%;
+}
+
+.flex-1 {
+flex: 1;
+}
+
+.overflow-hidden {
+    overflow: hidden;
 }

@@ -40,6 +40,54 @@ const TITLE_ALIGNMENT_OPTIONS = [
 	{ label: __( 'По обеим осям', 'decormos-blocks' ), value: 'both' },
 ];
 
+const SHADOW_PRESET_OPTIONS = [
+	{ label: __( 'Свои значения', 'decormos-blocks' ), value: 'custom' },
+	{ label: __( 'Сверху слева', 'decormos-blocks' ), value: 'top-left' },
+	{ label: __( 'Сверху справа', 'decormos-blocks' ), value: 'top-right' },
+	{ label: __( 'По центру', 'decormos-blocks' ), value: 'center' },
+	{ label: __( 'Снизу слева', 'decormos-blocks' ), value: 'bottom-left' },
+	{ label: __( 'Снизу справа', 'decormos-blocks' ), value: 'bottom-right' },
+];
+
+const SHADOW_TEXT_ALIGN_OPTIONS = [
+	{ label: __( 'Слева', 'decormos-blocks' ), value: 'left' },
+	{ label: __( 'По центру', 'decormos-blocks' ), value: 'center' },
+	{ label: __( 'Справа', 'decormos-blocks' ), value: 'right' },
+];
+
+const SHADOW_PRESETS = {
+	'top-left': {
+		offsetX: '0%',
+		offsetY: '0%',
+		translateX: '0px',
+		translateY: '0px',
+	},
+	'top-right': {
+		offsetX: '100%',
+		offsetY: '0%',
+		translateX: '-100%',
+		translateY: '0px',
+	},
+	center: {
+		offsetX: '50%',
+		offsetY: '50%',
+		translateX: '-50%',
+		translateY: '-50%',
+	},
+	'bottom-left': {
+		offsetX: '0%',
+		offsetY: '100%',
+		translateX: '0px',
+		translateY: '-100%',
+	},
+	'bottom-right': {
+		offsetX: '100%',
+		offsetY: '100%',
+		translateX: '-100%',
+		translateY: '-100%',
+	},
+};
+
 const UNIT_CONTROL_UNITS = [
 	{ value: 'px', label: 'px' },
 	{ value: '%', label: '%' },
@@ -66,10 +114,23 @@ export default function Edit( { attributes, setAttributes } ) {
 		shadowOffsetX,
 		shadowTranslateY,
 		shadowTranslateX,
+		shadowPreset,
+		shadowTextAlign,
 		shadowMaxWidth,
 		shadowTitle,
 		shadowColor,
 	} = attributes;
+
+	const selectedShadowPreset = SHADOW_PRESETS[ shadowPreset ];
+	const resolvedShadowOffsetY =
+		selectedShadowPreset?.offsetY || shadowOffsetY;
+	const resolvedShadowOffsetX =
+		selectedShadowPreset?.offsetX || shadowOffsetX;
+	const resolvedShadowTranslateY =
+		selectedShadowPreset?.translateY || shadowTranslateY;
+	const resolvedShadowTranslateX =
+		selectedShadowPreset?.translateX || shadowTranslateX;
+
 	const fallbackShadowTitle = stripHtml( title );
 	const blockProps = useBlockProps( {
 		className: clsx( 'section-title', {
@@ -81,10 +142,11 @@ export default function Edit( { attributes, setAttributes } ) {
 			'--section-title-height': titleHeight,
 			'--section-title-offset-y': titleOffsetY,
 			'--section-title-offset-x': titleOffsetX,
-			'--section-title-shadow-offset-y': shadowOffsetY,
-			'--section-title-shadow-offset-x': shadowOffsetX,
-			'--section-title-shadow-translate-y': shadowTranslateY,
-			'--section-title-shadow-translate-x': shadowTranslateX,
+			'--section-title-shadow-offset-y': resolvedShadowOffsetY,
+			'--section-title-shadow-offset-x': resolvedShadowOffsetX,
+			'--section-title-shadow-translate-y': resolvedShadowTranslateY,
+			'--section-title-shadow-translate-x': resolvedShadowTranslateX,
+			'--section-title-shadow-text-align': shadowTextAlign || 'left',
 			'--section-title-shadow-max-width': shadowMaxWidth,
 			'--section-title-shadow-color': shadowColor || undefined,
 		},
@@ -140,41 +202,59 @@ export default function Edit( { attributes, setAttributes } ) {
 						options={ LINE_POSITION_OPTIONS }
 						onChange={ ( value ) => setAttributes( { linePosition: value } ) }
 					/>
-					<UnitControl
-						label={ __( 'Смещение тени по Y', 'decormos-blocks' ) }
-						value={ shadowOffsetY }
-						onChange={ ( value ) =>
-							setAttributes( { shadowOffsetY: value } )
-						}
-						units={ UNIT_CONTROL_UNITS }
-						help={ __( 'Например: 0%, 50%, 2rem.', 'decormos-blocks' ) }
+					<SelectControl
+						label={ __( 'Пресет положения тени', 'decormos-blocks' ) }
+						value={ shadowPreset || 'custom' }
+						options={ SHADOW_PRESET_OPTIONS }
+						onChange={ ( value ) => setAttributes( { shadowPreset: value } ) }
 					/>
-					<UnitControl
-						label={ __( 'Смещение тени по X', 'decormos-blocks' ) }
-						value={ shadowOffsetX }
+					{ ( shadowPreset || 'custom' ) === 'custom' ? (
+						<>
+							<UnitControl
+								label={ __( 'Смещение тени по Y', 'decormos-blocks' ) }
+								value={ shadowOffsetY }
+								onChange={ ( value ) =>
+									setAttributes( { shadowOffsetY: value } )
+								}
+								units={ UNIT_CONTROL_UNITS }
+								help={ __( 'Например: 0%, 50%, 2rem.', 'decormos-blocks' ) }
+							/>
+							<UnitControl
+								label={ __( 'Смещение тени по X', 'decormos-blocks' ) }
+								value={ shadowOffsetX }
+								onChange={ ( value ) =>
+									setAttributes( { shadowOffsetX: value } )
+								}
+								units={ UNIT_CONTROL_UNITS }
+								help={ __( 'Например: 0%, 10%, 32px.', 'decormos-blocks' ) }
+							/>
+							<UnitControl
+								label={ __( 'Translate тени по Y', 'decormos-blocks' ) }
+								value={ shadowTranslateY }
+								onChange={ ( value ) =>
+									setAttributes( { shadowTranslateY: value } )
+								}
+								units={ UNIT_CONTROL_UNITS }
+								help={ __( 'Например: 0px, 10%, 1rem.', 'decormos-blocks' ) }
+							/>
+							<UnitControl
+								label={ __( 'Translate тени по X', 'decormos-blocks' ) }
+								value={ shadowTranslateX }
+								onChange={ ( value ) =>
+									setAttributes( { shadowTranslateX: value } )
+								}
+								units={ UNIT_CONTROL_UNITS }
+								help={ __( 'Например: 0px, 10%, 1rem.', 'decormos-blocks' ) }
+							/>
+						</>
+					) : null }
+					<SelectControl
+						label={ __( 'Выравнивание тени', 'decormos-blocks' ) }
+						value={ shadowTextAlign || 'left' }
+						options={ SHADOW_TEXT_ALIGN_OPTIONS }
 						onChange={ ( value ) =>
-							setAttributes( { shadowOffsetX: value } )
+							setAttributes( { shadowTextAlign: value } )
 						}
-						units={ UNIT_CONTROL_UNITS }
-						help={ __( 'Например: 0%, 10%, 32px.', 'decormos-blocks' ) }
-					/>
-					<UnitControl
-						label={ __( 'Translate тени по Y', 'decormos-blocks' ) }
-						value={ shadowTranslateY }
-						onChange={ ( value ) =>
-							setAttributes( { shadowTranslateY: value } )
-						}
-						units={ UNIT_CONTROL_UNITS }
-						help={ __( 'Например: 0px, 10%, 1rem.', 'decormos-blocks' ) }
-					/>
-					<UnitControl
-						label={ __( 'Translate тени по X', 'decormos-blocks' ) }
-						value={ shadowTranslateX }
-						onChange={ ( value ) =>
-							setAttributes( { shadowTranslateX: value } )
-						}
-						units={ UNIT_CONTROL_UNITS }
-						help={ __( 'Например: 0px, 10%, 1rem.', 'decormos-blocks' ) }
 					/>
 					<UnitControl
 						label={ __( 'Максимальная ширина тени', 'decormos-blocks' ) }

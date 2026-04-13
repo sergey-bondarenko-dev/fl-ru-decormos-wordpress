@@ -9,6 +9,18 @@ header.wp-block-template-part {
   background-color: var(--color-header-bg);
 }
 
+.wp-site-blocks > header.wp-block-template-part.header--opacity {
+  opacity: 0.5;
+
+  &.header--active {
+    opacity: 1;
+  }
+
+  @include hover {
+    opacity: 1;
+  }
+}
+
 .header {
   &--opacity {
     opacity: 0.5;

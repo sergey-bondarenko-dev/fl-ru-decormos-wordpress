@@ -301,7 +301,7 @@ $header_contacts = decormos_blocks_header_contacts('header__nav-footer d-flex d-
 
 ?>
 
-<div <?php echo get_block_wrapper_attributes( array( 'class' => 'header' ) ); ?>>
+<div <?php echo get_block_wrapper_attributes( array( 'class' => 'header header--home' ) ); ?>>
 	<div class="container header__inner">
 		<?php echo decormos_blocks_logo( 'header__logo' ); ?>
 		<?php

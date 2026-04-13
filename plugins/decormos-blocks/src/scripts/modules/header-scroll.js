@@ -1,5 +1,9 @@
 export const initHeaderScroll = () => {
-  const header = document.querySelector(".header--home");
+  const header =
+    document.querySelector(".wp-site-blocks > header.wp-block-template-part") ||
+    document.querySelector(".site-header") ||
+    document.querySelector(".wp-block-decormos-header.header") ||
+    document.querySelector(".header--home");
   if (!header) {
     return;
   }

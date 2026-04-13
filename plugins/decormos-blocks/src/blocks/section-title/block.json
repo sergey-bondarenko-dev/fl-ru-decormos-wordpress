@@ -53,6 +53,14 @@
 			"type": "string",
 			"default": "0px"
 		},
+		"shadowPreset": {
+			"type": "string",
+			"default": "custom"
+		},
+		"shadowTextAlign": {
+			"type": "string",
+			"default": "left"
+		},
 		"shadowMaxWidth": {
 			"type": "string",
 			"default": "100%"
@@ -75,6 +83,14 @@
 		"typography": {
 			"fontSize": true,
 			"customFontSize": true
+		}
+	},
+	"selectors": {
+		"color": {
+			"text": ".wp-block-decormos-section-title .section-title__content"
+		},
+		"typography": {
+			"root": ".wp-block-decormos-section-title .section-title__content"
 		}
 	},
 	"textdomain": "decormos-blocks",
