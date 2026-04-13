@@ -76,6 +76,40 @@ if ( ! function_exists( 'decormos_blocks_register_post_display_meta' ) ) {
 				),
 			)
 		);
+
+		register_post_meta(
+			'post',
+			'decormos_post_images',
+			array(
+				'type' => 'array',
+				'single' => true,
+				'default' => array(),
+				'description' => __( 'Массив ID изображений записи', 'decormos-blocks' ),
+				'sanitize_callback' => static function ( $value ) {
+					if ( ! is_array( $value ) ) {
+						return array();
+					}
+
+					$ids = array_map( 'absint', $value );
+					$ids = array_filter( $ids, static fn ($id) => $id > 0 );
+					$ids = array_values( array_unique( $ids ) );
+
+					return $ids;
+				},
+				'auth_callback' => static function ( $allowed, $meta_key, $post_id ) {
+					return current_user_can( 'edit_post', (int) $post_id );
+				},
+				'show_in_rest' => array(
+					'schema' => array(
+						'type' => 'array',
+						'items' => array(
+							'type' => 'integer',
+						),
+						'defualt' => array(),
+					),
+				),
+			),
+		);
 	}
 }
 add_action( 'init', 'decormos_blocks_register_post_display_meta' );
