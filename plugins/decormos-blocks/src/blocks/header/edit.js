@@ -14,10 +14,12 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit( { attributes, setAttributes } ) {
+	const MENU_ADMIN_BASE_URL = '/wp-admin/nav-menus.php';
+	const { menuId } = attributes;
+
 	const [ menuOptions, setMenuOptions ] = useState( [
 		{ label: __( 'Загрузка меню...', 'decormos-blocks' ), value: '0' },
 	] );
-	const menusAdminUrl = '/wp-admin/nav-menus.php';
 
 	useEffect( () => {
 		let isMounted = true;
@@ -63,7 +65,9 @@ export default function Edit( { attributes, setAttributes } ) {
 							setAttributes( { menuId: Number( value ) || 0 } )
 						}
 					/>
-					<ExternalLink href={ menusAdminUrl }>
+					<ExternalLink 
+						href={ menuId ? `${MENU_ADMIN_BASE_URL}?action=edit&menu=${menuId}` : MENU_ADMIN_BASE_URL }
+					>
 						{ __( 'Редактировать меню', 'decormos-blocks' ) }
 					</ExternalLink>
 				</PanelBody>
