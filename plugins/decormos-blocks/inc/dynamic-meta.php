@@ -105,7 +105,9 @@ if ( ! function_exists( 'decormos_blocks_register_post_display_meta' ) ) {
 						'items' => array(
 							'type' => 'integer',
 						),
-						'defualt' => array(),
+						'title'       => __( 'Изображения записи', 'decormos-blocks' ),
+						'description' => __( 'Массив ID изображений записи.', 'decormos-blocks' ),
+						'default' => array(),
 					),
 				),
 			),

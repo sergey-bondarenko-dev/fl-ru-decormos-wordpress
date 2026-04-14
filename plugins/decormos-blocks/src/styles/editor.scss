@@ -245,3 +245,11 @@
 		background: #fff;
 	}
 }
+
+.decormos-meta-control-combobox {
+	input.components-combobox-control__input {
+		&::placeholder {
+			font-size: 13px;
+		}
+	}
+}

@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
-import { useEffect, useRef } from '@wordpress/element';
+import { useCallback, useEffect, useMemo, useRef } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 import {
 	__experimentalNumberControl as NumberControl,
 	Button,
@@ -14,6 +15,7 @@ import Swiper from 'swiper';
 import { Navigation } from 'swiper/modules';
 import MediaGalleryControl from '../../ui/MediaGalleryControl';
 import ResponsiveOptionsControl from '../../ui/ResponsiveOptionsControl';
+import MetaControl from '../../ui/MetaControl';
 import {
 	BREAKPOINT_DEFAULTS,
 	buildSwiperOptions,
@@ -22,6 +24,7 @@ import {
 	getImageValue,
 	mapMediaItems,
 	normalizeBreakpoint,
+	normalizeImageIdsFromMetaValue,
 	normalizeOptions,
 	normalizeSliderHeight,
 	normalizeImageMode,
@@ -32,6 +35,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import './editor.scss';
 
+const SOURCE_TYPE_MANUAL = 'manual';
+const SOURCE_TYPE_META = 'meta';
+
 function PreviewSlides( { items, options, sliderRef } ) {
 	if ( ! items.length ) {
 		return (
@@ -41,7 +47,7 @@ function PreviewSlides( { items, options, sliderRef } ) {
 				</div>
 				<div className="gallery-slider__placeholder-text">
 					{ __(
-						'Добавь изображения в боковой панели, чтобы увидеть превью блока.',
+						'Добавь изображения или выбери meta-поле в боковой панели, чтобы увидеть превью блока.',
 						'decormos-blocks'
 					) }
 				</div>
@@ -52,20 +58,20 @@ function PreviewSlides( { items, options, sliderRef } ) {
 	return (
 		<div className="gallery-slider swiper" ref={ sliderRef }>
 			<div className="swiper-wrapper">
-			{ items.map( ( item, index ) => (
-				<div
-					className="swiper-slide gallery-slider__editor-slide"
-					key={ `${ item.id || 'item' }-${ index }` }
-				>
-					{ item.url ? (
-						<img
-							className="gallery-slider__image"
-							src={ item.url }
-							alt={ item.alt || '' }
-						/>
-					) : null }
-				</div>
-			) ) }
+				{ items.map( ( item, index ) => (
+					<div
+						className="swiper-slide gallery-slider__editor-slide"
+						key={ `${ item.id || 'item' }-${ index }` }
+					>
+						{ item.url ? (
+							<img
+								className="gallery-slider__image"
+								src={ item.url }
+								alt={ item.alt || '' }
+							/>
+						) : null }
+					</div>
+				) ) }
 			</div>
 			{ options.navigation ? (
 				<div className="gallery-slider__navigation">
@@ -90,9 +96,62 @@ export default function Edit( { attributes, setAttributes } ) {
 	const lightboxId = attributes.lightboxId || '';
 	const sliderHeight = normalizeSliderHeight( attributes.sliderHeight );
 	const imageMode = normalizeImageMode( attributes.imageMode );
+	const sourceType =
+		attributes.sourceType === SOURCE_TYPE_META ? SOURCE_TYPE_META : SOURCE_TYPE_MANUAL;
+	const meta = attributes.meta || {
+		metaType: 'post',
+		entity: '',
+		metaKey: '',
+	};
 	const options = normalizeOptions( attributes.options );
 	const breakpoints = ( attributes.breakpoints || [] ).map( normalizeBreakpoint );
 	const normalizedItems = items.map( getImageValue ).filter( ( item ) => item.url );
+	const dynamicMetaKey = meta?.metaKey || '';
+	const dynamicMetaType = meta?.metaType || 'post';
+	const dynamicMetaValue = useSelect(
+		( select ) => {
+			if (
+				sourceType !== SOURCE_TYPE_META ||
+				dynamicMetaType !== 'post' ||
+				! dynamicMetaKey
+			) {
+				return [];
+			}
+
+			const editorStore = select( 'core/editor' );
+
+			if ( ! editorStore?.getEditedPostAttribute ) {
+				return [];
+			}
+
+			const currentMeta = editorStore.getEditedPostAttribute( 'meta' ) || {};
+			return currentMeta[ dynamicMetaKey ];
+		},
+		[ sourceType, dynamicMetaType, dynamicMetaKey ]
+	);
+	const dynamicImageIds = useMemo(
+		() => normalizeImageIdsFromMetaValue( dynamicMetaValue ),
+		[ dynamicMetaValue ]
+	);
+	const dynamicMediaItems = useSelect(
+		( select ) => {
+			if ( sourceType !== SOURCE_TYPE_META || ! dynamicImageIds.length ) {
+				return [];
+			}
+
+			const coreSelect = select( 'core' );
+
+			return dynamicImageIds
+				.map( ( id ) => coreSelect.getMedia( id ) )
+				.filter( Boolean );
+		},
+		[ sourceType, dynamicImageIds.join( ',' ) ]
+	);
+	const dynamicItems = dynamicMediaItems
+		.map( getImageValue )
+		.filter( ( item ) => item.url );
+	const previewItems =
+		sourceType === SOURCE_TYPE_META ? dynamicItems : normalizedItems;
 	const sliderRef = useRef( null );
 	const swiperRef = useRef( null );
 	const blockProps = useBlockProps( {
@@ -105,10 +164,15 @@ export default function Edit( { attributes, setAttributes } ) {
 	const previewOptions = buildSwiperOptions( options, breakpoints );
 	const previewOptionsKey = JSON.stringify( previewOptions );
 	const previewItemsKey = JSON.stringify(
-		normalizedItems.map( ( item ) => ( {
+		previewItems.map( ( item ) => ( {
 			id: item.id,
 			url: item.url,
 		} ) )
+	);
+	const isDynamicSource = sourceType === SOURCE_TYPE_META;
+	const filterMetaKey = useCallback(
+		( field ) => field.type === 'array' && field.itemsType === 'integer',
+		[]
 	);
 
 	useEffect( () => {
@@ -124,7 +188,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	useEffect( () => {
 		const sliderElement = sliderRef.current;
 
-		if ( ! sliderElement || ! normalizedItems.length ) {
+		if ( ! sliderElement || ! previewItems.length ) {
 			if ( swiperRef.current ) {
 				swiperRef.current.destroy( true, true );
 				swiperRef.current = null;
@@ -159,7 +223,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				swiperRef.current = null;
 			}
 		};
-	}, [ normalizedItems.length, previewItemsKey, previewOptionsKey ] );
+	}, [ previewItems.length, previewItemsKey, previewOptionsKey ] );
 
 	const updateOptions = ( nextOptions ) => {
 		setAttributes( {
@@ -205,25 +269,51 @@ export default function Edit( { attributes, setAttributes } ) {
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Изображения', 'decormos-blocks' ) } initialOpen>
-					<MediaGalleryControl
-						label={ __( 'Галерея', 'decormos-blocks' ) }
-						items={ items }
-						buttonLabel={ __( 'Выбрать изображения', 'decormos-blocks' ) }
-						emptyText={ __( 'Изображения пока не добавлены.', 'decormos-blocks' ) }
-						onChange={ ( mediaItems ) =>
-							setAttributes( { items: mapMediaItems( mediaItems ) } )
+					<ToggleControl
+						label={ __( 'Динамический источник', 'decormos-blocks' ) }
+						checked={ isDynamicSource }
+						onChange={ ( checked ) =>
+							setAttributes( {
+								sourceType: checked ? SOURCE_TYPE_META : SOURCE_TYPE_MANUAL,
+							} )
 						}
-						getItemTitle={ ( item, index ) => `Изображение ${ index + 1 }` }
+						help={
+							isDynamicSource
+								? __( 'Изображения берутся из meta-поля текущей сущности.', 'decormos-blocks' )
+								: __( 'Изображения задаются вручную через медиабиблиотеку.', 'decormos-blocks' )
+						}
 					/>
+
+					{ isDynamicSource ? (
+						<MetaControl
+							value={ meta }
+							onChange={ ( nextMeta ) => setAttributes( { meta: nextMeta } ) }
+							filterMetaKey={ filterMetaKey }
+						/>
+					) : (
+						<MediaGalleryControl
+							label={ __( 'Галерея', 'decormos-blocks' ) }
+							items={ items }
+							buttonLabel={ __( 'Выбрать изображения', 'decormos-blocks' ) }
+							emptyText={ __( 'Изображения пока не добавлены.', 'decormos-blocks' ) }
+							onChange={ ( mediaItems ) =>
+								setAttributes( { items: mapMediaItems( mediaItems ) } )
+							}
+							getItemTitle={ ( item, index ) => `Изображение ${ index + 1 }` }
+						/>
+					) }
 				</PanelBody>
 
-				<PanelBody title={ __( 'Основные настройки', 'decormos-blocks' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'Основные настройки', 'decormos-blocks' ) }
+					initialOpen={ false }
+				>
 					<TextControl
 						label={ __( 'Высота слайдера', 'decormos-blocks' ) }
 						value={ sliderHeight }
-						onChange={ ( value ) =>
+						onChange={ ( nextValue ) =>
 							setAttributes( {
-								sliderHeight: normalizeSliderHeight( value ),
+								sliderHeight: normalizeSliderHeight( nextValue ),
 							} )
 						}
 						help={ __( 'Любое CSS-значение. Например: auto, 400px, 60vh.', 'decormos-blocks' ) }
@@ -235,9 +325,9 @@ export default function Edit( { attributes, setAttributes } ) {
 							{ label: __( 'По умолчанию', 'decormos-blocks' ), value: IMAGE_MODE_DEFAULT },
 							{ label: __( 'Заполнять', 'decormos-blocks' ), value: IMAGE_MODE_FILL },
 						] }
-						onChange={ ( value ) =>
+						onChange={ ( nextValue ) =>
 							setAttributes( {
-								imageMode: normalizeImageMode( value ),
+								imageMode: normalizeImageMode( nextValue ),
 							} )
 						}
 					/>
@@ -249,28 +339,28 @@ export default function Edit( { attributes, setAttributes } ) {
 					<ToggleControl
 						label={ __( 'Зациклить слайдер', 'decormos-blocks' ) }
 						checked={ options.loop }
-						onChange={ ( value ) => updateOptions( { loop: value } ) }
+						onChange={ ( nextValue ) => updateOptions( { loop: nextValue } ) }
 					/>
 					<ToggleControl
 						label={ __( 'Округлять размеры', 'decormos-blocks' ) }
 						checked={ options.roundLengths }
-						onChange={ ( value ) => updateOptions( { roundLengths: value } ) }
+						onChange={ ( nextValue ) => updateOptions( { roundLengths: nextValue } ) }
 					/>
 					<ToggleControl
 						label={ __( 'Показывать навигацию', 'decormos-blocks' ) }
 						checked={ options.navigation }
-						onChange={ ( value ) => updateOptions( { navigation: value } ) }
+						onChange={ ( nextValue ) => updateOptions( { navigation: nextValue } ) }
 					/>
 					<ToggleControl
 						label={ __( 'Открывать изображения в лайтбоксе', 'decormos-blocks' ) }
 						checked={ options.useLightbox }
-						onChange={ ( value ) => updateOptions( { useLightbox: value } ) }
+						onChange={ ( nextValue ) => updateOptions( { useLightbox: nextValue } ) }
 					/>
 					<RangeControl
 						label={ __( 'Скорость анимации', 'decormos-blocks' ) }
 						value={ options.speed }
-						onChange={ ( value ) =>
-							updateOptions( { speed: Number( value ) || DEFAULT_OPTIONS.speed } )
+						onChange={ ( nextValue ) =>
+							updateOptions( { speed: Number( nextValue ) || DEFAULT_OPTIONS.speed } )
 						}
 						min={ 0 }
 						max={ 2000 }
@@ -289,9 +379,9 @@ export default function Edit( { attributes, setAttributes } ) {
 									<NumberControl
 										label={ __( 'Ширина экрана', 'decormos-blocks' ) }
 										value={ breakpoint.width }
-										onChange={ ( value ) =>
+										onChange={ ( nextValue ) =>
 											updateBreakpoint( index, {
-												width: Number( value ) || BREAKPOINT_DEFAULTS.width,
+												width: Number( nextValue ) || BREAKPOINT_DEFAULTS.width,
 											} )
 										}
 										min={ 0 }
@@ -331,11 +421,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 			<div { ...blockProps }>
 				<div className="gallery-slider__editor-preview">
-					<PreviewSlides
-						items={ normalizedItems }
-						options={ options }
-						sliderRef={ sliderRef }
-					/>
+					<PreviewSlides items={ previewItems } options={ options } sliderRef={ sliderRef } />
 				</div>
 			</div>
 		</>

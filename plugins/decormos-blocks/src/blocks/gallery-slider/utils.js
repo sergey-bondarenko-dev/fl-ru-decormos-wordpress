@@ -177,6 +177,42 @@ export function mapMediaItems( mediaItems ) {
 	return ( mediaItems || [] ).map( getImageValue );
 }
 
+export function normalizeImageIdsFromMetaValue( value ) {
+	let normalizedValue = value;
+
+	if ( typeof normalizedValue === 'string' ) {
+		const trimmedValue = normalizedValue.trim();
+
+		if ( ! trimmedValue ) {
+			return [];
+		}
+
+		try {
+			const decodedValue = JSON.parse( trimmedValue );
+
+			if ( Array.isArray( decodedValue ) || Number.isFinite( Number( decodedValue ) ) ) {
+				normalizedValue = decodedValue;
+			} else {
+				normalizedValue = trimmedValue.split( /[\s,;]+/ );
+			}
+		} catch ( error ) {
+			normalizedValue = trimmedValue.split( /[\s,;]+/ );
+		}
+	}
+
+	if ( ! Array.isArray( normalizedValue ) ) {
+		normalizedValue = [ normalizedValue ];
+	}
+
+	return Array.from(
+		new Set(
+			normalizedValue
+				.map( ( item ) => Number( item ) )
+				.filter( ( id ) => Number.isInteger( id ) && id > 0 )
+		)
+	);
+}
+
 export function normalizeItems( items = [] ) {
 	return items.filter( ( item ) => item?.url ).map( getImageValue );
 }
