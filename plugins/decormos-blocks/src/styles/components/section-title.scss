@@ -37,7 +37,7 @@
         var(--section-title-shadow-translate-x),
         var(--section-title-shadow-translate-y)
       );
-      z-index: -1;
+      z-index: 0;
       font-size: fluid(48, 70);
       color: var(--section-title-shadow-color);
       text-align: var(--section-title-shadow-text-align);
