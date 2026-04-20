@@ -51,4 +51,12 @@ boot_projects_cpt();
     );
 });
 
+add_action('wp_head', function () {
+    ?>
+    <!-- Novofon -->
+    <script type="text/javascript" async src="https://widget.novofon.ru/novofon.js?k=U5ioGOuyOzpP28F3Vvi6e0KHHKRNb9KV"></script>
+    <!-- Novofon -->
+    <?php
+}, 20);
+
 
