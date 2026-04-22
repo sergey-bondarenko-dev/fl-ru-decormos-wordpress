@@ -2,7 +2,6 @@ import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { 
-	InnerBlocks, 
 	MediaPlaceholder, 
 	MediaUpload, 
 	MediaUploadCheck, 
@@ -159,8 +158,6 @@ export default function Edit( { context } ) {
 								/>
 							</MediaUploadCheck>
 						}
-
-						<InnerBlocks />
 					</>
 				)}
 			</div>
