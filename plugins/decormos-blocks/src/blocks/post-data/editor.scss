@@ -1,6 +1,8 @@
 .wp-block-decormos-post-data {
 	display: block;
+	padding-bottom: 3rem !important;
 	margin-bottom: 3rem !important;
+	border-bottom: 2px solid var(--color-accent, #000);
 
 	&__inner {
 		display: flex;
