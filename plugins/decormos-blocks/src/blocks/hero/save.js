@@ -1,5 +1,7 @@
-import { InnerBlocks } from '@wordpress/block-editor';
+import { useInnerBlocksProps } from '@wordpress/block-editor';
 
 export default function save() {
-	return <InnerBlocks.Content />;
+	const innerBlocksProps = useInnerBlocksProps.save();
+
+	return innerBlocksProps.children;
 }

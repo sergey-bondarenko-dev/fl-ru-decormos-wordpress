@@ -16,6 +16,11 @@
     z-index: 1;
   }
 
+	& > :not(.wp-block-decormos-hero__bg):not(.wp-block-decormos-hero__video-bg) {
+		position: relative;
+		z-index: 2;
+	}
+
 	@media (min-height: 1080px) {
     min-height: auto;
     max-height: 1100px;
@@ -41,5 +46,14 @@
 
 	&__video {
 		display: none;
+	}
+
+	&__video-bg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		object-fit: cover;
 	}
 }

@@ -127,8 +127,6 @@ if ( $resolved_image_id > 0 ) {
 	echo '<div class="' . esc_attr( $placeholder_class_name ) . '"></div>';
 }
 
-echo '<div class="' . esc_attr( decormos_blocks_bem_class( $block_class_name, 'inner' ) ) . '">';
 echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-echo '</div>';
 
 echo '</section>';

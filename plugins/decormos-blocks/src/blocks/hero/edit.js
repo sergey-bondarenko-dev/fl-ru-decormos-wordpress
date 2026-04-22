@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { getBlockDefaultClassName } from '@wordpress/blocks';
 import {
-	InnerBlocks,
 	InspectorControls,
 	useBlockProps,
+	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import {
 	BaseControl,
@@ -58,6 +58,9 @@ export default function Edit( { attributes, setAttributes } ) {
 			'--heroBackgroundOpacity': heroBackgroundOpacity,
 		},
 	});
+	const innerBlocksProps = useInnerBlocksProps( {
+		className: bem( 'inner' ),
+	} );
 
 	const onSelectBackgroundImage = ( media = {} ) => {
 		setAttributes( {
@@ -198,9 +201,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						className={ `${ bem( 'bg', { placeholder: true } ) } empty-media-placeholder` }
 					/>
 				) }
-				<div className={ bem( 'inner' ) }>
-					<InnerBlocks />
-				</div>
+				<div { ...innerBlocksProps } />
 			</section>
 		</>
 	);
