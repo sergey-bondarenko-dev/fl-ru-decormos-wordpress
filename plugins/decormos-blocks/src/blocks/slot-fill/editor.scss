@@ -1,0 +1,17 @@
+.wp-block-decormos-slot-fill {
+	display: block;
+
+	.decormos-slot-fill {
+		padding: 12px;
+		border: 1px dashed #ad8f00;
+		background: #fff9dd;
+	}
+
+	.decormos-slot-fill__label {
+		margin-bottom: 8px;
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
+		opacity: 0.75;
+	}
+}
