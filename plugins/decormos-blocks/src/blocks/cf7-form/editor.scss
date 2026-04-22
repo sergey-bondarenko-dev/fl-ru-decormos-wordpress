@@ -3,4 +3,10 @@
 		display: grid;
 		gap: 0.75rem;
 	}
+
+	input,
+	button,
+	textarea {
+		pointer-events: none;
+	}
 }

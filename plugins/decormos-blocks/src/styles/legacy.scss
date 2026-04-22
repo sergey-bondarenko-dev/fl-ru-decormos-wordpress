@@ -397,13 +397,14 @@ a[href^="tel"] {
   max-width: 100%;
 }
 
-.form__input {
+input.form__input[type] {
   width: 100%;
   max-width: 165px;
   height: 41px;
   padding: 1px 5px 0 0;
   background-color: transparent;
   border: none;
+  border-radius: 0;
   font-size: 16px;
   letter-spacing: 1.2px;
   border-bottom: 1px solid #2a2a2a;
