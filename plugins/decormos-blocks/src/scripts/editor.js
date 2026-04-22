@@ -4,6 +4,7 @@ import './formats/dynamic-placeholder';
 import './plugins/single-template-panel';
 import './plugins/post-display-meta-panel';
 import './plugins/core-image-fancybox-toggle';
+import './plugins/custom-classname-textarea';
 import './styles/button-decormos';
 import './styles/group-section';
 import './styles/heading-style-1';
