@@ -51,6 +51,12 @@ boot_projects_cpt();
     );
 });
 
+\add_action('wp_head', static function (): void {
+    if (\defined('WPSEO_VERSION') || \class_exists(\Yoast\WP\SEO\Integrations\Front_End_Integration::class)) {
+        \remove_action('wp_head', '_block_template_render_title_tag', 1);
+    }
+}, 0);
+
 add_action('wp_head', function () {
     ?>
     <!-- Novofon -->
