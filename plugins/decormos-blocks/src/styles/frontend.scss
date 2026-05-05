@@ -159,15 +159,6 @@ p.is-style-paragraph-style-1 {
     padding-block: .5rem;
 }
 
-.decormos {
-    &-text-align-center-mobile {
-        @include media-down(md) {
-            text-align: center;
-        }
-    }
-
-}
-
 .decormos-cover-with-section-title {
     img {
         z-index: -1;
@@ -178,18 +169,6 @@ p.is-style-paragraph-style-1 {
     max-width: 100%;
 }
 
-
-.max-width-100p {
-    max-width: 100%;
-}
-
-.flex-1 {
-flex: 1;
-}
-
-.overflow-hidden {
-    overflow: hidden;
-}
 
 .decormos-our-projects-title {
     font-size: fluid(56, 80);
