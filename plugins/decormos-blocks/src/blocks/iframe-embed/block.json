@@ -1,0 +1,49 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "decormos/iframe-embed",
+	"version": "0.1.0",
+	"title": "Iframe Embed",
+	"category": "decormos",
+	"icon": "embed-generic",
+	"description": "Безопасная вставка iframe-кода из разрешенных источников.",
+	"attributes": {
+		"iframeCode": {
+			"type": "string",
+			"default": ""
+		},
+		"src": {
+			"type": "string",
+			"default": ""
+		},
+		"width": {
+			"type": "number",
+			"default": 640
+		},
+		"height": {
+			"type": "number",
+			"default": 360
+		},
+		"title": {
+			"type": "string",
+			"default": "Встроенное видео"
+		},
+		"allow": {
+			"type": "string",
+			"default": "autoplay; encrypted-media; fullscreen; picture-in-picture"
+		},
+		"allowFullScreen": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ]
+	},
+	"textdomain": "decormos-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}
