@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
-import { ExternalLink, PanelBody, SelectControl } from '@wordpress/components';
+import { ExternalLink, PanelBody, SelectControl, TextControl } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import ServerSideRender from '@wordpress/server-side-render';
 
@@ -70,6 +70,12 @@ export default function Edit( { attributes, setAttributes } ) {
 					>
 						{ __( 'Редактировать меню', 'decormos-blocks' ) }
 					</ExternalLink>
+					<TextControl
+						label={ __( 'Телефон', 'decormos-blocks' ) }
+						help={ __( 'Оставьте пустым, чтобы использовать телефон из опций темы.', 'decormos-blocks' ) }
+						value={ attributes.phone || '' }
+						onChange={ ( phone ) => setAttributes( { phone } ) }
+					/>
 				</PanelBody>
 			</InspectorControls>
 			<ServerSideRender

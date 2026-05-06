@@ -243,9 +243,13 @@ if ( ! function_exists( 'decormos_blocks_render_header_menu_items' ) ) {
 }
 
 if ( ! function_exists( 'decormos_blocks_header_contacts' ) ) {
-	function decormos_blocks_header_contacts($class_name = ''): string {
-		$phone     = decormos_blocks_get_theme_option( 'crb_decormos_phone' );
+	function decormos_blocks_header_contacts($class_name = '', $phone = ''): string {
+		$phone     = trim( (string) $phone );
 		$work_time = decormos_blocks_get_theme_option( 'crb_decormos_work_time' );
+
+		if ( ! $phone ) {
+			$phone = decormos_blocks_get_theme_option( 'crb_decormos_phone' );
+		}
 
 		if ( ! $phone ) {
 			$phone = '+7 (000) 000 00-00';
@@ -297,7 +301,8 @@ if ( $selected_menu_id > 0 ) {
 $menu_tree       = decormos_blocks_build_menu_tree( $menu_items );
 $offcanvas_id    = 'headerOffcanvas';
 $header_menu     = decormos_blocks_header_menu( $menu_tree );
-$header_contacts = decormos_blocks_header_contacts('header__nav-footer d-flex d-md-none');
+$header_phone    = isset( $attributes['phone'] ) ? (string) $attributes['phone'] : '';
+$header_contacts = decormos_blocks_header_contacts('header__nav-footer d-flex d-md-none', $header_phone);
 
 ?>
 
@@ -314,7 +319,7 @@ $header_contacts = decormos_blocks_header_contacts('header__nav-footer d-flex d-
 			children: $header_menu . $header_contacts,
 		);
 		?>
-		<?php echo decormos_blocks_header_contacts(); ?>
+		<?php echo decormos_blocks_header_contacts('', $header_phone); ?>
 		<?php echo decormos_blocks_offcanvas_toggler( $offcanvas_id, 'Открыть навигационное меню', 'header__toggle' ); ?>
 	</div>
 </div>

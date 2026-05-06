@@ -12,6 +12,10 @@
 		"menuId": {
 			"type": "number",
 			"default": 0
+		},
+		"phone": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
