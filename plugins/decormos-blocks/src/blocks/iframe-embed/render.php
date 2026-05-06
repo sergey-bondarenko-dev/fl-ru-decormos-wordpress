@@ -21,13 +21,15 @@ $scheme = isset( $parts['scheme'] ) ? strtolower( $parts['scheme'] ) : '';
 $host   = isset( $parts['host'] ) ? strtolower( $parts['host'] ) : '';
 $path   = isset( $parts['path'] ) ? strtolower( $parts['path'] ) : '';
 
-$allowed_hosts = array( 'vkvideo.ru', 'www.vkvideo.ru', 'vk.com', 'www.vk.com' );
-$allowed_paths = array( '/video_ext.php', '/clip_ext.php' );
+$allowed_vk_hosts       = array( 'vkvideo.ru', 'www.vkvideo.ru', 'vk.com', 'www.vk.com' );
+$allowed_vk_paths       = array( '/video_ext.php', '/clip_ext.php' );
+$allowed_youtube_hosts  = array( 'www.youtube.com', 'youtube.com', 'www.youtube-nocookie.com', 'youtube-nocookie.com' );
+$is_allowed_vk_src      = in_array( $host, $allowed_vk_hosts, true ) && in_array( $path, $allowed_vk_paths, true );
+$is_allowed_youtube_src = in_array( $host, $allowed_youtube_hosts, true ) && str_starts_with( $path, '/embed/' );
 
 if (
 	'https' !== $scheme ||
-	! in_array( $host, $allowed_hosts, true ) ||
-	! in_array( $path, $allowed_paths, true )
+	( ! $is_allowed_vk_src && ! $is_allowed_youtube_src )
 ) {
 	return '';
 }

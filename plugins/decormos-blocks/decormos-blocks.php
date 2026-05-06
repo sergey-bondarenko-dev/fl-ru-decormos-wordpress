@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Decormos Blocks
  * Description:       Custom Gutenberg blocks for the Decormos project.
- * Version:           0.1.0
+ * Version:           1.0.1
  * Requires at least: 6.8
  * Requires PHP:      8.1
  * Author:            Decormos

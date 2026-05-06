@@ -39,13 +39,29 @@ const isAllowedIframeSrc = ( value ) => {
 		const url = new URL( value )
 		const hostname = url.hostname.toLowerCase()
 		const pathname = url.pathname.toLowerCase()
-		const allowedHosts = [ 'vkvideo.ru', 'www.vkvideo.ru', 'vk.com', 'www.vk.com' ]
-		const allowedPaths = [ '/video_ext.php', '/clip_ext.php' ]
+		const allowedVkHosts = [ 'vkvideo.ru', 'www.vkvideo.ru', 'vk.com', 'www.vk.com' ]
+		const allowedVkPaths = [ '/video_ext.php', '/clip_ext.php' ]
+		const allowedYoutubeHosts = [
+			'www.youtube.com',
+			'youtube.com',
+			'www.youtube-nocookie.com',
+			'youtube-nocookie.com',
+		]
+
+		if ( url.protocol !== 'https:' ) {
+			return false
+		}
+
+		if (
+			allowedVkHosts.includes( hostname ) &&
+			allowedVkPaths.includes( pathname )
+		) {
+			return true
+		}
 
 		return (
-			url.protocol === 'https:' &&
-			allowedHosts.includes( hostname ) &&
-			allowedPaths.includes( pathname )
+			allowedYoutubeHosts.includes( hostname ) &&
+			pathname.startsWith( '/embed/' )
 		)
 	} catch ( error ) {
 		return false

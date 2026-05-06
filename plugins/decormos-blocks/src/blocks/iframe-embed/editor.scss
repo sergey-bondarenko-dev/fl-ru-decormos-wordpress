@@ -2,4 +2,8 @@
 	&__frame {
 		min-block-size: 160px;
 	}
+
+	iframe {
+		pointer-events: none;
+	}
 }
