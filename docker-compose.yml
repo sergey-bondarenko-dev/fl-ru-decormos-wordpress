@@ -43,6 +43,7 @@ services:
       - wp_core:/var/www/html
       - ./themes/decormos-theme:/var/www/html/wp-content/themes/decormos-theme
       - ./plugins/decormos-blocks:/var/www/html/wp-content/plugins/decormos-blocks
+      - ../tb457-gutenberg:/var/www/html/wp-content/plugins/tb457-gutenberg
       - ./var/wp-content/uploads:/var/www/html/wp-content/uploads
 
   wp-cli:
@@ -63,6 +64,7 @@ services:
       - wp_core:/var/www/html
       - ./themes/decormos-theme:/var/www/html/wp-content/themes/decormos-theme
       - ./plugins/decormos-blocks:/var/www/html/wp-content/plugins/decormos-blocks
+      - ../tb457-gutenberg:/var/www/html/wp-content/plugins/tb457-gutenberg
       - ./var/wp-content/uploads:/var/www/html/wp-content/uploads
     entrypoint: ["wp"]
     command: ["--info"]
