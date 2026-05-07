@@ -102,6 +102,7 @@ export default function Edit( { attributes, clientId, setAttributes } ) {
 		shadowColor,
 		shadowOffsetReference,
 		containerWidth,
+		templateLock,
 	} = attributes;
 	const hasInitializedId = useRef( false );
 	const generatedId = `section-${ clientId.split( '-' )[ 0 ] }`;
@@ -334,7 +335,7 @@ export default function Edit( { attributes, clientId, setAttributes } ) {
 							'container--lg': containerWidth === 'lg',
 						} ) }
 					>
-						<InnerBlocks />
+						<InnerBlocks templateLock={ templateLock } />
 					</div>
 				</div>
 			</section>

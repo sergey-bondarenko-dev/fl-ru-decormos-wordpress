@@ -15,7 +15,11 @@
 		},
 		"title": {
 			"type": "string",
+			"role": "content",
 			"default": ""
+		},
+		"templateLock": {
+			"type": "string"
 		},
 		"titleTag": {
 			"type": "string",
