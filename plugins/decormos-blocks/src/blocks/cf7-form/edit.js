@@ -1,11 +1,18 @@
 import apiFetch from '@wordpress/api-fetch';
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import {
+	BlockControls,
+	InspectorControls,
+	useBlockProps,
+} from '@wordpress/block-editor';
+import {
+	Button,
 	ExternalLink,
+	Modal,
 	Notice,
 	PanelBody,
 	SelectControl,
 	TextControl,
+	ToolbarButton,
 } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import ServerSideRender from '@wordpress/server-side-render';
@@ -24,8 +31,15 @@ export default function Edit( { attributes, setAttributes } ) {
 		{ label: 'Загрузка форм...', value: '0' },
 	] );
 	const [ loadError, setLoadError ] = useState( false );
+	const [ isAttributesModalOpen, setIsAttributesModalOpen ] = useState( false );
 	const formsAdminUrl = '/wp-admin/admin.php?page=wpcf7';
+	const selectedFormId = Number( attributes.formId ?? 0 ) || 0;
+	const selectedFormAdminUrl =
+		selectedFormId > 0
+			? `/wp-admin/admin.php?page=wpcf7&post=${ selectedFormId }&action=edit`
+			: formsAdminUrl;
 	const shortcodeAttributes = attributes.shortcodeAttributes ?? [];
+	const shortcodeAttributesCount = shortcodeAttributes.length;
 
 	useEffect( () => {
 		let isMounted = true;
@@ -64,6 +78,31 @@ export default function Edit( { attributes, setAttributes } ) {
 		setAttributes( { shortcodeAttributes: nextAttributes } );
 	};
 
+	const addShortcodeAttribute = () => {
+		setAttributes( {
+			shortcodeAttributes: [
+				...shortcodeAttributes,
+				createEmptyShortcodeAttribute(),
+			],
+		} );
+	};
+
+	const removeShortcodeAttribute = ( index ) => {
+		setAttributes( {
+			shortcodeAttributes: shortcodeAttributes.filter(
+				( _, currentIndex ) => currentIndex !== index
+			),
+		} );
+	};
+
+	const openAttributesModal = () => {
+		setIsAttributesModalOpen( true );
+	};
+
+	const closeAttributesModal = () => {
+		setIsAttributesModalOpen( false );
+	};
+
 	const preventFormSubmitInEditor = ( event ) => {
 		if ( event.target instanceof HTMLFormElement ) {
 			event.preventDefault();
@@ -73,11 +112,18 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	return (
 		<div { ...useBlockProps() }>
+			<BlockControls>
+				<ToolbarButton
+					icon="admin-generic"
+					label="Shortcode-атрибуты"
+					onClick={ openAttributesModal }
+				/>
+			</BlockControls>
 			<InspectorControls>
 				<PanelBody title="Настройки формы" initialOpen>
 					<SelectControl
 						label="Форма"
-						value={ String( attributes.formId ?? 0 ) }
+						value={ String( selectedFormId ) }
 						options={ formOptions }
 						onChange={ ( value ) =>
 							setAttributes( { formId: Number( value ) || 0 } )
@@ -103,31 +149,32 @@ export default function Edit( { attributes, setAttributes } ) {
 							setAttributes( { formClassName } )
 						}
 					/>
-					<ExternalLink href={ formsAdminUrl }>
-						Открыть Contact Form 7
-					</ExternalLink>
+					<div className="decormos-cf7-form__inspector-actions">
+						<Button variant="secondary" onClick={ openAttributesModal }>
+							{ shortcodeAttributesCount > 0
+								? `Shortcode-атрибуты (${ shortcodeAttributesCount })`
+								: 'Shortcode-атрибуты' }
+						</Button>
+						<ExternalLink href={ selectedFormAdminUrl }>
+							Открыть Contact Form 7
+						</ExternalLink>
+					</div>
 				</PanelBody>
-				<PanelBody title="Дополнительные атрибуты" initialOpen={ false }>
+			</InspectorControls>
+			{ isAttributesModalOpen ? (
+				<Modal
+					className="decormos-cf7-form-attributes-modal"
+					title="Shortcode-атрибуты CF7"
+					onRequestClose={ closeAttributesModal }
+					size="medium"
+				>
 					<RepeaterControl
 						items={ shortcodeAttributes }
 						label="Shortcode-атрибуты"
 						addLabel="Добавить атрибут"
 						emptyText="Нет дополнительных атрибутов."
-						onAdd={ () =>
-							setAttributes( {
-								shortcodeAttributes: [
-									...shortcodeAttributes,
-									createEmptyShortcodeAttribute(),
-								],
-							} )
-						}
-						onRemove={ ( index ) =>
-							setAttributes( {
-								shortcodeAttributes: shortcodeAttributes.filter(
-									( _, currentIndex ) => currentIndex !== index
-								),
-							} )
-						}
+						onAdd={ addShortcodeAttribute }
+						onRemove={ removeShortcodeAttribute }
 						getItemTitle={ getShortcodeAttributeTitle }
 						renderItem={ ( item, index ) => (
 							<div className="decormos-cf7-form__attribute-fields">
@@ -160,8 +207,13 @@ export default function Edit( { attributes, setAttributes } ) {
 						`default:shortcode_attr`. Сами hidden-поля нужно заранее
 						объявить в Contact Form 7.
 					</Notice>
-				</PanelBody>
-			</InspectorControls>
+					<div className="decormos-cf7-form__modal-actions">
+						<Button variant="primary" onClick={ closeAttributesModal }>
+							Готово
+						</Button>
+					</div>
+				</Modal>
+			) : null }
 			{ loadError ? (
 				<Notice status="warning" isDismissible={ false }>
 					Не удалось загрузить список форм Contact Form 7.

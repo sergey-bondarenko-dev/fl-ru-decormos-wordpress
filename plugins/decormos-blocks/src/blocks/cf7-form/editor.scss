@@ -1,12 +1,31 @@
 .wp-block-decormos-cf7-form {
-	.decormos-cf7-form__attribute-fields {
-		display: grid;
-		gap: 0.75rem;
-	}
-
 	input,
 	button,
 	textarea {
 		pointer-events: none;
 	}
+}
+
+.decormos-cf7-form__attribute-fields {
+	display: grid;
+	gap: 0.75rem;
+}
+
+.decormos-cf7-form__inspector-actions {
+	display: grid;
+	gap: 0.75rem;
+	justify-items: start;
+	margin-top: 1rem;
+}
+
+.decormos-cf7-form-attributes-modal {
+	.components-notice {
+		margin-top: 1rem;
+	}
+}
+
+.decormos-cf7-form__modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 1rem;
 }
