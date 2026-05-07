@@ -26,6 +26,7 @@
 		},
 		"shortcodeAttributes": {
 			"type": "array",
+			"role": "content",
 			"default": []
 		}
 	},

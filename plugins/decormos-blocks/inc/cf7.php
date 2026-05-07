@@ -73,18 +73,22 @@ function decormos_blocks_sanitize_cf7_shortcode_attribute_name( string $name ): 
 function decormos_blocks_normalize_cf7_shortcode_attributes( array $attributes ): array {
 	$normalized_attributes = array();
 
-	foreach ( $attributes as $attribute ) {
-		if ( ! is_array( $attribute ) ) {
+	foreach ( $attributes as $key => $attribute ) {
+		if ( is_array( $attribute ) ) {
+			$name  = isset( $attribute['name'] ) ? decormos_blocks_sanitize_cf7_shortcode_attribute_name( (string) $attribute['name'] ) : '';
+			$value = isset( $attribute['value'] ) ? (string) $attribute['value'] : '';
+		} elseif ( is_string( $key ) ) {
+			$name  = decormos_blocks_sanitize_cf7_shortcode_attribute_name( $key );
+			$value = is_scalar( $attribute ) ? (string) $attribute : '';
+		} else {
 			continue;
 		}
-
-		$name = isset( $attribute['name'] ) ? decormos_blocks_sanitize_cf7_shortcode_attribute_name( (string) $attribute['name'] ) : '';
 
 		if ( '' === $name ) {
 			continue;
 		}
 
-		$normalized_attributes[ $name ] = isset( $attribute['value'] ) ? (string) $attribute['value'] : '';
+		$normalized_attributes[ $name ] = $value;
 	}
 
 	return $normalized_attributes;
