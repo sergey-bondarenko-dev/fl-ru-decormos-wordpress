@@ -15,8 +15,6 @@ const MetaControl = ( { value = {}, onChange, filterMetaKey = null } ) => {
     metaKey = '',
   } = value;
 
-  console.log(value);
-
   const [ metaKeyOptions, setMetaKeyOptions ] = useState([]);
   const [ isLoadingMetaKeys, setIsLoadingMetaKeys ] = useState(false);
   const [loadedPath, setLoadedPath] = useState('');
