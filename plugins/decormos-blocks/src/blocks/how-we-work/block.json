@@ -3,10 +3,10 @@
 	"apiVersion": 3,
 	"name": "decormos/how-we-work",
 	"version": "0.1.0",
-	"title": "How We Work",
+	"title": "Как мы работаем",
 	"category": "widgets",
-	"icon": "smiley",
-	"description": "Example block scaffolded with Create Block tool.",
+	"icon": "list-view",
+	"description": "Блок с этапами работы, изображениями и ссылками на расчет материала и нанесения.",
 	"example": {},
 	"supports": {
 		"html": false
