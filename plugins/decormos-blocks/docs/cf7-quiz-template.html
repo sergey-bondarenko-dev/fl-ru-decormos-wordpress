@@ -1,0 +1,151 @@
+<div class="cf7-quiz" data-cf7-quiz>
+  [hidden decormos_cf7_quiz "1"]
+
+  <div class="cf7-quiz__step is-active" data-cf7-quiz-step>
+    <p class="cf7-quiz__progress">Шаг 1 из 3</p>
+    <p class="cf7-quiz__question">На что необходимо нанести покрытие?</p>
+
+    <div data-cf7-quiz-max-checked="3">
+      [checkbox* surface use_label_element "Стены" "Пол" "Потолок" "Лестница" "Мебель" "Ваш вариант"]
+    </div>
+
+    <div class="cf7-quiz__actions">
+      <button type="button" class="button cf7-quiz__button" data-cf7-quiz-next>Далее</button>
+    </div>
+
+    <p class="cf7-quiz__note">Можно выбрать не более 3х вариантов</p>
+  </div>
+
+  <div class="cf7-quiz__step" data-cf7-quiz-step hidden>
+    <p class="cf7-quiz__progress">Шаг 2 из 3</p>
+    <p class="cf7-quiz__question">Укажите примерную площадь поверхности</p>
+
+    <div class="cf7-quiz__area" data-cf7-quiz-area="Стены" hidden>
+      <p class="cf7-quiz__area-title">Стены</p>
+      [hidden walls_area]
+      <div class="cf7-quiz__options" data-cf7-quiz-custom-radio="walls_area">
+        <label class="cf7-quiz__option"><input type="radio" name="walls_area_ui" value="до 30 м²"> до 30 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="walls_area_ui" value="30-50 м²"> 30-50 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="walls_area_ui" value="50-100 м²"> 50-100 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="walls_area_ui" value="100-150 м²"> 100-150 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="walls_area_ui" value="150-200 м²"> 150-200 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="walls_area_ui" value="200-500 м²"> 200-500 м²</label>
+        <label class="cf7-quiz__option cf7-quiz__option--custom">
+          <input type="radio" name="walls_area_ui" value="custom">
+          <input type="number" min="1" inputmode="numeric" data-cf7-quiz-custom-value placeholder="">
+          <span>м²</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="cf7-quiz__area" data-cf7-quiz-area="Пол" hidden>
+      <p class="cf7-quiz__area-title">Пол</p>
+      [hidden floor_area]
+      <div class="cf7-quiz__options" data-cf7-quiz-custom-radio="floor_area">
+        <label class="cf7-quiz__option"><input type="radio" name="floor_area_ui" value="до 30 м²"> до 30 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="floor_area_ui" value="30-50 м²"> 30-50 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="floor_area_ui" value="50-100 м²"> 50-100 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="floor_area_ui" value="100-150 м²"> 100-150 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="floor_area_ui" value="150-200 м²"> 150-200 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="floor_area_ui" value="200-500 м²"> 200-500 м²</label>
+        <label class="cf7-quiz__option cf7-quiz__option--custom">
+          <input type="radio" name="floor_area_ui" value="custom">
+          <input type="number" min="1" inputmode="numeric" data-cf7-quiz-custom-value placeholder="">
+          <span>м²</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="cf7-quiz__area" data-cf7-quiz-area="Потолок" hidden>
+      <p class="cf7-quiz__area-title">Потолок</p>
+      [hidden ceiling_area]
+      <div class="cf7-quiz__options" data-cf7-quiz-custom-radio="ceiling_area">
+        <label class="cf7-quiz__option"><input type="radio" name="ceiling_area_ui" value="до 30 м²"> до 30 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="ceiling_area_ui" value="30-50 м²"> 30-50 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="ceiling_area_ui" value="50-100 м²"> 50-100 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="ceiling_area_ui" value="100-150 м²"> 100-150 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="ceiling_area_ui" value="150-200 м²"> 150-200 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="ceiling_area_ui" value="200-500 м²"> 200-500 м²</label>
+        <label class="cf7-quiz__option cf7-quiz__option--custom">
+          <input type="radio" name="ceiling_area_ui" value="custom">
+          <input type="number" min="1" inputmode="numeric" data-cf7-quiz-custom-value placeholder="">
+          <span>м²</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="cf7-quiz__area" data-cf7-quiz-area="Лестница" hidden>
+      <p class="cf7-quiz__area-title">Лестница</p>
+      [hidden stairs_area]
+      <div class="cf7-quiz__options" data-cf7-quiz-custom-radio="stairs_area">
+        <label class="cf7-quiz__option"><input type="radio" name="stairs_area_ui" value="до 10 м²"> до 10 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="stairs_area_ui" value="10-30 м²"> 10-30 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="stairs_area_ui" value="30-50 м²"> 30-50 м²</label>
+        <label class="cf7-quiz__option"><input type="radio" name="stairs_area_ui" value="50+ м²"> 50+ м²</label>
+        <label class="cf7-quiz__option cf7-quiz__option--custom">
+          <input type="radio" name="stairs_area_ui" value="custom">
+          <input type="number" min="1" inputmode="numeric" data-cf7-quiz-custom-value placeholder="">
+          <span>м²</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="cf7-quiz__area" data-cf7-quiz-area="Мебель" hidden>
+      <p class="cf7-quiz__area-title">Мебель</p>
+      [hidden furniture_area]
+      <div class="cf7-quiz__options" data-cf7-quiz-custom-radio="furniture_area">
+        <label class="cf7-quiz__option"><input type="radio" name="furniture_area_ui" value="1 предмет"> 1 предмет</label>
+        <label class="cf7-quiz__option"><input type="radio" name="furniture_area_ui" value="2-3 предмета"> 2-3 предмета</label>
+        <label class="cf7-quiz__option"><input type="radio" name="furniture_area_ui" value="4-5 предметов"> 4-5 предметов</label>
+        <label class="cf7-quiz__option"><input type="radio" name="furniture_area_ui" value="Больше 5"> Больше 5</label>
+        <label class="cf7-quiz__option cf7-quiz__option--custom">
+          <input type="radio" name="furniture_area_ui" value="custom">
+          <input type="number" min="1" inputmode="numeric" data-cf7-quiz-custom-value placeholder="">
+          <span>м²</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="cf7-quiz__area" data-cf7-quiz-area="Ваш вариант" hidden>
+      <p class="cf7-quiz__area-title">Ваш вариант</p>
+      [text other_surface_area placeholder "Опишите поверхность или площадь"]
+    </div>
+
+    <div class="cf7-quiz__actions">
+      <button type="button" class="cf7-quiz__button cf7-quiz__button--secondary" data-cf7-quiz-prev>Назад</button>
+      <button type="button" class="button cf7-quiz__button" data-cf7-quiz-next>Далее</button>
+    </div>
+  </div>
+
+  <div class="cf7-quiz__step" data-cf7-quiz-step hidden>
+    <p class="cf7-quiz__progress">Шаг 3 из 3</p>
+    <p class="cf7-quiz__question">В какие сроки необходимо нанести покрытие?</p>
+
+    [radio timing use_label_element "Вчера" "В течение месяца" "На стадии дизайн проекта" "Ваш вариант"]
+
+    <div class="cf7-quiz__actions">
+      <button type="button" class="cf7-quiz__button cf7-quiz__button--secondary" data-cf7-quiz-prev>Назад</button>
+      <button type="button" class="button cf7-quiz__button" data-cf7-quiz-next>Далее</button>
+    </div>
+  </div>
+
+  <div class="cf7-quiz__step cf7-quiz__step--final" data-cf7-quiz-step hidden>
+    <p class="cf7-quiz__final-title">Получите расчет стоимости<br>и сроки работ на телефон или мессенджер</p>
+    <p class="cf7-quiz__final-subtitle">Введите ваш номер телефона<br>Мы закрепим бонусы и скидки за вашим номером, что бы они не потерялись</p>
+
+    <label class="cf7-quiz__field-label">
+      [tel* phone placeholder "Номер телефона"]
+    </label>
+
+    <div class="cf7-quiz__contact-method">
+      <p class="cf7-quiz__contact-title">Укажите куда отправить предложение</p>
+      [radio contact_method use_label_element "Звонок" "Телеграм" "Макс" "WhatsApp"]
+    </div>
+
+    <div class="cf7-quiz__actions cf7-quiz__actions--final">
+      [submit class:button class:cf7-quiz__button "Получить расчёт стоимости!"]
+    </div>
+
+    <p class="cf7-quiz__consent">Заполняя заявку Вы соглашаетесь с <a href="{{privacy_policy_url}}">политикой конфиденциальности</a> и даете согласие на обработку ваших данных в соответствие с 152-ФЗ РФ “О персональных данных”</p>
+  </div>
+</div>

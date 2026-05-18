@@ -1,0 +1,301 @@
+@use '../helpers' as *;
+
+.cf7-quiz {
+  border: 3px solid var(--color-accent);
+  padding: 1rem;
+  color: var(--color-text);
+  font-size: 16px;
+
+  input[type='checkbox'],
+  input[type='radio'] {
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    accent-color: var(--color-accent);
+  }
+
+  input[type='text'],
+  input[type='tel'],
+  input[type='number'] {
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid var(--color-accent);
+    background: var(--color-white);
+    padding: .6rem .75rem;
+    color: var(--color-text);
+    font: inherit;
+  }
+
+  &__step {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__progress,
+  &__question,
+  &__area-title,
+  &__note {
+    margin: 0;
+  }
+
+  &__progress,
+  &__area-title {
+    font-weight: 600;
+  }
+
+  &__question {
+    font-size: 18px;
+  }
+
+  &__final-title,
+  &__final-subtitle,
+  &__contact-title,
+  &__consent {
+    margin: 0;
+  }
+
+  &__final-title {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  &__final-subtitle {
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  &__field-label {
+    display: flex;
+    width: 100%;
+    max-width: 260px;
+    flex-direction: column;
+    align-items: center;
+    gap: .25rem;
+    font-size: 16px;
+  }
+
+  &__required {
+    color: var(--color-accent);
+  }
+
+  &__contact-method {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  &__contact-title {
+    margin-bottom: .5rem;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  &__actions--final {
+    justify-content: center;
+    margin-top: .25rem;
+  }
+
+  &__consent {
+    max-width: 420px;
+    font-size: 11px;
+    line-height: 1.25;
+  }
+
+  &__note {
+    font-size: 13px;
+    color: var(--color-emphasis);
+  }
+
+  &__error {
+    margin: 0;
+    color: #c00;
+    font-size: 14px;
+  }
+
+  &__area {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    align-items: center;
+    margin-top: .25rem;
+  }
+
+  &__button:not(.wpcf7-submit) {
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0.5rem 1rem;
+    text-transform: lowercase;
+  }
+
+  &__button--secondary {
+    border-color: transparent;
+    background: transparent;
+    padding-inline: 0;
+
+    &:hover,
+    &:focus-visible {
+      border-color: transparent;
+      background: transparent;
+      text-decoration: underline;
+    }
+  }
+
+  &__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .65rem 2rem;
+    align-items: center;
+  }
+
+  &__option {
+    display: inline-flex;
+    gap: .45rem;
+    align-items: center;
+    margin: 0;
+    cursor: pointer;
+
+    input {
+      margin-top: 3px;
+    }
+  }
+
+  &__option--custom {
+    gap: .35rem;
+
+    input[type='number'] {
+      width: 78px;
+      border: none;
+      border-bottom: 1px solid currentColor;
+      background: transparent;
+      padding: .15rem .25rem;
+      color: var(--color-text);
+      font: inherit;
+    }
+  }
+
+  .wpcf7-form-control {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .65rem 2rem;
+    align-items: center;
+  }
+
+  .wpcf7-list-item {
+    margin: 0;
+  }
+
+  .wpcf7-list-item label {
+    display: inline-flex;
+    gap: .45rem;
+    align-items: center;
+    cursor: pointer;
+
+    .wpcf7-list-item-label {
+      margin-top: 3px;
+    }
+  }
+
+  
+
+  .is-invalid {
+    color: #c00;
+  }
+
+  .is-invalid input[type='text'],
+  .is-invalid input[type='tel'],
+  .is-invalid input[type='number'],
+  input[type='text'].is-invalid,
+  input[type='tel'].is-invalid,
+  input[type='number'].is-invalid {
+    border-color: #c00;
+  }
+
+  &__step--final {
+    align-items: center;
+    gap: 1rem;
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__step--final .wpcf7-form-control {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem 2rem;
+    text-align: left;
+  }
+
+  &__step--final .wpcf7-list-item {
+    width: auto;
+  }
+
+  &__step--final .wpcf7-list-item label {
+    font-size: 18px;
+  }
+
+  &__step--final [data-name="phone"] {
+    input {
+      border: none;
+      border-bottom: 1px solid var(--color-accent);
+    }
+  }
+}
+
+@include media-down(md) {
+  .cf7-quiz {
+    padding: .875rem;
+
+    .wpcf7-form-control {
+      gap: .65rem 1rem;
+    }
+
+    &__options {
+      gap: .65rem 1rem;
+    }
+
+    .wpcf7-list-item,
+    &__option {
+      width: calc(50% - .5rem);
+    }
+
+    &__question {
+      font-size: 16px;
+    }
+
+    &__step--final {
+      max-width: 100%;
+    }
+
+    &__step--final .wpcf7-list-item {
+      width: auto;
+    }
+  }
+}
+
+@include media-down(480px) {
+  .cf7-quiz {
+    .wpcf7-list-item,
+    &__option {
+      width: 100%;
+    }
+
+    &__step--final .wpcf7-form-control {
+      grid-template-columns: 1fr;
+      gap: .65rem;
+    }
+  }
+}

@@ -19,6 +19,8 @@ vendor
 var/*
 !var/wp-content/
 var/wp-content/*
+!var/wp-content/mu-plugins/
+!var/wp-content/mu-plugins/**
 !var/wp-content/uploads/
 var/wp-content/uploads/**
 !var/wp-content/uploads/.gitkeep

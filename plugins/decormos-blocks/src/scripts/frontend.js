@@ -1,6 +1,7 @@
 import "swiper/css";
 import "../styles/frontend.scss";
 
+import { initCf7Quiz } from "./modules/cf7-quiz";
 import { initCf7ThanksRedirect } from "./modules/cf7-thanks-redirect";
 import { initCoatingButtons } from "./modules/coatingButtons";
 import { initForms } from "./modules/form";
@@ -17,6 +18,7 @@ window.offcanvas = Offcanvas;
 window.collapse = Collapse;
 
 const start = async () => {
+  initCf7Quiz();
   initCf7ThanksRedirect();
   initForms();
   initMenu();
@@ -56,3 +58,4 @@ if (document.readyState === "loading") {
 } else {
   start();
 }
+

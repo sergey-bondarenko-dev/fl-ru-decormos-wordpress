@@ -1,0 +1,37 @@
+To:
+[_site_admin_email]
+
+From:
+[_site_title] <wordpress@[_site_domain]>
+
+Subject:
+Заявка на расчет покрытия: [surface]
+
+Additional headers:
+
+Message body:
+Новая заявка на расчет покрытия
+
+Контакты
+Телефон: [phone]
+Предпочтительный способ связи: [contact_method]
+
+Задача
+Поверхности: [surface]
+Сроки: [timing]
+
+Площадь / объем работ
+Стены: [walls_area]
+Пол: [floor_area]
+Потолок: [ceiling_area]
+Лестница: [stairs_area]
+Мебель: [furniture_area]
+Ваш вариант: [other_surface_area]
+
+Техническая информация
+Страница: [_url]
+Дата отправки: [_date] [_time]
+IP: [_remote_ip]
+
+--
+Письмо отправлено формой Contact Form 7 с сайта [_site_title].

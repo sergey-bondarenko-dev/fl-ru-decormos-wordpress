@@ -19,6 +19,13 @@ services:
       timeout: 5s
       retries: 10
 
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: decormos-mailpit
+    restart: unless-stopped
+    ports:
+      - "${MAILPIT_HTTP_PORT:-8025}:8025"
+
   wordpress:
     image: wordpress:6.8.3-php8.3-apache
     container_name: decormos-wp
@@ -34,6 +41,8 @@ services:
       WORDPRESS_DB_USER: ${WP_DB_USER:-wordpress}
       WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD:-wordpress}
       WORDPRESS_DEBUG: ${WP_DEBUG:-1}
+      WORDPRESS_MAILPIT_HOST: mailpit
+      WORDPRESS_MAILPIT_PORT: 1025
       WORDPRESS_CONFIG_EXTRA: |
         define('WP_ENVIRONMENT_TYPE', '${WP_ENVIRONMENT_TYPE:-local}');
         define('SCRIPT_DEBUG', true);
@@ -44,6 +53,7 @@ services:
       - ./themes/decormos-theme:/var/www/html/wp-content/themes/decormos-theme
       - ./plugins/decormos-blocks:/var/www/html/wp-content/plugins/decormos-blocks
       - ../tb457-gutenberg:/var/www/html/wp-content/plugins/tb457-gutenberg
+      - ./var/wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./var/wp-content/uploads:/var/www/html/wp-content/uploads
 
   wp-cli:
@@ -60,11 +70,14 @@ services:
       WORDPRESS_DB_NAME: ${WP_DB_NAME:-wordpress}
       WORDPRESS_DB_USER: ${WP_DB_USER:-wordpress}
       WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD:-wordpress}
+      WORDPRESS_MAILPIT_HOST: mailpit
+      WORDPRESS_MAILPIT_PORT: 1025
     volumes:
       - wp_core:/var/www/html
       - ./themes/decormos-theme:/var/www/html/wp-content/themes/decormos-theme
       - ./plugins/decormos-blocks:/var/www/html/wp-content/plugins/decormos-blocks
       - ../tb457-gutenberg:/var/www/html/wp-content/plugins/tb457-gutenberg
+      - ./var/wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./var/wp-content/uploads:/var/www/html/wp-content/uploads
     entrypoint: ["wp"]
     command: ["--info"]

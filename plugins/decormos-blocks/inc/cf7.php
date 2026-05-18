@@ -136,6 +136,14 @@ function decormos_blocks_filter_cf7_shortcode_attributes( array $out, array $pai
 	return $out;
 }
 
+function decormos_blocks_filter_cf7_form_elements( string $content ): string {
+	if ( false === strpos( $content, '{{privacy_policy_url}}' ) ) {
+		return $content;
+	}
+
+	return str_replace( '{{privacy_policy_url}}', esc_url( get_privacy_policy_url() ), $content );
+}
+
 function decormos_blocks_build_cf7_shortcode_string( array $attributes ): string {
 	$shortcode_attributes = decormos_blocks_build_cf7_shortcode_attributes( $attributes );
 
@@ -172,5 +180,133 @@ function decormos_blocks_render_cf7_form( array $attributes ): string {
 	}
 }
 
+function decormos_blocks_get_posted_cf7_field( string $name ) {
+	if ( class_exists( 'WPCF7_Submission' ) ) {
+		$submission = WPCF7_Submission::get_instance();
+
+		if ( $submission ) {
+			$posted_data = $submission->get_posted_data();
+
+			if ( isset( $posted_data[ $name ] ) ) {
+				return $posted_data[ $name ];
+			}
+		}
+	}
+
+	if ( ! isset( $_POST[ $name ] ) ) {
+		return null;
+	}
+
+	return wp_unslash( $_POST[ $name ] );
+}
+
+function decormos_blocks_get_posted_cf7_values( string $name ): array {
+	$value = decormos_blocks_get_posted_cf7_field( $name );
+
+	if ( null === $value || '' === $value ) {
+		return array();
+	}
+
+	if ( ! is_array( $value ) ) {
+		$value = array( $value );
+	}
+
+	return array_values(
+		array_filter(
+			array_map(
+				static function ( $item ): string {
+					return sanitize_text_field( (string) $item );
+				},
+				$value
+			),
+			static function ( string $item ): bool {
+				return '' !== $item;
+			}
+		)
+	);
+}
+
+function decormos_blocks_get_cf7_tag_name( $tag ): string {
+	if ( is_object( $tag ) && isset( $tag->name ) ) {
+		return (string) $tag->name;
+	}
+
+	if ( is_array( $tag ) && isset( $tag['name'] ) ) {
+		return (string) $tag['name'];
+	}
+
+	return '';
+}
+
+function decormos_blocks_get_cf7_tag_by_name( array $tags, string $name ) {
+	foreach ( $tags as $tag ) {
+		if ( decormos_blocks_get_cf7_tag_name( $tag ) === $name ) {
+			return $tag;
+		}
+	}
+
+	return null;
+}
+
+function decormos_blocks_invalidate_cf7_quiz_field( WPCF7_Validation $result, array $tags, string $name, string $message ): void {
+	$tag = decormos_blocks_get_cf7_tag_by_name( $tags, $name );
+
+	if ( $tag ) {
+		$result->invalidate( $tag, $message );
+	}
+}
+
+function decormos_blocks_is_cf7_quiz_submission(): bool {
+	$markers = decormos_blocks_get_posted_cf7_values( 'decormos_cf7_quiz' );
+
+	return in_array( '1', $markers, true );
+}
+
+function decormos_blocks_validate_cf7_quiz( WPCF7_Validation $result, array $tags ): WPCF7_Validation {
+	if ( ! decormos_blocks_is_cf7_quiz_submission() || ! class_exists( 'WPCF7_Validation' ) ) {
+		return $result;
+	}
+
+	$result           = new WPCF7_Validation();
+	$required_message = __( 'Важно заполнить это поле.', 'decormos-blocks' );
+	$surface_values   = decormos_blocks_get_posted_cf7_values( 'surface' );
+
+	if ( empty( $surface_values ) ) {
+		decormos_blocks_invalidate_cf7_quiz_field( $result, $tags, 'surface', $required_message );
+	} elseif ( count( $surface_values ) > 3 ) {
+		decormos_blocks_invalidate_cf7_quiz_field(
+			$result,
+			$tags,
+			'surface',
+			__( 'Можно выбрать не более 3 вариантов.', 'decormos-blocks' )
+		);
+	}
+
+	$area_fields_by_surface = array(
+		'Стены'        => 'walls_area',
+		'Пол'          => 'floor_area',
+		'Потолок'      => 'ceiling_area',
+		'Лестница'     => 'stairs_area',
+		'Мебель'       => 'furniture_area',
+		'Ваш вариант'  => 'other_surface_area',
+	);
+
+	foreach ( $area_fields_by_surface as $surface => $field_name ) {
+		if ( in_array( $surface, $surface_values, true ) && empty( decormos_blocks_get_posted_cf7_values( $field_name ) ) ) {
+			decormos_blocks_invalidate_cf7_quiz_field( $result, $tags, $field_name, $required_message );
+		}
+	}
+
+	foreach ( array( 'timing', 'phone', 'contact_method' ) as $field_name ) {
+		if ( empty( decormos_blocks_get_posted_cf7_values( $field_name ) ) ) {
+			decormos_blocks_invalidate_cf7_quiz_field( $result, $tags, $field_name, $required_message );
+		}
+	}
+
+	return $result;
+}
+
 add_action( 'rest_api_init', 'decormos_blocks_register_cf7_rest_routes' );
 add_filter( 'shortcode_atts_wpcf7', 'decormos_blocks_filter_cf7_shortcode_attributes', 10, 3 );
+add_filter( 'wpcf7_form_elements', 'decormos_blocks_filter_cf7_form_elements' );
+add_filter( 'wpcf7_validate', 'decormos_blocks_validate_cf7_quiz', 999, 2 );
