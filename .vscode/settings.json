@@ -9,5 +9,14 @@
     "**/node_modules/**",
     "**/vendor/bin/**"
   ],
-  "intelephense.format.enable": true
+  "intelephense.format.enable": true,
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/vendor/**": true,
+    "**/.git/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true
+  }
 }
