@@ -44,7 +44,7 @@ Text Domain: decormos-theme
   --color-alt: var(--wp--preset--color--alt);
   --color-header-bg: var(--wp--preset--color--header-bg);
 
-  --z-index-header: 3;
+  --z-index-header: 10;
 
   --transition-duration: var(--wp--custom--transition--duration);
 }
