@@ -18,6 +18,7 @@ import './style.scss';
  * Internal dependencies
  */
 import Edit from './edit';
+import deprecated from './deprecated';
 import save from './save';
 import metadata from './block.json';
 
@@ -31,6 +32,8 @@ registerBlockType( metadata.name, {
 	 * @see ./edit.js
 	 */
 	edit: Edit,
+
+	deprecated,
 
 	/**
 	 * @see ./save.js

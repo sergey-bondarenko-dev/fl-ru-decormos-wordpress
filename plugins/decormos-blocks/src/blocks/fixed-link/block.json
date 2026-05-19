@@ -19,6 +19,16 @@
 		"href": {
 			"type": "string",
 			"default": "https://t.me/bombamvam"
+		},
+		"links": {
+			"type": "array",
+			"default": [
+				{
+					"svg": "",
+					"label": "Телеграм",
+					"href": "https://t.me/bombamvam"
+				}
+			]
 		}
 	},
 	"example": {},

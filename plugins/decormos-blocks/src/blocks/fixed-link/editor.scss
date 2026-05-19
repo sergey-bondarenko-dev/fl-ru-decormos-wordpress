@@ -1,10 +1,30 @@
 /* Intentionally empty. */
 
-
 .wp-block-decormos-fixed-link {
-  .fixed-link {
-    pointer-events: none;
-    position: static;
-    width: fit-content;
-  }
+	.fixed-link {
+		pointer-events: none;
+		position: static;
+		width: fit-content;
+	}
+}
+
+.fixed-link-editor-media {
+	display: flex;
+	align-items: center;
+}
+
+.fixed-link-editor-media__preview-button.components-button,
+.fixed-link-editor-media__preview {
+	display: block;
+	width: 44px;
+	height: 44px;
+}
+
+.fixed-link-editor-media__preview-button.components-button {
+	min-width: 44px;
+	padding: 0;
+}
+
+.fixed-link-editor-media__preview {
+	object-fit: contain;
 }
