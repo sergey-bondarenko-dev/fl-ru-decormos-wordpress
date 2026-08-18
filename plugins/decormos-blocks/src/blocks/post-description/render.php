@@ -10,7 +10,7 @@ $description = $post_id > 0
 	: '';
 
 if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
-	$description = __( 'Описание записи', 'decormos-blocks' );
+	return;
 }
 
 echo sprintf(

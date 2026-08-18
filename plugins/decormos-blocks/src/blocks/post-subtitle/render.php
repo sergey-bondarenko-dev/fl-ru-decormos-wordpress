@@ -13,7 +13,7 @@ $level = max( 1, min( 6, $level ) );
 $tag_name = 'h' . $level;
 
 if ( '' === trim( $subtitle ) ) {
-	$subtitle = __( 'Подзаголовок записи', 'decormos-blocks' );
+	return;
 }
 
 echo sprintf(
